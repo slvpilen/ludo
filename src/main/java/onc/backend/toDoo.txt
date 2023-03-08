@@ -1,0 +1,5 @@
+to do
+
+-Legg til en rute ipå hver langside
+-lag metode getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) i player
+-lag Pice og endre system til å fungere med den klassen

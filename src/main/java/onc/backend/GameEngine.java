@@ -2,6 +2,8 @@ package onc.backend;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
+import java.util.Random;
+import javafx.util.Pair;
 
 public class GameEngine {
 
@@ -16,7 +18,7 @@ public class GameEngine {
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
         houseDistributionCheck(this.players);
         this.currentPlayer = players.get(0);
-        this.board = new Board();
+        this.board = new Board(players);
     }
     // egen konstruktør for innlastet spill, må ta inn brett etc
     
@@ -30,6 +32,34 @@ public class GameEngine {
         if(!HouseDistributionOK)
             throw new IllegalStateException("Need one player for each house 1-4");
     }
+
+
+    public int rollDice() {
+        Random terning = new Random();
+        int terningkast = terning.nextInt(6) + 1;
+        return terningkast;
+    }
+
+    // Må senere implementere sjekker for om det står et tårn i veien. 
+    
+    public boolean legalMove(Player player, Pair<Integer, Integer> piece, int diceroll) {
+        
+        if (!player.getPiecesLocation().contains(piece)) {
+            throw new IllegalArgumentException("Du kan ikke flytte en brikke du ikke eier.");
+        }
+
+        if (player.homeSquares().contains(piece)) {
+            
+            if (diceroll == 6) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public boolean rollDice()
+
 
 
 
