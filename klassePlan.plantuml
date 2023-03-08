@@ -1,0 +1,16 @@
+@startuml ludo
+
+
+
+
+class Brett{
+    -stack = Stack<Double>
+    +void push(tall)
+    +Double pop()
+    +double peek(i)
+    +int getSize()
+    +void performOperation(operation)
+}
+
+
+@enduml
