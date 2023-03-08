@@ -2,14 +2,34 @@
 
 
 
+class GameEngine{
+    -turn = int  
+    -borad = Board
+    -players = Collection<Player
+    -void nextPlayer()
+    +void movePiece(int)
+    -boolean legalMove(int)
+    +void rollDice()
 
-class Brett{
-    -stack = Stack<Double>
-    +void push(tall)
-    +Double pop()
-    +double peek(i)
-    +int getSize()
-    +void performOperation(operation)
+}
+
+class Player {
+
+    -piecesLocation = ArrayList<int>
+    -
+}
+
+
+class Board{
+    -boardState = ArrayList<int>
+    -g
+    +void empty
+}
+
+GameEngine -> Board : Contains 
+
+class empty{
+    
 }
 
 
