@@ -1,0 +1,53 @@
+@startuml ludo
+
+
+
+class GameEngine{
+    -currentPlayer = Player  
+    -board = Board
+    -players = ArrayList<Player>
+    -void nextPlayer()
+    +void movePiece(tuple)
+    -boolean legalMove(int)
+    +void rollDice()
+
+}
+
+class Settings {
+
+    - numPlayers = int
+    - boardContainsFreespaces = boolean
+    - towersAllowed = boolean
+    - firstWinnerEndGame = boolean
+
+}
+
+class Player {
+    -userName = String
+    -piecesLocation = ArrayList<tupel>
+    -numberOfRollsThisTurn = int
+    +void setPieceToStart(tuple)
+}
+
+
+class Board{
+    -players = Collection<Player>
+    -boardState = ArrayList<int>
+    +boolean isOtherPlayersPiece(tuple)
+    +void empty
+}
+
+GameEngine -> Board : Contains 
+GameEngine -> Settings : Contains
+Board -> Player : Contains
+SaveAndReadToFile -> GameEngine : Contains
+
+class SaveAndReadToFile{
+    - gameEngine = GameEngine
+    + void saveToFile(GameEngine)
+    + GameEngine readFile()
+    
+}
+
+
+@enduml

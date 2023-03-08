@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="46.0" layoutY="561.0" mnemonicParsing="false" text="settings" />
@@ -51,7 +50,6 @@
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="5" GridPane.rowIndex="11" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="5" GridPane.rowIndex="9" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="5" GridPane.rowIndex="10" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="7" GridPane.rowIndex="11" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="7" GridPane.rowIndex="10" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="7" GridPane.rowIndex="9" />
@@ -105,6 +103,19 @@
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="9" GridPane.rowIndex="3" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="11" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="10" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="10" GridPane.rowIndex="1" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="10" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="11" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" GridPane.rowIndex="1" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" GridPane.rowIndex="2" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" GridPane.rowIndex="3" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>
