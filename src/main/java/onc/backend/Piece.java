@@ -12,9 +12,12 @@ public class Piece {
     
 
     
-    public Piece(){
+    public Piece(Player owner){
+        this.owner = owner;
+
+    }
 
 
         
-osition
+
 }

@@ -11,6 +11,7 @@ public class GameEngine {
     private Board board;
     private Settings setttings;
     private ArrayList<Player> players;
+    private int latestDice;
 
     public GameEngine(Settings settings, ArrayList<Player> players){
         this.setttings = settings;
@@ -37,12 +38,13 @@ public class GameEngine {
     public int rollDice() {
         Random terning = new Random();
         int terningkast = terning.nextInt(6) + 1;
-        return terningkast;
+        this.latestDice = terningkast;
+        //return terningkast;
     }
 
     // Må senere implementere sjekker for om det står et tårn i veien. 
     
-    public boolean legalMove(Player player, Pair<Integer, Integer> piece, int diceroll) {
+    public ArrayList<moves> legalMove(Player player, Piece piece) {
         
         if (!player.getPiecesLocation().contains(piece)) {
             throw new IllegalArgumentException("Du kan ikke flytte en brikke du ikke eier.");
@@ -58,7 +60,7 @@ public class GameEngine {
         }
     }
 
-    public boolean rollDice()
+    //public boolean rollDice()
 
 
 

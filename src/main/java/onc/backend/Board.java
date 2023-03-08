@@ -36,7 +36,7 @@ public class Board {
     }
 
 
-    private ArrayList<Pair<Integer, Integer>> homeSquares(Player player) {
+    public ArrayList<Pair<Integer, Integer>> getHomeSquares(Player player) {
         int houseNumber =player.getHouseNumber();
         ArrayList<Pair<Integer, Integer>> pieces = new ArrayList<Pair<Integer, Integer>>();
 
