@@ -12,6 +12,10 @@ public class GameEngine {
     private Settings setttings;
     private ArrayList<Player> players;
     private int latestDice;
+    private boolean hasMoved;
+
+
+
 
     public GameEngine(Settings settings, ArrayList<Player> players){
         this.setttings = settings;
@@ -20,6 +24,7 @@ public class GameEngine {
         houseDistributionCheck(this.players);
         this.currentPlayer = players.get(0);
         this.board = new Board(players);
+        this.hasMoved = true; // game starts to roll dice
     }
     // egen konstruktør for innlastet spill, må ta inn brett etc
     
@@ -35,7 +40,7 @@ public class GameEngine {
     }
 
 
-    public int rollDice() {
+    public void rollDice() {
         Random terning = new Random();
         int terningkast = terning.nextInt(6) + 1;
         this.latestDice = terningkast;
@@ -46,11 +51,11 @@ public class GameEngine {
     
     public ArrayList<moves> legalMove(Player player, Piece piece) {
         
-        if (!player.getPiecesLocation().contains(piece)) {
+        if (!player.getPiecesPositions().contains(piece)) {
             throw new IllegalArgumentException("Du kan ikke flytte en brikke du ikke eier.");
         }
 
-        if (player.homeSquares().contains(piece)) {
+        if (board.getHomeSquares(player).contains(piece)) {
             
             if (diceroll == 6) {
                 return true;
