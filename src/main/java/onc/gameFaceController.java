@@ -1,18 +1,15 @@
 package onc;
 
 
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+
 import onc.backend.Board;
 import onc.backend.Piece;
 import onc.backend.Player;
@@ -70,6 +67,10 @@ public class gameFaceController implements Initializable {
         GridPane.setRowIndex(piece.getCircle(), piece.getColumn());
         GridPane.setColumnIndex(piece.getCircle(), piece.getRow());
         gameGrid.getChildren().add(piece.getCircle());
+        
+    }
+
+    private void movePiece(){
         
     }
 
