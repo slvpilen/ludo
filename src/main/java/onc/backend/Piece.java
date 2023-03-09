@@ -25,6 +25,18 @@ public class Piece {
         circle.setStroke(Color.BLACK);
     }
 
+    public void movePlaces(int latestDice){
+        throw new IllegalArgumentException("not added any moethod yet!");
+    }
+
+    public int getHouseNumber(){
+        return houseNumber;
+    }
+
+    public boolean hasLegalMove(){
+        return true;
+    }
+
     private Color getColor(){
         if (houseNumber == 1)
             return Color.GREEN;

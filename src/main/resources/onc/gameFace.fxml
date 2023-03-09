@@ -5,13 +5,15 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.gameFaceController">
    <children>
       <Button layoutX="46.0" layoutY="561.0" mnemonicParsing="false" text="settings" />
       <Button layoutX="733.0" layoutY="573.0" mnemonicParsing="false" text="save game" />
       <Button layoutX="649.0" layoutY="573.0" mnemonicParsing="false" text="load game" />
-      <Button layoutX="396.0" layoutY="561.0" mnemonicParsing="false" text="menu" />
+      <Button layoutX="544.0" layoutY="573.0" mnemonicParsing="false" text="menu" />
       <GridPane fx:id="gameGrid" layoutX="102.0" layoutY="52.0" prefHeight="466.0" prefWidth="674.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -240,5 +242,15 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="10" GridPane.rowIndex="12" />
          </children>
       </GridPane>
+      <Button layoutX="349.0" layoutY="521.0" mnemonicParsing="false" onAction="#rollDice" prefHeight="81.0" prefWidth="146.0" style="-fx-border-color: #006400;" text="ROLL DICE" textFill="#009717">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Text fx:id="diceText" layoutX="148.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dice: ">
+         <font>
+            <Font size="51.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

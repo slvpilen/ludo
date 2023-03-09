@@ -36,7 +36,7 @@ public class Board {
     // husrekkefølge:
     //  2   3   
     //  1   4
-    public ArrayList<Pair<Integer, Integer>> getHomeSquares(Player player) {
+/*     public ArrayList<Pair<Integer, Integer>> getHomeSquares(Player player) {
         int houseNumber =player.getHouseNumber();
         ArrayList<Pair<Integer, Integer>> squares = new ArrayList<Pair<Integer, Integer>>();
 
@@ -70,7 +70,7 @@ public class Board {
 
         return squares;
         
-    } 
+    }  */
 
 
 

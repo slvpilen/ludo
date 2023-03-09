@@ -18,6 +18,7 @@ public class Player {
     private int houseNumber;
     private Board board;
     private int turnRollCount; // counting how many dice roll on a roll
+    private GameEngine gameEngine;
     
     // Startplass avhenger av farge
 
@@ -32,13 +33,26 @@ public class Player {
         
         this.username = username;
         this.houseNumber = houseNumber;
+        this.gameEngine = gameEngine;
+        this.pieces = createPieces(getHomeSquares());
+        addMouseFunctionToPieces();
     }
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn picesLocation etc)
 
 
     public void setBoard(Board board){
         this.board = board;
-        this.pieces = createPieces(board.getHomeSquares(this));
+    }
+
+    public void setGameEngine(GameEngine gameEngine){
+        this.gameEngine = gameEngine;
+    }
+
+    private void addMouseFunctionToPieces(){
+        pieces.forEach(piece -> piece.getCircle().
+        setOnMouseClicked(event -> {gameEngine.
+            movePiece(piece);
+        }));
     }
 
     public void setOwnPieceToStart(Pair<Integer, Integer> pieceToRemove) {
@@ -47,7 +61,7 @@ public class Player {
             throw new IllegalArgumentException("You tried to remove a piece which the player did not possess.");
             }
         
-        ArrayList<Pair<Integer, Integer>> homeSquares = board.getHomeSquares(this);
+        ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
         // Putter brikken på første ledige plass i spawn-area
         piecesLocation.remove(pieceToRemove);
         for (Pair<Integer, Integer> homeSquare : homeSquares) {
@@ -76,6 +90,44 @@ public class Player {
             throw new IllegalStateException("Need to be 4 startpieces");
         return newPieces;
     }
+
+        // husrekkefølge:
+    //  2   3   
+    //  1   4
+    public ArrayList<Pair<Integer, Integer>> getHomeSquares() {
+        ArrayList<Pair<Integer, Integer>> squares = new ArrayList<Pair<Integer, Integer>>();
+
+        if (houseNumber == 1) {
+            squares.add(new Pair<Integer, Integer>(2, 18));
+            squares.add(new Pair<Integer, Integer>(2, 16));
+            squares.add(new Pair<Integer, Integer>(4, 16));
+            squares.add(new Pair<Integer, Integer>(4, 18));
+        }
+
+        if (houseNumber == 2) {
+            squares.add(new Pair<Integer, Integer>(2, 8));
+            squares.add(new Pair<Integer, Integer>(2, 6));
+            squares.add(new Pair<Integer, Integer>(4, 6));
+            squares.add(new Pair<Integer, Integer>(4, 8));
+        }
+
+        if (houseNumber == 3) {
+            squares.add(new Pair<Integer, Integer>(12, 8));
+            squares.add(new Pair<Integer, Integer>(12, 6));
+            squares.add(new Pair<Integer, Integer>(14, 6));
+            squares.add(new Pair<Integer, Integer>(14, 8));
+        }
+
+        if (houseNumber == 4) {
+            squares.add(new Pair<Integer, Integer>(12, 18));
+            squares.add(new Pair<Integer, Integer>(12, 16));
+            squares.add(new Pair<Integer, Integer>(14, 16));
+            squares.add(new Pair<Integer, Integer>(14, 18));
+        }
+
+        return squares;
+        
+    } 
 
 
 
