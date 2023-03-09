@@ -23,10 +23,10 @@ public class gameFaceController implements Initializable {
     private GridPane gameGrid;
 
 
-    @FXML
+    /* @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
-    }
+    } */
 
 /*     @FXML
     private void clickedOnPiece(MouseEvent event, Piece p) throws IOException {
@@ -70,6 +70,7 @@ public class gameFaceController implements Initializable {
         GridPane.setRowIndex(piece.getCircle(), piece.getColumn());
         GridPane.setColumnIndex(piece.getCircle(), piece.getRow());
         gameGrid.getChildren().add(piece.getCircle());
+        
     }
 
     @Override
