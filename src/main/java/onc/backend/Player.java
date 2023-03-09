@@ -17,7 +17,6 @@ public class Player {
     private int numberOfRollsThisTurn;
     private int houseNumber;
     private Board board;
-    private int turnRollCount; // counting how many dice roll on a roll
     private GameEngine gameEngine;
     
     // Startplass avhenger av farge

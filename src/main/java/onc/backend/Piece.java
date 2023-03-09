@@ -25,6 +25,11 @@ public class Piece {
         circle.setStroke(Color.BLACK);
     }
 
+
+    public Player getOwner(){
+        return owner;
+    }
+
     public void movePlaces(int latestDice){
         throw new IllegalArgumentException("not added any moethod yet!");
     }
