@@ -11,7 +11,7 @@ public class GameEngine {
     private Player currentPlayer;
     private Player latestPlayer;
     private Board board;
-    private Settings setttings;
+    private Settings settings;
     private ArrayList<Player> players;
     private int latestDice;
     private int turnRollCount; // counting how many dice roll on a roll
@@ -21,7 +21,7 @@ public class GameEngine {
 
 
     public GameEngine(Settings settings, ArrayList<Player> players){
-        this.setttings = settings;
+        this.settings = settings;
         this.players = players;
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
         houseDistributionCheck(this.players);
@@ -60,7 +60,7 @@ public class GameEngine {
         System.out.println("clicked on a piece");
         if (!this.canMakeMove)
             return;
-        if (!piece.hasLegalMove())
+        if (!piece.hasLegalMove(latestDice))
             return;
         if (piece.getHouseNumber() != currentPlayer.getHouseNumber())
             return;
@@ -68,10 +68,10 @@ public class GameEngine {
         this.canMakeMove = false; 
         
         piece.movePlaces(latestDice);
-        updateCurrentPlayer(piece);
+        updateCurrentPlayerInMovePiece(piece);
     }
 
-    private void updateCurrentPlayer(Piece piece){
+    private void updateCurrentPlayerInMovePiece(Piece piece){
         this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
         if (latestDice == 6 && turnRollCount<3)
@@ -97,10 +97,16 @@ public class GameEngine {
 
         if(currentPlayer.hasAnyValidMoves(latestDice)) // add this methode
             this.canMakeMove = true;
+        else if (latestDice==6 && turnRollCount<3 ){
+            this.canMakeMove = false;
+            latestPlayer = currentPlayer;
+            this.turnRollCount++;
+        }
         else{
             this.canMakeMove = false;
             latestPlayer = currentPlayer;
             currentPlayer = getNextPlayer(); // addd this methode
+            this.turnRollCount = 0;
         }
 
         //return terningkast;

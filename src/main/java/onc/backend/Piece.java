@@ -30,7 +30,7 @@ public class Piece {
         return owner;
     }
 
-    public void movePlaces(int latestDice){
+    public void movePlaces(int latestDice){ // make this logic, make it update on board to
         throw new IllegalArgumentException("not added any moethod yet!");
     }
 
@@ -38,7 +38,8 @@ public class Piece {
         return houseNumber;
     }
 
-    public boolean hasLegalMove(){
+    public boolean hasLegalMove(int latestDice){
+        System.out.println("make this methode!!!");
         return true;
     }
 
