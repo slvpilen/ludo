@@ -77,24 +77,32 @@ public class GameEngine {
         if (latestDice == 6 && turnRollCount<3)
             this.currentPlayer = piece.getOwner();
         else{
-            this.currentPlayer = nextPlayer();
+            this.currentPlayer = getNextPlayer();  //add this methode!
             turnRollCount = 0;  // nullstiller tellern
         }
     }
 
-    private Player nextPlayer(){
+/*     private Player nextPlayer(){
         //if make any logic that return whos next, by loop proincip
         if (players.hasNext..... etc)
-    }
+    } */
 
 
     public void rollDice() {
         //System.out.println("pressed rolled dice");
         if (canMakeMove)  // not allowd to roll befor moved
             return;
-        this.canMakeMove = true;
         Random terning = new Random();
         this.latestDice = terning.nextInt(6) + 1;
+
+        if(currentPlayer.hasAnyValidMoves(latestDice)) // add this methode
+            this.canMakeMove = true;
+        else{
+            this.canMakeMove = false;
+            latestPlayer = currentPlayer;
+            currentPlayer = getNextPlayer(); // addd this methode
+        }
+
         //return terningkast;
     }
 
