@@ -21,7 +21,8 @@ public class Piece {
         this.xAxis = position.getKey();
         this.yAxis = position.getValue();
         this.houseNumber = owner.getHouseNumber();
-        this.circle = new Circle(15, getColor());
+        this.circle = new Circle(15, getColor());  // could add setting to this
+        circle.setStroke(Color.BLACK);
     }
 
     private Color getColor(){

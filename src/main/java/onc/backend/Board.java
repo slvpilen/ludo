@@ -41,10 +41,10 @@ public class Board {
         ArrayList<Pair<Integer, Integer>> squares = new ArrayList<Pair<Integer, Integer>>();
 
         if (houseNumber == 1) {
-            squares.add(new Pair<Integer, Integer>(2, 19));
-            squares.add(new Pair<Integer, Integer>(2, 17));
-            squares.add(new Pair<Integer, Integer>(4, 17));
-            squares.add(new Pair<Integer, Integer>(4, 19));
+            squares.add(new Pair<Integer, Integer>(2, 18));
+            squares.add(new Pair<Integer, Integer>(2, 16));
+            squares.add(new Pair<Integer, Integer>(4, 16));
+            squares.add(new Pair<Integer, Integer>(4, 18));
         }
 
         if (houseNumber == 2) {
@@ -62,10 +62,10 @@ public class Board {
         }
 
         if (houseNumber == 4) {
-            squares.add(new Pair<Integer, Integer>(12, 19));
-            squares.add(new Pair<Integer, Integer>(12, 17));
-            squares.add(new Pair<Integer, Integer>(14, 17));
-            squares.add(new Pair<Integer, Integer>(14, 19));
+            squares.add(new Pair<Integer, Integer>(12, 18));
+            squares.add(new Pair<Integer, Integer>(12, 16));
+            squares.add(new Pair<Integer, Integer>(14, 16));
+            squares.add(new Pair<Integer, Integer>(14, 18));
         }
 
         return squares;
