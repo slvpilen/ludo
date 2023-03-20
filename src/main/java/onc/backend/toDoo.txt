@@ -2,9 +2,10 @@
 
 
 - Lage metode slik at man kan slå ut en annen spiller
-- Lage metoder slik at spillet fungerer når man nærmer seg mål. (slik at man går tilbake )
+- Lage metoder slik at spillet fungerer når man nærmer seg mål. (slik at man går tilbake x antall steg hvis man er ett steg unna mål og slår 6 for eksempel)
 
 
 -.pice hasValidMove mangler logikk
 -slå ut spiller-fjern knapper i gridPane
 -design målområde
+-ludo musikk
