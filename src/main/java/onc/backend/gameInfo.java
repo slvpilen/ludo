@@ -27,5 +27,7 @@ public class GameInfo {
 
         this.gameName = gameInfoAsList.get(0);
     }
+
+
     
 }

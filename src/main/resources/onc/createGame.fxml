@@ -14,11 +14,11 @@
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToStartScreen" prefHeight="58.0" prefWidth="108.0" text="BACK" />
       <VBox layoutX="451.0" layoutY="160.0" prefHeight="290.0" prefWidth="280.0">
          <children>
-            <TextField fx:id="player1NameField" prefHeight="58.0" prefWidth="280.0" promptText="ex Trude" />
-            <TextField fx:id="player2NameField" prefHeight="57.0" prefWidth="280.0" promptText="ex Truls" />
-            <TextField fx:id="player3NameField" prefHeight="55.0" prefWidth="280.0" promptText="ex Josh" />
-            <TextField fx:id="player4NameField" prefHeight="57.0" prefWidth="280.0" promptText="ex Kari" />
-            <TextField fx:id="gameName" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
+            <TextField fx:id="player1NameField" onAction="#nullstillExceptionLabel" prefHeight="58.0" prefWidth="280.0" promptText="ex Trude" />
+            <TextField fx:id="player2NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Truls" />
+            <TextField fx:id="player3NameField" onAction="#nullstillExceptionLabel" prefHeight="55.0" prefWidth="280.0" promptText="ex Josh" />
+            <TextField fx:id="player4NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Kari" />
+            <TextField fx:id="gameName" onAction="#nullstillExceptionLabel" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
          </children>
       </VBox>
       <VBox layoutX="165.0" layoutY="160.0" prefHeight="187.0" prefWidth="280.0">

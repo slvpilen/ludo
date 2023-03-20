@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,6 +28,7 @@ public class CreateGameController {
 
     @FXML
     private void goToStartScreen() throws IOException {
+        //nullstillExceptionLabel();
         App.setRoot("startScreen");
     }
 
@@ -46,6 +48,12 @@ public class CreateGameController {
         catch (Exception e){
             System.out.println(e);
         }
+    }
+
+    @FXML
+    private void nullstillExceptionLabel() throws IOException {
+        System.out.println("hei");
+        exceptionLabel.setText("");
     }
 
 /*     @FXML

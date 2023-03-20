@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import onc.backend.Board;
 import onc.backend.GameEngine;
+import onc.backend.GameInfo;
 import onc.backend.Piece;
 import onc.backend.Player;
 import onc.backend.Settings;
@@ -24,6 +25,7 @@ import onc.backend.Settings;
 public class GameFaceController implements Initializable {
 
     private GameEngine gameEngine;
+    private GameInfo gameInfo;
     @FXML
     private GridPane gameGrid;
     @FXML
