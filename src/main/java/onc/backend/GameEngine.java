@@ -68,10 +68,11 @@ public class GameEngine {
         this.canMakeMove = false; 
         
         piece.movePlaces(latestDice);
-        updateCurrentPlayerInMovePiece(piece);
+        updateCurrentPlayer(piece);
     }
 
-    private void updateCurrentPlayerInMovePiece(Piece piece){
+    private void updateCurrentPlayer(Piece piece){
+        
         this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
         if (latestDice == 6 && turnRollCount<3)
@@ -79,8 +80,15 @@ public class GameEngine {
         else{
             this.currentPlayer = getNextPlayer();  //add this methode!
             turnRollCount = 0;  // nullstiller tellern
-        }
+        }    
     }
+
+    private Player getNextPlayer(){
+        if(players.size()-1 == players.indexOf(currentPlayer))
+            return players.get(0);
+        return players.get(players.indexOf(currentPlayer)+1);
+    }
+
 
 /*     private Player nextPlayer(){
         //if make any logic that return whos next, by loop proincip
@@ -95,7 +103,7 @@ public class GameEngine {
         Random terning = new Random();
         this.latestDice = terning.nextInt(6) + 1;
 
-        if(currentPlayer.hasAnyValidMoves(latestDice)) // add this methode
+        if(currentPlayer.hasAnyValidMoves()) // add this methode
             this.canMakeMove = true;
         else if (latestDice==6 && turnRollCount<3 ){
             this.canMakeMove = false;
@@ -105,7 +113,7 @@ public class GameEngine {
         else{
             this.canMakeMove = false;
             latestPlayer = currentPlayer;
-            currentPlayer = getNextPlayer(); // addd this methode
+            currentPlayer = getNextPlayer(); 
             this.turnRollCount = 0;
         }
 
@@ -114,6 +122,10 @@ public class GameEngine {
 
     public int getDice(){
         return latestDice;
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
     }
 
     // Må senere implementere sjekker for om det står et tårn i veien. 

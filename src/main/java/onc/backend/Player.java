@@ -32,7 +32,7 @@ public class Player {
         
         this.username = username;
         this.houseNumber = houseNumber;
-        this.gameEngine = gameEngine;
+        //this.gameEngine = gameEngine;
         this.pieces = createPieces(getHomeSquares());
         addMouseFunctionToPieces();
     }
@@ -141,6 +141,40 @@ public class Player {
     public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square){
         throw new IllegalArgumentException("This methode needs to be made!!");
         //return 0;
+    }
+
+    public boolean hasAnyValidMoves() {
+        if (isFinished())
+            return false;
+        if (!gameEngine.getCurrentPlayer().equals(this)){
+            System.out.println("Not this piece players move");
+            return false;
+        }
+        int latestDice = gameEngine.getDice();
+        if (latestDice == 6 && hasPieceOnHomeSquare())
+            return true;
+
+        //if () need to have path done!
+        throw new IllegalArgumentException("Make this metohe done");
+        //return false;
+    }
+
+    private boolean hasPieceOnHomeSquare(){
+        Collection<Pair<Integer, Integer>> piecesLocations = getPiecesPositions();
+        ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
+        for (Pair<Integer, Integer> location : piecesLocations ){
+            if (homeSquares.contains(location))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isFinished(){
+        piecesLocations = getPiecesPositions();
+        endLocation = pieces.
+        
+
+        if (piecesLocations = getPiecesPositions())
     }
     
     public int getHouseNumber() {

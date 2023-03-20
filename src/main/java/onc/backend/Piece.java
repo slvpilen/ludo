@@ -9,7 +9,7 @@ public class Piece {
     
     private int xAxis;
     private int yAxis;
-    private ArrayList<Pair<Integer, Integer>> path;
+    private ArrayList<Pair<Integer, Integer>> standardPath;
     private Player owner;
     private int houseNumber; // this decide the color of the piece
     private Circle circle;
@@ -23,6 +23,7 @@ public class Piece {
         this.houseNumber = owner.getHouseNumber();
         this.circle = new Circle(15, getColor());  // could add setting to this
         circle.setStroke(Color.BLACK);
+        getPath(owner);
     }
 
 
@@ -73,6 +74,164 @@ public class Piece {
     public Circle getCircle(){
         return this.circle;
     }
+    
+
+    private void getPath(Player owner) {
         
+        houseNumber = owner.getHouseNumber();
+
+        ArrayList<Pair<Integer, Integer>> standardPath = new ArrayList<Pair<Integer, Integer>>();
+
+        //GreenSpot
+        standardPath.add(new Pair<Integer, Integer>(7, 18));
+        standardPath.add(new Pair<Integer, Integer>(7, 17));
+        standardPath.add(new Pair<Integer, Integer>(7, 16));
+        standardPath.add(new Pair<Integer, Integer>(7, 15));
+        standardPath.add(new Pair<Integer, Integer>(7, 14));
+        
+        standardPath.add(new Pair<Integer, Integer>(6, 13));
+        standardPath.add(new Pair<Integer, Integer>(5, 13));
+        standardPath.add(new Pair<Integer, Integer>(4, 13));
+        standardPath.add(new Pair<Integer, Integer>(3, 13));
+        standardPath.add(new Pair<Integer, Integer>(2, 13));
+        standardPath.add(new Pair<Integer, Integer>(1, 13));
+        
+        standardPath.add(new Pair<Integer, Integer>(1, 12));
+        standardPath.add(new Pair<Integer, Integer>(1, 11));
+        
+        // YellowSpot
+        standardPath.add(new Pair<Integer, Integer>(2, 11));
+        standardPath.add(new Pair<Integer, Integer>(3, 11));
+        standardPath.add(new Pair<Integer, Integer>(4, 11));
+        standardPath.add(new Pair<Integer, Integer>(5, 11));
+        standardPath.add(new Pair<Integer, Integer>(6, 11));
+        
+        standardPath.add(new Pair<Integer, Integer>(7, 10));
+        standardPath.add(new Pair<Integer, Integer>(7, 9));
+        standardPath.add(new Pair<Integer, Integer>(7, 8));
+        standardPath.add(new Pair<Integer, Integer>(7, 7));
+        standardPath.add(new Pair<Integer, Integer>(7, 6));
+        standardPath.add(new Pair<Integer, Integer>(7, 5));
+        
+        standardPath.add(new Pair<Integer, Integer>(8, 5));
+        standardPath.add(new Pair<Integer, Integer>(9, 5));
+        
+        //BlueSpot
+        standardPath.add(new Pair<Integer, Integer>(9, 6));
+        standardPath.add(new Pair<Integer, Integer>(9, 7));
+        standardPath.add(new Pair<Integer, Integer>(9, 8));
+        standardPath.add(new Pair<Integer, Integer>(9, 9));
+        standardPath.add(new Pair<Integer, Integer>(9, 10));
+        
+        standardPath.add(new Pair<Integer, Integer>(10, 11));
+        standardPath.add(new Pair<Integer, Integer>(11, 11));
+        standardPath.add(new Pair<Integer, Integer>(12, 11));
+        standardPath.add(new Pair<Integer, Integer>(13, 11));
+        standardPath.add(new Pair<Integer, Integer>(14, 11));
+        standardPath.add(new Pair<Integer, Integer>(15, 11));
+        
+        standardPath.add(new Pair<Integer, Integer>(15, 12));
+        standardPath.add(new Pair<Integer, Integer>(15, 13));
+        
+        //RedSpot
+        standardPath.add(new Pair<Integer, Integer>(14, 13));
+        standardPath.add(new Pair<Integer, Integer>(13, 13));
+        standardPath.add(new Pair<Integer, Integer>(12, 13));
+        standardPath.add(new Pair<Integer, Integer>(11, 13));
+        standardPath.add(new Pair<Integer, Integer>(10, 13));
+        
+        standardPath.add(new Pair<Integer, Integer>(9, 14));
+        standardPath.add(new Pair<Integer, Integer>(9, 15));
+        standardPath.add(new Pair<Integer, Integer>(9, 16));
+        standardPath.add(new Pair<Integer, Integer>(9, 17));
+        standardPath.add(new Pair<Integer, Integer>(9, 18));
+        standardPath.add(new Pair<Integer, Integer>(9, 19));
+        
+        standardPath.add(new Pair<Integer, Integer>(8, 19));
+        standardPath.add(new Pair<Integer, Integer>(7, 19));
+
+
+
+        
+        
+
+        
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Pair<Integer, Integer>> standardPath = new ArrayList<Pair<Integer, Integer>>();
+
+        //GreenSpot
+        standardPath.add(new Pair<Integer, Integer>(7, 18));
+        standardPath.add(new Pair<Integer, Integer>(7, 17));
+        standardPath.add(new Pair<Integer, Integer>(7, 16));
+        standardPath.add(new Pair<Integer, Integer>(7, 15));
+        standardPath.add(new Pair<Integer, Integer>(7, 14));
+        
+        standardPath.add(new Pair<Integer, Integer>(6, 13));
+        standardPath.add(new Pair<Integer, Integer>(5, 13));
+        standardPath.add(new Pair<Integer, Integer>(4, 13));
+        standardPath.add(new Pair<Integer, Integer>(3, 13));
+        standardPath.add(new Pair<Integer, Integer>(2, 13));
+        standardPath.add(new Pair<Integer, Integer>(1, 13));
+        
+        standardPath.add(new Pair<Integer, Integer>(1, 12));
+        standardPath.add(new Pair<Integer, Integer>(1, 11));
+        
+        // YellowSpot
+        standardPath.add(new Pair<Integer, Integer>(2, 11));
+        standardPath.add(new Pair<Integer, Integer>(3, 11));
+        standardPath.add(new Pair<Integer, Integer>(4, 11));
+        standardPath.add(new Pair<Integer, Integer>(5, 11));
+        standardPath.add(new Pair<Integer, Integer>(6, 11));
+        
+        standardPath.add(new Pair<Integer, Integer>(7, 10));
+        standardPath.add(new Pair<Integer, Integer>(7, 9));
+        standardPath.add(new Pair<Integer, Integer>(7, 8));
+        standardPath.add(new Pair<Integer, Integer>(7, 7));
+        standardPath.add(new Pair<Integer, Integer>(7, 6));
+        standardPath.add(new Pair<Integer, Integer>(7, 5));
+        
+        standardPath.add(new Pair<Integer, Integer>(8, 5));
+        standardPath.add(new Pair<Integer, Integer>(9, 5));
+        
+        //BlueSpot
+        standardPath.add(new Pair<Integer, Integer>(9, 6));
+        standardPath.add(new Pair<Integer, Integer>(9, 7));
+        standardPath.add(new Pair<Integer, Integer>(9, 8));
+        standardPath.add(new Pair<Integer, Integer>(9, 9));
+        standardPath.add(new Pair<Integer, Integer>(9, 10));
+        
+        standardPath.add(new Pair<Integer, Integer>(10, 11));
+        standardPath.add(new Pair<Integer, Integer>(11, 11));
+        standardPath.add(new Pair<Integer, Integer>(12, 11));
+        standardPath.add(new Pair<Integer, Integer>(13, 11));
+        standardPath.add(new Pair<Integer, Integer>(14, 11));
+        standardPath.add(new Pair<Integer, Integer>(15, 11));
+        
+        standardPath.add(new Pair<Integer, Integer>(15, 12));
+        standardPath.add(new Pair<Integer, Integer>(15, 13));
+        
+        //RedSpot
+        standardPath.add(new Pair<Integer, Integer>(14, 13));
+        standardPath.add(new Pair<Integer, Integer>(13, 13));
+        standardPath.add(new Pair<Integer, Integer>(12, 13));
+        standardPath.add(new Pair<Integer, Integer>(11, 13));
+        standardPath.add(new Pair<Integer, Integer>(10, 13));
+        
+        standardPath.add(new Pair<Integer, Integer>(9, 14));
+        standardPath.add(new Pair<Integer, Integer>(9, 15));
+        standardPath.add(new Pair<Integer, Integer>(9, 16));
+        standardPath.add(new Pair<Integer, Integer>(9, 17));
+        standardPath.add(new Pair<Integer, Integer>(9, 18));
+        standardPath.add(new Pair<Integer, Integer>(9, 19));
+        
+        standardPath.add(new Pair<Integer, Integer>(8, 19));
+        standardPath.add(new Pair<Integer, Integer>(7, 19));
+
+        System.out.println(standardPath.indexOf(new Pair<Integer, Integer>(14, 13)));
+    }
+
+    
 
 }
