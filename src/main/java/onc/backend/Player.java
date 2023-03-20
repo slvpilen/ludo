@@ -3,6 +3,7 @@ package onc.backend;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 
@@ -18,13 +19,14 @@ public class Player {
     private int houseNumber;
     private Board board;
     private GameEngine gameEngine;
+    //private GridPane gameGrid;
     
     // Startplass avhenger av farge
 
     // husrekkefølge:
     //  2   3   
     //  1   4
-    public Player(String username, int houseNumber){
+    public Player(String username, int houseNumber, GridPane gameGrid){
         
         if (houseNumber > 4  || houseNumber < 1) {
             throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");
@@ -33,7 +35,8 @@ public class Player {
         this.username = username;
         this.houseNumber = houseNumber;
         //this.gameEngine = gameEngine;
-        this.pieces = createPieces(getHomeSquares());
+        //this.gameGrid = gameGrid; 
+        this.pieces = createPieces(getHomeSquares(), gameGrid);
         addMouseFunctionToPieces();
     }
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn picesLocation etc)
@@ -68,6 +71,10 @@ public class Player {
                 piecesLocation.add(homeSquare);
         }  
     }
+    
+    public GameEngine getGameEngine(){
+        return gameEngine;
+    }
 
     public Collection<Pair<Integer, Integer>> getPiecesPositions(){
         Collection<Pair<Integer, Integer>> positions = new ArrayList<>();
@@ -80,13 +87,15 @@ public class Player {
         return pieces;
     }
 
-    private Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation){
+    private Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid){
         ArrayList<Piece> newPieces = new ArrayList<>();
+        
         for (Pair<Integer, Integer> location : piecesLocation)
-            newPieces.add(new Piece(this, location));
+            newPieces.add(new Piece(this, location, gameGrid));
         
         if (newPieces.size() != 4)
             throw new IllegalStateException("Need to be 4 startpieces");
+            
         return newPieces;
     }
 
@@ -144,19 +153,23 @@ public class Player {
     }
 
     public boolean hasAnyValidMoves() {
-        if (isFinished())
-            return false;
         if (!gameEngine.getCurrentPlayer().equals(this)){
             System.out.println("Not this piece players move");
+            return false;
+        }
+        if (isFinished()){
+            System.out.println("This player has fineshed the game");
             return false;
         }
         int latestDice = gameEngine.getDice();
         if (latestDice == 6 && hasPieceOnHomeSquare())
             return true;
 
-        //if () need to have path done!
-        throw new IllegalArgumentException("Make this metohe done");
-        //return false;
+        for (Piece piece : pieces){
+            if (piece.hasLegalMove())
+                return true;
+        }
+        return false;
     }
 
     private boolean hasPieceOnHomeSquare(){
@@ -170,11 +183,7 @@ public class Player {
     }
 
     private boolean isFinished(){
-        piecesLocations = getPiecesPositions();
-        endLocation = pieces.
-        
-
-        if (piecesLocations = getPiecesPositions())
+        return pieces.stream().allMatch(Piece::isInFinishPaddock);
     }
     
     public int getHouseNumber() {

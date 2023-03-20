@@ -73,14 +73,15 @@ public class gameFaceController implements Initializable {
   
     } */
 
-    private void addPieceToGrid(Piece piece){
+/*     private void addPieceToGrid(Piece piece){
         GridPane.setRowIndex(piece.getCircle(), piece.getColumn());
         GridPane.setColumnIndex(piece.getCircle(), piece.getRow());
         gameGrid.getChildren().add(piece.getCircle());
-    }
+    } */
 
     @FXML
     public void rollDice(ActionEvent event) throws IOException {
+        
         //System.out.println("rulla");
         gameEngine.rollDice();
         this.diceText.setText(("dice: " + gameEngine.getDice()));
@@ -92,10 +93,10 @@ public class gameFaceController implements Initializable {
 
         // this ceating of players is a temperarly solution
         ArrayList<Player> players = new ArrayList<>();
-        Player player1 = new Player("Kåre", 1);
-        Player player2 = new Player("Trude", 2);
-        Player player3 = new Player("Fred", 3);
-        Player player4 = new Player("Børge", 4);
+        Player player1 = new Player("Kåre", 1, gameGrid);
+        Player player2 = new Player("Trude", 2, gameGrid);
+        Player player3 = new Player("Fred", 3, gameGrid);
+        Player player4 = new Player("Børge", 4, gameGrid);
         
         players.add(player1);
         players.add(player2);
@@ -107,7 +108,7 @@ public class gameFaceController implements Initializable {
         this.gameEngine = new GameEngine(settings, players);
 
         Collection<Piece> pieces = gameEngine.getPices();
-        pieces.forEach(piece -> addPieceToGrid(piece));
+        //pieces.forEach(piece -> addPieceToGrid(piece));
         
 
     }

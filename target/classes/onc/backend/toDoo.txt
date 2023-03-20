@@ -1,5 +1,10 @@
-to do
 
--Legg til en rute ipå hver langside
--lag metode getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) i player
--lag Pice og endre system til å fungere med den klassen
+
+
+- Lage metode slik at man kan slå ut en annen spiller
+- Lage metoder slik at spillet fungerer når man nærmer seg mål. (slik at man går tilbake )
+
+
+-.pice hasValidMove mangler logikk
+-slå ut spiller-fjern knapper i gridPane
+-design målområde

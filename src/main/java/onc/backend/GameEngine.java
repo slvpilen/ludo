@@ -60,19 +60,17 @@ public class GameEngine {
         System.out.println("clicked on a piece");
         if (!this.canMakeMove)
             return;
-        if (!piece.hasLegalMove(latestDice))
+        if (!piece.hasLegalMove())
             return;
         if (piece.getHouseNumber() != currentPlayer.getHouseNumber())
             return;
-
-        this.canMakeMove = false; 
         
-        piece.movePlaces(latestDice);
+        piece.movePlaces();
+        this.canMakeMove = false; 
         updateCurrentPlayer(piece);
     }
 
-    private void updateCurrentPlayer(Piece piece){
-        
+    private void updateCurrentPlayer(Piece piece){        
         this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
         if (latestDice == 6 && turnRollCount<3)
@@ -154,7 +152,7 @@ public class GameEngine {
 
 
 
-
+/* 
 
     public static void main(String[] args) {
         Player player1 = new Player("kåre", 1);
@@ -170,5 +168,5 @@ public class GameEngine {
 
         GameEngine gameEngine = new GameEngine(new Settings(), playersList);
 
-    }
+    } */
 }
