@@ -53,7 +53,6 @@ public class App extends Application {
         URL songURL = getClass().getResource(songName);
         
         if (songURL != null) {
-            System.out.println("hello");
             media = new Media(songURL.toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
