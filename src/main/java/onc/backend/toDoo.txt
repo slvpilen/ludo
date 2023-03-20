@@ -9,3 +9,4 @@
 -slå ut spiller-fjern knapper i gridPane
 -design målområde
 -ludo musikk
+- i create game, lag kode som sender GameInfo til GameFaceController, slik at spiller navn etc kan skrives inn på brettet.

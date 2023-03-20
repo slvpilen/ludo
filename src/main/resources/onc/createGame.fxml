@@ -1,10 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #654321;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.CreateGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="896.0" style="-fx-background-color: #654321;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.CreateGameController">
    <children>
-      <Button layoutX="23.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToStartScreen" text="BACK" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToStartScreen" prefHeight="58.0" prefWidth="108.0" text="BACK" />
+      <VBox layoutX="451.0" layoutY="160.0" prefHeight="290.0" prefWidth="280.0">
+         <children>
+            <TextField fx:id="player1NameField" prefHeight="58.0" prefWidth="280.0" promptText="ex Trude" />
+            <TextField fx:id="player2NameField" prefHeight="57.0" prefWidth="280.0" promptText="ex Truls" />
+            <TextField fx:id="player3NameField" prefHeight="55.0" prefWidth="280.0" promptText="ex Josh" />
+            <TextField fx:id="player4NameField" prefHeight="57.0" prefWidth="280.0" promptText="ex Kari" />
+            <TextField fx:id="gameName" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
+         </children>
+      </VBox>
+      <VBox layoutX="165.0" layoutY="160.0" prefHeight="187.0" prefWidth="280.0">
+         <children>
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Label prefHeight="66.0" prefWidth="490.0" text="Game name" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="361.0" layoutY="586.0" mnemonicParsing="false" onAction="#submit" prefHeight="55.0" prefWidth="168.0" text="SUBMIT" />
+      <RadioButton layoutX="122.0" layoutY="519.0" mnemonicParsing="false" text="1 " textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="numbersOfPlayers" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="122.0" layoutY="547.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
+      <RadioButton layoutX="122.0" layoutY="573.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
+      <RadioButton layoutX="122.0" layoutY="597.0" mnemonicParsing="false" selected="true" text="4" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
+      <Label layoutX="110.0" layoutY="488.0" text="Number of players" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="exceptionLabel" layoutX="368.0" layoutY="86.0" textFill="RED">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
