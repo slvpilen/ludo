@@ -33,7 +33,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setHeight(700);
         stage.setWidth(950);
-        playMusic();
+        playMusic(); 
         stage.show();
     }
 

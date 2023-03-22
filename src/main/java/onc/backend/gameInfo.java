@@ -1,7 +1,9 @@
 
 package onc.backend;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GameInfo {
     private String gameName;
@@ -19,6 +21,13 @@ public class GameInfo {
         boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
         if (!allNonEmpty)
             throw new IllegalStateException("Fill out every fields!");
+
+        // all names uniqe 
+        Set<String> set = new HashSet<>(gameInfoAsList);
+        if (set.size() != gameInfoAsList.size())
+            throw new IllegalArgumentException("cant have same names or name as gameName!");
+
+        
             
         this.playerName1 = gameInfoAsList.get(1);
         this.playerName2 = gameInfoAsList.get(2);

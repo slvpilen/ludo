@@ -2,6 +2,7 @@ package onc.backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
@@ -137,7 +138,13 @@ public class Player {
         
     } 
 
-
+    public ArrayList<Pair<Integer, Integer>> getEmptyHomeSquares(){
+        ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
+        return new ArrayList<>(pieces.stream()
+        .filter(piece -> homeSquares.contains(piece.getPosition()))
+        .map(Piece::getPosition)
+        .collect(Collectors.toList()));
+    }
 
     public boolean hasOwnPieceOnSquare(Pair<Integer, Integer> square) {
         if (getPiecesPositions().contains(square)) {
@@ -202,6 +209,13 @@ public class Player {
         return username;
     }
     
+    public boolean hasPeaceOnLocation(Pair<Integer, Integer> location){
+        for (Piece piece : pieces){
+            if (piece.getPosition().equals(location))
+                return true;
+        }
+        return false;
+    }
 }
 
 

@@ -15,7 +15,7 @@ public class GameEngine {
     private ArrayList<Player> players;
     private int latestDice;
     private int turnRollCount; // counting how many dice roll on a roll
-    private boolean canMakeMove;
+    private boolean canMakeMove; // possible for a player to make a move this will be true, else if its time to roll dice this will be false
 
 
 
@@ -46,15 +46,15 @@ public class GameEngine {
 
     public Collection<Piece> getPices(){
         Collection<Piece> allPieces = new ArrayList<>();
-
+    
         for (Player player : players){
             Collection<Piece> pieces =  player.getPieces();
             pieces.forEach(piece -> allPieces.add(piece));
         }
-
+    
         return allPieces;
-
     }
+    
 
     public void movePiece(Piece piece){
         System.out.println("clicked on a piece");
@@ -88,11 +88,6 @@ public class GameEngine {
     }
 
 
-/*     private Player nextPlayer(){
-        //if make any logic that return whos next, by loop proincip
-        if (players.hasNext..... etc)
-    } */
-
 
     public void rollDice() {
         //System.out.println("pressed rolled dice");
@@ -115,7 +110,6 @@ public class GameEngine {
             this.turnRollCount = 0;
         }
 
-        //return terningkast;
     }
 
     public int getDice(){
@@ -126,23 +120,25 @@ public class GameEngine {
         return currentPlayer;
     }
 
-    // Må senere implementere sjekker for om det står et tårn i veien. 
-/*     
-    public ArrayList<> legalMove(Player player, Piece piece) {
-        
-        if (!player.getPiecesPositions().contains(piece)) {
-            throw new IllegalArgumentException("Du kan ikke flytte en brikke du ikke eier.");
-        }
-
-        if (player.getHomeSquares().contains(piece)) {
-            
-             if (diceroll == 6) {
-                return true;
+    public int getNumberOfPiecesOnLocation(Pair<Integer, Integer> location){
+        int counter = 0;
+        for (Player player : players){
+            Collection<Piece> pieces = player.getPieces();
+            for (Piece piece : pieces){
+                if (piece.getPosition().equals(location))
+                    counter++;
             }
-
-            return false;
         }
-    } */
+        return counter;
+    }
+
+    public void setPieceOnLocationToStart(Pair<Integer, Integer> endLocation){
+        players.forEach(player -> player.getPieces().stream().
+        filter(piece -> piece.getPosition().equals(endLocation)).
+        forEach(piece -> piece.setToHouse()));
+    }
+}
+
 
     //public boolean rollDice()
 
@@ -169,4 +165,4 @@ public class GameEngine {
         GameEngine gameEngine = new GameEngine(new Settings(), playersList);
 
     } */
-}
+

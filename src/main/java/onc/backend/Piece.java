@@ -43,25 +43,44 @@ public class Piece {
     }
 
     public Player getOwner(){
-        return owner;
+        return this.owner;
     }
 
-    public void movePlaces(){ // make this logic, make it update on board to
-        //throw new IllegalArgumentException("not added any moethod yet!");
-        ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
-        if (homeSquares.contains(getPosition())){
+    // this will only be called if there is it hasLegalMove
+    public void movePlaces(){ 
+/*          ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
+        int latestDice= owner.getGameEngine().getDice();
+        int indexOfPath = standardPath.indexOf(getPosition());
+
+        boolean isInHomeSquares = homeSquares.contains(getPosition());
+        boolean isPieceBeyondField = indexOfPath+latestDice > standardPath.size()-1;
+
+        if (isInHomeSquares){
             this.xAxis = standardPath.get(0).getKey();
             this.yAxis = standardPath.get(0).getValue();
         }
+        else if(isPieceBeyondField){
+            int newIndex = indexOfPath + latestDice - standardPath.size()-1;       
+            this.xAxis = standardPath.get(newIndex).getKey();
+            this.yAxis = standardPath.get(newIndex).getValue();     
+        }
         else {
-            int indexOfPath = standardPath.indexOf(getPosition());
-            int newIndex = indexOfPath + owner.getGameEngine().getDice();
+            int newIndex = indexOfPath + latestDice;
             this.xAxis = standardPath.get(newIndex).getKey();
             this.yAxis = standardPath.get(newIndex).getValue();
-        }
-        
-        //addPieceToGrid(this);
+        }  */
+
+        //logick moved down to getLocationAfterPossibelMove(), because its neccesary to know the possible ending point, before moving
+        Pair<Integer,Integer> locationAfterMove = getLocationAfterPossibelMove();        
+        this.xAxis = locationAfterMove.getKey();
+        this.yAxis = locationAfterMove.getValue(); 
         movePieceInGrid(this);
+
+
+        int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
+        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPeaceOnLocation(locationAfterMove);
+        if (onePieceFromAnotherHouseOnEndLocation)
+            owner.getGameEngine().setPieceOnLocationToStart(locationAfterMove);
     }
 
     public int getHouseNumber(){
@@ -69,15 +88,68 @@ public class Piece {
     }
 
     public boolean hasLegalMove(){
-        System.out.println("has lega move is not made: make this methode!!!");
+        //System.out.println("has lega move is made, but missing some importain things!!!");
+        Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
+        int latestDice = owner.getGameEngine().getDice();
+        boolean isInHomeSquare = homeSquares.contains(getPosition());
+        if (isInHomeSquare && latestDice!=6)
+            return false;
+        if (isInHomeSquare && latestDice==6)
+            return true;
+        if (isInFinishPaddock())
+            return false;
+
+        Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibelMove();
+
+        int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
+        boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2;
+        stoppedByATowerFromAnotherHouse = stoppedByATowerFromAnotherHouse && !owner.hasPeaceOnLocation(endLocationAfterMove);
+        if (stoppedByATowerFromAnotherHouse)
+            return false;
+
+        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPeaceOnLocation(endLocationAfterMove);
+        if (onePieceFromAnotherHouseOnEndLocation){
+            return true;
+        }
+        //System.out.println("should not come to this point in piece has legal move?");
         return true;
     }
 
-    public Pair<Integer, Integer> getLocationAfterPossibelMove(){
-        if (!hasLegalMove())
-            throw new IllegalStateException("This has no legal move");
-        throw new IllegalArgumentException("Make a return statment that return the positon after its moved");
-        //////////////too do!
+    private Pair<Integer, Integer> getLocationAfterPossibelMove(){
+        ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
+        int latestDice= owner.getGameEngine().getDice();
+        int indexOfPath = standardPath.indexOf(getPosition());
+
+        boolean isInHomeSquares = homeSquares.contains(getPosition());
+        boolean isPieceBeyondField = indexOfPath+latestDice > standardPath.size()-1;
+
+        if (isInHomeSquares){
+            return standardPath.get(0);
+        }
+        else if(isPieceBeyondField){
+            int newIndex = indexOfPath + latestDice - standardPath.size()-1;       
+            return standardPath.get(newIndex); 
+        }
+        else {
+            int newIndex = indexOfPath + latestDice;
+            return standardPath.get(newIndex); 
+        }
+    }
+
+    public void setToHouse(){
+        Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
+        if (homeSquares.contains(getPosition()))
+            throw new IllegalStateException("setting a pice that already in homeSquares into homeSquares");
+
+        ArrayList<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
+        if (emptyHomeSquares.size() == 0)
+            throw new IllegalStateException("No empty spaces");
+
+        this.xAxis = emptyHomeSquares.get(0).getKey();
+        this.yAxis = emptyHomeSquares.get(0).getValue(); 
+        movePieceInGrid(this);
+        
+
     }
 
     private Color getColor(){
@@ -110,6 +182,7 @@ public class Piece {
     public Circle getCircle(){
         return this.circle;
     }
+
 
     public boolean isInFinishPaddock() {
         Pair<Integer, Integer> endLocation = standardPath.get(standardPath.size()-1);

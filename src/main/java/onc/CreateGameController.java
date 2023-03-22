@@ -45,6 +45,9 @@ public class CreateGameController {
         catch (IllegalStateException e){
             exceptionLabel.setText("Fill out every fields!");
         }
+        catch (IllegalArgumentException e){
+            exceptionLabel.setText("Cant have the same name!");
+        }
         catch (Exception e){
             System.out.println(e);
         }
