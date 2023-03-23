@@ -2,107 +2,105 @@ package onc.backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
-
 // Denne klassen virker å være ferdig. 
-
-
 
 public class Player {
 
     private String username;
-    private Collection<Piece> pieces; 
+    private Collection<Piece> pieces;
     private int numberOfRollsThisTurn;
     private int houseNumber;
     private Board board;
     private GameEngine gameEngine;
-    //private GridPane gameGrid;
-    
+    // private GridPane gameGrid;
+
     // Startplass avhenger av farge
 
     // husrekkefølge:
-    //  2   3   
-    //  1   4
-    public Player(String username, int houseNumber, GridPane gameGrid){
-        
-        if (houseNumber > 4  || houseNumber < 1) {
+    // 2 3
+    // 1 4
+    public Player(String username, int houseNumber, GridPane gameGrid) {
+
+        if (houseNumber > 4 || houseNumber < 1) {
             throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");
         }
-        
+
         this.username = username;
         this.houseNumber = houseNumber;
-        //this.gameEngine = gameEngine;
-        //this.gameGrid = gameGrid; 
+        // this.gameEngine = gameEngine;
+        // this.gameGrid = gameGrid;
         this.pieces = createPieces(getHomeSquares(), gameGrid);
         addMouseFunctionToPieces();
     }
-    // lage egen kosntruktør for å laste inn eksisterende spill (ta inn picesLocation etc)
+    // lage egen kosntruktør for å laste inn eksisterende spill (ta inn
+    // picesLocation etc)
 
-
-    public void setBoard(Board board){
+    public void setBoard(Board board) {
         this.board = board;
     }
 
-    public void setGameEngine(GameEngine gameEngine){
+    public void setGameEngine(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
     }
 
-    private void addMouseFunctionToPieces(){
-        pieces.forEach(piece -> piece.getCircle().
-        setOnMouseClicked(event -> {gameEngine.
-            movePiece(piece);
+    private void addMouseFunctionToPieces() {
+        pieces.forEach(piece -> piece.getCircle().setOnMouseClicked(event -> {
+            gameEngine.movePiece(piece);
         }));
     }
 
     public void setOwnPieceToStart(Pair<Integer, Integer> pieceToRemove) {
-        Collection<Pair<Integer, Integer>> piecesLocation = getPiecesPositions();        
+        Collection<Pair<Integer, Integer>> piecesLocation = getPiecesPositions();
         if (!piecesLocation.contains(pieceToRemove)) {
             throw new IllegalArgumentException("You tried to remove a piece which the player did not possess.");
-            }
-        
+        }
+
         ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
         // Putter brikken på første ledige plass i spawn-area
         piecesLocation.remove(pieceToRemove);
         for (Pair<Integer, Integer> homeSquare : homeSquares) {
-            if (!this.hasOwnPieceOnSquare(homeSquare)) 
+            if (!this.hasOwnPieceOnSquare(homeSquare))
                 piecesLocation.add(homeSquare);
-        }  
+        }
     }
-    
-    public GameEngine getGameEngine(){
+
+    public GameEngine getGameEngine() {
         return gameEngine;
     }
 
-    public Collection<Pair<Integer, Integer>> getPiecesPositions(){
+    public Collection<Pair<Integer, Integer>> getPiecesPositions() {
         Collection<Pair<Integer, Integer>> positions = new ArrayList<>();
         for (Piece piece : pieces)
             positions.add(piece.getPosition());
         return positions;
     }
 
-    public Collection<Piece> getPieces(){
+    public Collection<Piece> getPieces() {
         return pieces;
     }
 
-    private Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid){
+    private Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
         ArrayList<Piece> newPieces = new ArrayList<>();
-        
+
         for (Pair<Integer, Integer> location : piecesLocation)
             newPieces.add(new Piece(this, location, gameGrid));
-        
+
         if (newPieces.size() != 4)
             throw new IllegalStateException("Need to be 4 startpieces");
-            
+
         return newPieces;
     }
 
-        // husrekkefølge:
-    //  2   3   
-    //  1   4
+    // husrekkefølge:
+    // 2 3
+    // 1 4
     public ArrayList<Pair<Integer, Integer>> getHomeSquares() {
         ArrayList<Pair<Integer, Integer>> squares = new ArrayList<Pair<Integer, Integer>>();
 
@@ -135,36 +133,39 @@ public class Player {
         }
 
         return squares;
-        
-    } 
 
-    public ArrayList<Pair<Integer, Integer>> getEmptyHomeSquares(){
-        ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
-        return new ArrayList<>(pieces.stream()
-        .filter(piece -> homeSquares.contains(piece.getPosition()))
-        .map(Piece::getPosition)
-        .collect(Collectors.toList()));
     }
+
+    public List<Pair<Integer, Integer>> getEmptyHomeSquares() {
+        List<Pair<Integer, Integer>> homeSquares = getHomeSquares();
+        List<Pair<Integer, Integer>> filledHomeSquares = pieces.stream()
+            .map(Piece::getPosition)
+            .filter(homeSquares::contains)
+            .collect(Collectors.toList());
+        homeSquares.removeAll(filledHomeSquares);
+        return homeSquares;
+    }
+    
 
     public boolean hasOwnPieceOnSquare(Pair<Integer, Integer> square) {
         if (getPiecesPositions().contains(square)) {
             return true;
         }
         return false;
-    } 
+    }
 
     // make this methode!!
-    public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square){
+    public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) {
         throw new IllegalArgumentException("This methode needs to be made!!");
-        //return 0;
+        // return 0;
     }
 
     public boolean hasAnyValidMoves() {
-        if (!gameEngine.getCurrentPlayer().equals(this)){
+        if (!gameEngine.getCurrentPlayer().equals(this)) {
             System.out.println("Not this piece players move");
             return false;
         }
-        if (isFinished()){
+        if (isFinished()) {
             System.out.println("This player has fineshed the game");
             return false;
         }
@@ -172,27 +173,27 @@ public class Player {
         if (latestDice == 6 && hasPieceOnHomeSquare())
             return true;
 
-        for (Piece piece : pieces){
+        for (Piece piece : pieces) {
             if (piece.hasLegalMove())
                 return true;
         }
         return false;
     }
 
-    private boolean hasPieceOnHomeSquare(){
+    private boolean hasPieceOnHomeSquare() {
         Collection<Pair<Integer, Integer>> piecesLocations = getPiecesPositions();
         ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
-        for (Pair<Integer, Integer> location : piecesLocations ){
+        for (Pair<Integer, Integer> location : piecesLocations) {
             if (homeSquares.contains(location))
                 return true;
         }
         return false;
     }
 
-    private boolean isFinished(){
+    private boolean isFinished() {
         return pieces.stream().allMatch(Piece::isInFinishPaddock);
     }
-    
+
     public int getHouseNumber() {
         return houseNumber;
     }
@@ -208,40 +209,12 @@ public class Player {
     public String getUsername() {
         return username;
     }
-    
-    public boolean hasPeaceOnLocation(Pair<Integer, Integer> location){
-        for (Piece piece : pieces){
+
+    public boolean hasPieceOnLocation(Pair<Integer, Integer> location) {
+        for (Piece piece : pieces) {
             if (piece.getPosition().equals(location))
                 return true;
         }
         return false;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

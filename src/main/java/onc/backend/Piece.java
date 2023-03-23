@@ -48,39 +48,18 @@ public class Piece {
 
     // this will only be called if there is it hasLegalMove
     public void movePlaces(){ 
-/*          ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
-        int latestDice= owner.getGameEngine().getDice();
-        int indexOfPath = standardPath.indexOf(getPosition());
-
-        boolean isInHomeSquares = homeSquares.contains(getPosition());
-        boolean isPieceBeyondField = indexOfPath+latestDice > standardPath.size()-1;
-
-        if (isInHomeSquares){
-            this.xAxis = standardPath.get(0).getKey();
-            this.yAxis = standardPath.get(0).getValue();
-        }
-        else if(isPieceBeyondField){
-            int newIndex = indexOfPath + latestDice - standardPath.size()-1;       
-            this.xAxis = standardPath.get(newIndex).getKey();
-            this.yAxis = standardPath.get(newIndex).getValue();     
-        }
-        else {
-            int newIndex = indexOfPath + latestDice;
-            this.xAxis = standardPath.get(newIndex).getKey();
-            this.yAxis = standardPath.get(newIndex).getValue();
-        }  */
 
         //logick moved down to getLocationAfterPossibelMove(), because its neccesary to know the possible ending point, before moving
         Pair<Integer,Integer> locationAfterMove = getLocationAfterPossibelMove();        
+        
+        int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
+        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(locationAfterMove);
+        if (onePieceFromAnotherHouseOnEndLocation)
+            owner.getGameEngine().setPieceOnLocationToHouse(locationAfterMove);
+        
         this.xAxis = locationAfterMove.getKey();
         this.yAxis = locationAfterMove.getValue(); 
         movePieceInGrid(this);
-
-
-        int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
-        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPeaceOnLocation(locationAfterMove);
-        if (onePieceFromAnotherHouseOnEndLocation)
-            owner.getGameEngine().setPieceOnLocationToStart(locationAfterMove);
     }
 
     public int getHouseNumber(){
@@ -103,15 +82,15 @@ public class Piece {
 
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
         boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2;
-        stoppedByATowerFromAnotherHouse = stoppedByATowerFromAnotherHouse && !owner.hasPeaceOnLocation(endLocationAfterMove);
+        stoppedByATowerFromAnotherHouse = stoppedByATowerFromAnotherHouse && !owner.hasPieceOnLocation(endLocationAfterMove);
         if (stoppedByATowerFromAnotherHouse)
             return false;
 
-        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPeaceOnLocation(endLocationAfterMove);
+        // kunna droppa denne ettersom blir sann uansett?
+        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(endLocationAfterMove);
         if (onePieceFromAnotherHouseOnEndLocation){
             return true;
         }
-        //System.out.println("should not come to this point in piece has legal move?");
         return true;
     }
 
@@ -127,7 +106,8 @@ public class Piece {
             return standardPath.get(0);
         }
         else if(isPieceBeyondField){
-            int newIndex = indexOfPath + latestDice - standardPath.size()-1;       
+            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1);      
+            int newIndex = 2*standardPath.size() - indexOfPath - latestDice;      
             return standardPath.get(newIndex); 
         }
         else {
@@ -141,15 +121,15 @@ public class Piece {
         if (homeSquares.contains(getPosition()))
             throw new IllegalStateException("setting a pice that already in homeSquares into homeSquares");
 
-        ArrayList<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
+        List<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
         if (emptyHomeSquares.size() == 0)
             throw new IllegalStateException("No empty spaces");
+        
+        System.out.println("kom hit!");
 
         this.xAxis = emptyHomeSquares.get(0).getKey();
         this.yAxis = emptyHomeSquares.get(0).getValue(); 
         movePieceInGrid(this);
-        
-
     }
 
     private Color getColor(){
@@ -328,12 +308,6 @@ public class Piece {
         }
 
         throw new IllegalMonitorStateException("Din monitor har eksplodert! (noe gikk galt!)");
-
-        
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Pair<Integer, Integer>> standardPath = new ArrayList<Pair<Integer, Integer>>();
 
         
     }

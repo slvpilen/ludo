@@ -2,6 +2,7 @@ package onc.backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.Random;
 import javafx.util.Pair;
@@ -132,9 +133,9 @@ public class GameEngine {
         return counter;
     }
 
-    public void setPieceOnLocationToStart(Pair<Integer, Integer> endLocation){
+    public void setPieceOnLocationToHouse(Pair<Integer, Integer> endLocation){
         players.forEach(player -> player.getPieces().stream().
-        filter(piece -> piece.getPosition().equals(endLocation)).
+        filter(piece -> piece.getPosition().equals(endLocation)).collect(Collectors.toList()).
         forEach(piece -> piece.setToHouse()));
     }
 }
