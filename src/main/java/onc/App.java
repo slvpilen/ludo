@@ -19,6 +19,8 @@ import java.net.URL;
 ///  JavaFX App  ///
 
 public class App extends Application {
+    
+    Image ludoIcon = new Image(getClass().getResourceAsStream("LudoIcon.jpg"));
 
     private static Scene scene;
         private MediaPlayer mediaPlayer;
@@ -28,10 +30,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("startScreen"));
         stage.setTitle("LUDO cNo");
-        
-        Image ludoIcon = new Image(getClass().getResourceAsStream("LudoIcon.jpg"));
+            
         stage.getIcons().add(ludoIcon);
-        stage.setIconified(true);
 
         stage.setScene(scene);
         stage.setHeight(700);
