@@ -5,9 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-
-
+import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
 import javafx.stage.Stage;
@@ -30,6 +28,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("startScreen"));
         stage.setTitle("LUDO cNo");
+        
+        Image ludoIcon = new Image(getClass().getResourceAsStream("LudoIcon.jpg"));
+        stage.getIcons().add(ludoIcon);
+        stage.setIconified(true);
+
         stage.setScene(scene);
         stage.setHeight(700);
         stage.setWidth(950);
