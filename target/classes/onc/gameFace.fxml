@@ -262,16 +262,6 @@
             <AnchorPane layoutX="364.0" layoutY="392.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="19" />
          </children>
       </GridPane>
-      <Button layoutX="349.0" layoutY="521.0" mnemonicParsing="false" onAction="#rollDice" prefHeight="81.0" prefWidth="146.0" style="-fx-border-color: #006400;" text="ROLL DICE" textFill="#009717">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Button>
-      <Text fx:id="diceText" layoutX="148.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dice: ">
-         <font>
-            <Font size="51.0" />
-         </font>
-      </Text>
       <HBox alignment="TOP_CENTER" layoutX="623.0" layoutY="546.0" prefHeight="55.0" prefWidth="200.0">
          <children>
             <Button mnemonicParsing="false" text="load game" />
@@ -307,5 +297,6 @@
             <Font size="37.0" />
          </font>
       </Text>
+      <ImageView fx:id="diceView" fitHeight="83.0" fitWidth="97.0" layoutX="282.0" layoutY="532.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
