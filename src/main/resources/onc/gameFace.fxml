@@ -12,10 +12,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="844.0" style="-fx-background-color: #F5F0E1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.GameFaceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1069.0" style="-fx-background-color: #F5F0E1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.GameFaceController">
    <children>
-      <Button layoutX="46.0" layoutY="561.0" mnemonicParsing="false" text="settings" />
-      <GridPane fx:id="gameGrid" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="466.0" prefWidth="674.0">
+      <Button layoutX="128.0" layoutY="644.0" mnemonicParsing="false" text="settings" />
+      <GridPane fx:id="gameGrid" alignment="CENTER" layoutX="184.0" layoutY="135.0" prefHeight="466.0" prefWidth="674.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -262,7 +262,7 @@
             <AnchorPane layoutX="364.0" layoutY="392.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="19" />
          </children>
       </GridPane>
-      <HBox alignment="TOP_CENTER" layoutX="623.0" layoutY="546.0" prefHeight="55.0" prefWidth="200.0">
+      <HBox alignment="TOP_CENTER" layoutX="705.0" layoutY="629.0" prefHeight="55.0" prefWidth="200.0">
          <children>
             <Button mnemonicParsing="false" text="load game" />
             <Button mnemonicParsing="false" text="save game" />
@@ -271,32 +271,32 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Button layoutX="557.0" layoutY="548.0" lineSpacing="10.0" mnemonicParsing="false" text="menu" />
-      <Text fx:id="player2Name" layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p2: ">
+      <Button layoutX="639.0" layoutY="631.0" lineSpacing="10.0" mnemonicParsing="false" text="menu" />
+      <Text fx:id="player2Name" fill="#FFD700" layoutX="9.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player1Name" layoutX="25.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p1: ">
+      <Text fx:id="player1Name" fill="#00FF00" layoutX="9.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player3Name" layoutX="788.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p3: ">
+      <Text fx:id="player3Name" fill="#4968bc" layoutX="870.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player4Name" layoutX="788.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p4: ">
+      <Text fx:id="player4Name" fill="#EE4B2B" layoutX="870.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="gameName" layoutX="277.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Name: ">
+      <Text fx:id="gameName" layoutX="177.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
          <font>
-            <Font size="37.0" />
+            <Font name="System Bold Italic" size="64.0" />
          </font>
       </Text>
-      <ImageView fx:id="diceView" fitHeight="83.0" fitWidth="97.0" layoutX="282.0" layoutY="532.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="diceView" fitHeight="83.0" fitWidth="97.0" layoutX="364.0" layoutY="615.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

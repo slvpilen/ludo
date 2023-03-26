@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class GameInfo {
+    
     private String gameName;
 
     // info about players
@@ -27,6 +28,10 @@ public class GameInfo {
         if (gameInfoAsList.stream().anyMatch(name -> gameInfoAsList.indexOf(name) != gameInfoAsList.lastIndexOf(name))) {
             throw new IllegalArgumentException("The players must have different names");
         } 
+
+        if (gameInfoAsList.stream().anyMatch(name -> name.length() > 9)) {
+            throw new IllegalMonitorStateException("Maximum name length is 9!");
+        }
             
         this.playerName1 = gameInfoAsList.get(1);
         this.playerName2 = gameInfoAsList.get(2);

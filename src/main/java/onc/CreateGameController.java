@@ -56,12 +56,14 @@ public class CreateGameController {
             
             GameInfo gameInfo = new GameInfo(gameInfoAsList);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("gameFace.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/gameFace.fxml"));
             root = loader.load();
             GameFaceController gameFaceController = loader.getController();
 
             gameFaceController.setGameInfo(gameInfo);
             IntStream.range(0, gameInfoAsList.size()).forEach(index -> gameFaceController.setName(gameInfoAsList.get(index), index));
+            
+
 
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -76,6 +78,9 @@ public class CreateGameController {
         catch (IllegalArgumentException e){
             exceptionLabel.setText("The players must have different names!");
         }
+        catch (IllegalMonitorStateException e) {
+            exceptionLabel.setText("Maximum name length is 9!");
+        } 
         catch (Exception e){
             System.out.println(e);
         }

@@ -16,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 //import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import onc.backend.Board;
 import onc.backend.GameEngine;
 import onc.backend.GameInfo;
 import onc.backend.Piece;
@@ -30,6 +29,7 @@ public class GameFaceController implements Initializable {
     
     @FXML
     private Text gameName;
+    
     @FXML
     private Text player1Name;
     @FXML
@@ -117,7 +117,9 @@ public class GameFaceController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        
         updateImageOfDice(1); // setting dice to be 1 as default
+        
         // This is for a new game, not for loading game ATM
         // this ceating of players is a temperarly solution
 
@@ -136,11 +138,10 @@ public class GameFaceController implements Initializable {
         players.add(player3);
         players.add(player4);
         //
-        Board board = new Board(players);  // needed?
         Settings settings = new Settings();
         this.gameEngine = new GameEngine(settings, players);
 
-        Collection<Piece> pieces = gameEngine.getPices();
+        Collection<Piece> pieces = gameEngine.getPieces();
         
 
     }

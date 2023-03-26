@@ -11,7 +11,6 @@ public class GameEngine {
 
     private Player currentPlayer;
     private Player latestPlayer;
-    private Board board;
     private Settings settings;
     private ArrayList<Player> players;
     private int latestDice;
@@ -27,7 +26,6 @@ public class GameEngine {
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
         houseDistributionCheck(this.players);
         this.currentPlayer = players.get(0);
-        this.board = new Board(players);
         this.canMakeMove = false; // game starts to roll dice
         this.currentPlayer = players.get(0);
         players.forEach(player -> player.setGameEngine(this));
@@ -45,7 +43,7 @@ public class GameEngine {
             throw new IllegalStateException("Need one player for each house 1-4");
     }
 
-    public Collection<Piece> getPices(){
+    public Collection<Piece> getPieces(){
         Collection<Piece> allPieces = new ArrayList<>();
     
         for (Player player : players){
@@ -140,30 +138,4 @@ public class GameEngine {
     }
 }
 
-
-    //public boolean rollDice()
-
-
-
-
-
-
-
-/* 
-
-    public static void main(String[] args) {
-        Player player1 = new Player("kåre", 1);
-        Player player2 = new Player("kåre", 2);
-        Player player3 = new Player("kåre", 3);
-        Player player4 = new Player("kåre", 5);
-
-        ArrayList<Player> playersList = new ArrayList<>();
-        playersList.add(player1);
-        playersList.add(player2);
-        playersList.add(player3);
-        playersList.add(player4);
-
-        GameEngine gameEngine = new GameEngine(new Settings(), playersList);
-
-    } */
 

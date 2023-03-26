@@ -16,4 +16,16 @@ public class StartScreenController {
     private void loadGame() throws IOException {
         App.setRoot("gameFace");
     }
+
+    @FXML
+    private void pauseMusic() throws IOException {
+        App.pauseMusic();
+    }
+
+    @FXML
+    private void resumeMusic() throws IOException {
+        App.resumeMusic();
+    }
+
+
 }

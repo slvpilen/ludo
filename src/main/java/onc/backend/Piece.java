@@ -68,9 +68,11 @@ public class Piece {
 
     public boolean hasLegalMove(){
         //System.out.println("has lega move is made, but missing some importain things!!!");
+        
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice = owner.getGameEngine().getDice();
         boolean isInHomeSquare = homeSquares.contains(getPosition());
+        
         if (isInHomeSquare && latestDice!=6)
             return false;
         if (isInHomeSquare && latestDice==6)
@@ -106,6 +108,11 @@ public class Piece {
             return standardPath.get(0);
         }
         else if(isPieceBeyondField){
+
+            
+
+
+
             // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1);      
             int newIndex = 2*standardPath.size() - indexOfPath - latestDice;      
             return standardPath.get(newIndex); 

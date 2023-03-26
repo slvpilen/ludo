@@ -17,7 +17,6 @@ public class Player {
     private Collection<Piece> pieces;
     private int numberOfRollsThisTurn;
     private int houseNumber;
-    private Board board;
     private GameEngine gameEngine;
     // private GridPane gameGrid;
 
@@ -42,9 +41,6 @@ public class Player {
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn
     // picesLocation etc)
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
 
     public void setGameEngine(GameEngine gameEngine) {
         this.gameEngine = gameEngine;

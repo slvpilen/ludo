@@ -23,8 +23,8 @@ public class App extends Application {
     Image ludoIcon = new Image(getClass().getResourceAsStream("LudoIcon.jpg"));
 
     private static Scene scene;
-        private MediaPlayer mediaPlayer;
-        private Media media;
+        private static MediaPlayer mediaPlayer;
+        private static Media media;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -34,8 +34,8 @@ public class App extends Application {
         stage.getIcons().add(ludoIcon);
 
         stage.setScene(scene);
-        stage.setHeight(700);
-        stage.setWidth(950);
+        stage.setHeight(800);
+        stage.setWidth(1100);
         playMusic(); 
         stage.show();
     }
@@ -50,10 +50,9 @@ public class App extends Application {
     }
 
 
-    public void playMusic() throws FileNotFoundException {
+    public static void playMusic() throws FileNotFoundException {
         
-        String songName = "BackgroundSongSuperMarioBros.mp3";
-        URL songURL = getClass().getResource(songName);
+        URL songURL = App.class.getResource("BackgroundSongSuperMarioBros.mp3");
         
         if (songURL != null) {
             media = new Media(songURL.toString());
@@ -65,6 +64,20 @@ public class App extends Application {
         else {
             throw new FileNotFoundException("Sangen SUPERMARIOBROS ble ikke funnet!");
         }
+    } 
+
+    public static void pauseMusic() throws FileNotFoundException {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
+        
+    } 
+
+    public static void resumeMusic() throws FileNotFoundException {
+        if (mediaPlayer != null) {
+            mediaPlayer.play();
+        }
+        
     } 
 
     public static void main(String[] args) {
