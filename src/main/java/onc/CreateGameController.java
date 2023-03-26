@@ -43,7 +43,7 @@ public class CreateGameController {
             App.setRoot("gameFace");
         }
         catch (IllegalStateException e){
-            exceptionLabel.setText("Fill out every fields!");
+            exceptionLabel.setText("Fill out every field!");
         }
         catch (IllegalArgumentException e){
             exceptionLabel.setText("Cant have the same name!");

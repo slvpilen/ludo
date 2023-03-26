@@ -32,7 +32,7 @@ public class GameFaceController implements Initializable {
     private Text diceText;
 
 
-
+    
 
     @FXML
     public void rollDice(ActionEvent event) throws IOException {

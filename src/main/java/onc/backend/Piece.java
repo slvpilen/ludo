@@ -50,7 +50,7 @@ public class Piece {
     public void movePlaces(){ 
 
         //logick moved down to getLocationAfterPossibelMove(), because its neccesary to know the possible ending point, before moving
-        Pair<Integer,Integer> locationAfterMove = getLocationAfterPossibelMove();        
+        Pair<Integer,Integer> locationAfterMove = getLocationAfterPossibleMove();        
         
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
         boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(locationAfterMove);
@@ -78,7 +78,7 @@ public class Piece {
         if (isInFinishPaddock())
             return false;
 
-        Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibelMove();
+        Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove();
 
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
         boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2;
@@ -94,7 +94,7 @@ public class Piece {
         return true;
     }
 
-    private Pair<Integer, Integer> getLocationAfterPossibelMove(){
+    private Pair<Integer, Integer> getLocationAfterPossibleMove(){
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice= owner.getGameEngine().getDice();
         int indexOfPath = standardPath.indexOf(getPosition());
@@ -119,11 +119,11 @@ public class Piece {
     public void setToHouse(){
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         if (homeSquares.contains(getPosition()))
-            throw new IllegalStateException("setting a pice that already in homeSquares into homeSquares");
+            throw new IllegalStateException("setting a piece that already in homeSquares into homeSquares");
 
         List<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
         if (emptyHomeSquares.size() == 0)
-            throw new IllegalStateException("No empty spaces");
+            throw new IllegalStateException("No empty squares");
         
         System.out.println("kom hit!");
 

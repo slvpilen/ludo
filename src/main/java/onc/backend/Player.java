@@ -156,7 +156,7 @@ public class Player {
 
     // make this methode!!
     public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) {
-        throw new IllegalArgumentException("This methode needs to be made!!");
+        throw new IllegalArgumentException("This method needs to be made!!");
         // return 0;
     }
 
@@ -166,7 +166,7 @@ public class Player {
             return false;
         }
         if (isFinished()) {
-            System.out.println("This player has fineshed the game");
+            System.out.println("This player has finished the game");
             return false;
         }
         int latestDice = gameEngine.getDice();
