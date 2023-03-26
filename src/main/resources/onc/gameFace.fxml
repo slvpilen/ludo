@@ -272,27 +272,27 @@
          </opaqueInsets>
       </HBox>
       <Button layoutX="557.0" layoutY="548.0" lineSpacing="10.0" mnemonicParsing="false" text="menu" />
-      <Text fx:id="player2Name" layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p2">
+      <Text fx:id="player2Name" layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p2: ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player1Name" layoutX="25.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p1">
+      <Text fx:id="player1Name" layoutX="25.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p1: ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player3Name" layoutX="788.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p3">
+      <Text fx:id="player3Name" layoutX="788.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p3: ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player4Name" layoutX="788.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p4">
+      <Text fx:id="player4Name" layoutX="788.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p4: ">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="gameName" layoutX="277.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Name">
+      <Text fx:id="gameName" layoutX="277.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Name: ">
          <font>
             <Font size="37.0" />
          </font>
