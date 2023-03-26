@@ -26,13 +26,29 @@ public class GameFaceController implements Initializable {
 
     private GameEngine gameEngine;
     private GameInfo gameInfo;
+    
+    @FXML
+    private Text gameName;
+    @FXML
+    private Text player1Name;
+    @FXML
+    private Text player2Name;
+    @FXML
+    private Text player3Name;
+    @FXML
+    private Text player4Name;
+
+
+
     @FXML
     private GridPane gameGrid;
     @FXML
     private Text diceText;
 
 
-    
+    public void setGameInfo(GameInfo gameInfo) {
+        this.gameInfo = gameInfo;
+    }
 
     @FXML
     public void rollDice(ActionEvent event) throws IOException {
@@ -42,10 +58,36 @@ public class GameFaceController implements Initializable {
         this.diceText.setText(("dice: " + gameEngine.getDice()));
     }
 
+    public void setName(String name, int textBox) {
+        
+        if (textBox == 0) {
+            gameName.setText(gameName.getText() + name);
+        }
+
+        if (textBox == 1) {
+            player1Name.setText(player1Name.getText() + name);
+        }
+
+        if (textBox == 2) {
+            player2Name.setText(player2Name.getText() + name);
+        }
+        
+        if (textBox == 3) {
+            player3Name.setText(player3Name.getText() + name);
+        }
+        
+        if (textBox == 4) {
+            player4Name.setText(player4Name.getText() + name);
+        }
+
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // This is for a new game, not for loading game ATM
-        // this ceating of players is a temperarly solution
+
+
+
+
 
         ArrayList<Player> players = new ArrayList<>();
         Player player1 = new Player("Kåre", 1, gameGrid);
@@ -63,7 +105,6 @@ public class GameFaceController implements Initializable {
         this.gameEngine = new GameEngine(settings, players);
 
         Collection<Piece> pieces = gameEngine.getPices();
-        //pieces.forEach(piece -> addPieceToGrid(piece));
         
 
     }

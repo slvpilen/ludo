@@ -15,19 +15,18 @@ public class GameInfo {
     private String playerName4;
 
     public GameInfo(List<String> gameInfoAsList){
+        
         if (gameInfoAsList.size() != 5)
             throw new IllegalArgumentException("Missing info about game!");
 
         boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
         if (!allNonEmpty)
-            throw new IllegalStateException("Fill out every fields!");
+            throw new IllegalStateException("Fill out every field!");
 
-        // all names uniqe 
-        Set<String> set = new HashSet<>(gameInfoAsList);
-        if (set.size() != gameInfoAsList.size())
-            throw new IllegalArgumentException("cant have same names or name as gameName!");
-
-        
+        // all names unique 
+        if (gameInfoAsList.stream().anyMatch(name -> gameInfoAsList.indexOf(name) != gameInfoAsList.lastIndexOf(name))) {
+            throw new IllegalArgumentException("The players must have different names");
+        } 
             
         this.playerName1 = gameInfoAsList.get(1);
         this.playerName2 = gameInfoAsList.get(2);
@@ -37,6 +36,27 @@ public class GameInfo {
         this.gameName = gameInfoAsList.get(0);
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
+    public String getPlayerName1() {
+        return playerName1;
+    }
+
+    public String getPlayerName2() {
+        return playerName2;
+    }
+
+    public String getPlayerName3() {
+        return playerName3;
+    }
+
+    public String getPlayerName4() {
+        return playerName4;
+    }
+
+    
 
     
 }

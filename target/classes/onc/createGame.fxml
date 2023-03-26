@@ -21,24 +21,24 @@
             <TextField fx:id="gameName" onAction="#nullstillExceptionLabel" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
          </children>
       </VBox>
-      <VBox layoutX="165.0" layoutY="160.0" prefHeight="187.0" prefWidth="280.0">
+      <VBox layoutX="88.0" layoutY="160.0" prefHeight="290.0" prefWidth="357.0">
          <children>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player1 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player2 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player3 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter name" textFill="WHITE">
+            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player4 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
@@ -64,7 +64,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="exceptionLabel" layoutX="368.0" layoutY="86.0" textFill="RED">
+      <Label fx:id="exceptionLabel" layoutX="171.0" layoutY="60.0" prefHeight="72.0" prefWidth="716.0" textFill="RED">
          <font>
             <Font size="41.0" />
          </font>
