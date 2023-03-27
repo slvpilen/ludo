@@ -202,8 +202,8 @@ public class GameEngine {
         fireRobotRolledDice();
         
         while (robot.equals(currentPlayer)) {
-            fireRobotRolledDice();
             robot.makeRobotMove();
+            fireRobotRolledDice();
         }
     }
 
