@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import onc.backend.GameInfo;
 import onc.backend.GameInfo.GameNameLengthException;
+import onc.backend.GameInfo.MissingInfoException;
 
 public class CreateGameController {
 
@@ -171,6 +172,9 @@ public class CreateGameController {
 
         catch (GameNameLengthException e) {
             exceptionLabel.setText("Maximum game name length is 25");
+        }
+        catch (MissingInfoException e) {
+            exceptionLabel.setText("Missing info about game");
         }
         catch (IllegalStateException e){
             exceptionLabel.setText("Fill out every field!");

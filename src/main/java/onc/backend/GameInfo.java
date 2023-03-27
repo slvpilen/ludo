@@ -38,7 +38,7 @@ public class GameInfo {
             List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
 
             if (gameInfoAsList.size() != 5)
-                throw new IllegalArgumentException("Missing info about game!");
+                throw new MissingInfoException("Missing info about game!");
 
             boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
             if (!allNonEmpty)
@@ -71,7 +71,7 @@ public class GameInfo {
             List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
 
             if (gameInfoAsList.size() != 4)
-                throw new IllegalArgumentException("Missing info about game!");
+                throw new MissingInfoException("Missing info about game!");
 
             boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
             if (!allNonEmpty)
@@ -103,7 +103,7 @@ public class GameInfo {
             List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
 
             if (gameInfoAsList.size() != 3)
-                throw new IllegalArgumentException("Missing info about game!");
+                throw new MissingInfoException("Missing info about game!");
 
             boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
             if (!allNonEmpty)
@@ -134,7 +134,7 @@ public class GameInfo {
             List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
 
             if (gameInfoAsList.size() != 2)
-                throw new IllegalArgumentException("Missing info about game!");
+                throw new MissingInfoException("Missing info about game!");
 
             boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
             if (!allNonEmpty)
@@ -188,6 +188,12 @@ public class GameInfo {
 
     public class GameNameLengthException extends IllegalArgumentException {
         public GameNameLengthException(String message) {
+            super(message);
+        }
+    }
+
+    public class MissingInfoException extends IllegalArgumentException {
+        public MissingInfoException(String message) {
             super(message);
         }
     }
