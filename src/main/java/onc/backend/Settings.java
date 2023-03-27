@@ -1,6 +1,8 @@
 package onc.backend;
 
 public class Settings {
+    
+    
     // settings is default
     int numberPlayers = 4;
     boolean boardContainsFreespaces = false;
@@ -13,6 +15,13 @@ public class Settings {
         this.towersAllowed = false; 
         this.firstWinnerEndGame = true;
 
+    }
+
+    public Settings(int numPlayers) {
+        this.numberPlayers = numPlayers;
+        this.boardContainsFreespaces = false;
+        this.towersAllowed = false; 
+        this.firstWinnerEndGame = true;
     }
     
 }

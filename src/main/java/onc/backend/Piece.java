@@ -4,7 +4,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
-import onc.GameFaceController;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -13,6 +12,7 @@ public class Piece {
     
     private int xAxis;
     private int yAxis;
+    private int pathIndex = -1;
     private ArrayList<Pair<Integer, Integer>> standardPath;
     private Player owner;
     private int houseNumber; // this decide the color of the piece
@@ -51,7 +51,7 @@ public class Piece {
     // this will only be called if there is it hasLegalMove
     public void movePlaces(){ 
 
-        //logick moved down to getLocationAfterPossibelMove(), because its neccesary to know the possible ending point, before moving
+        //logic moved down to getLocationAfterPossibleMove(), because it's neccesary to know the possible ending point, before moving
         Pair<Integer,Integer> locationAfterMove = getLocationAfterPossibleMove();        
         
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
@@ -113,19 +113,19 @@ public class Piece {
         
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice= owner.getGameEngine().getDice();
-        int indexOfPath = standardPath.indexOf(getPosition());
 
         boolean isInHomeSquares = homeSquares.contains(getPosition());
-        boolean isPieceBeyondField = indexOfPath+latestDice > standardPath.size()-1;
+        boolean isPieceBeyondField = pathIndex + latestDice > standardPath.size()-1;
 
         if (isInHomeSquares){
-            return standardPath.get(0);
+            pathIndex = 0;
+            return standardPath.get(pathIndex);
         }
 
 
         else if(isPieceBeyondField){
             
-            // Oskar les dette:
+            
             // Du hadde glemt en parentes mot slutten av uttrykket, derfor ble kalkulert index gal.
             // Det korrekte uttrykket har blitt implementert.
             // Slik det var tildigere, tok brikken alltid to steg for lite dersom den var nærme målområdet.
@@ -138,39 +138,57 @@ public class Piece {
 
             // Lett feil å fikse da, nå er grunnspillet nesten ferdig!
 
-            int newIndex = 2 * (standardPath.size() - 1) - indexOfPath - latestDice;      
-            return standardPath.get(newIndex); 
+            pathIndex = 2 * (standardPath.size() - 1) - pathIndex - latestDice;
+            return standardPath.get(pathIndex); 
         }
 
         else {
-            int newIndex = indexOfPath + latestDice;
-            return standardPath.get(newIndex); 
+            pathIndex += latestDice;
+            return standardPath.get(pathIndex); 
         }
     }
+
+
+    // must probably copy code over to this one
 
     private Pair<Integer, Integer> getLocationAfterPossibleMove(int numSpaces){
         
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
-        int latestDice= numSpaces;
-        int indexOfPath = standardPath.indexOf(getPosition());
+        int latestDice = numSpaces;
+
+        int copyPathIndex = pathIndex;
 
         boolean isInHomeSquares = homeSquares.contains(getPosition());
-        boolean isPieceBeyondField = indexOfPath + latestDice > standardPath.size()-1;
+        boolean isPieceBeyondField = pathIndex + latestDice > standardPath.size()-1;
 
         if (isInHomeSquares){
-            return standardPath.get(0);
+            copyPathIndex = 0;
+            return standardPath.get(copyPathIndex);
         }
+
+
         else if(isPieceBeyondField){
-
             
+            
+            // Du hadde glemt en parentes mot slutten av uttrykket, derfor ble kalkulert index gal.
+            // Det korrekte uttrykket har blitt implementert.
+            // Slik det var tildigere, tok brikken alltid to steg for lite dersom den var nærme målområdet.
 
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1);      
-            int newIndex = 2*standardPath.size() - indexOfPath - latestDice;      
-            return standardPath.get(newIndex); 
+            // Galt uttrykk:
+            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1 );      
+            
+            // Riktig uttrykk:
+            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - (standardPath.size()-1) );      
+
+            // Lett feil å fikse da, nå er grunnspillet nesten ferdig!
+
+            copyPathIndex = 2 * (standardPath.size() - 1) - pathIndex - latestDice;
+            return standardPath.get(copyPathIndex); 
         }
+
         else {
-            int newIndex = indexOfPath + latestDice;
-            return standardPath.get(newIndex); 
+            copyPathIndex += latestDice;
+            return standardPath.get(copyPathIndex); 
         }
     }
 
@@ -188,6 +206,7 @@ public class Piece {
 
         this.xAxis = emptyHomeSquares.get(0).getKey();
         this.yAxis = emptyHomeSquares.get(0).getValue(); 
+        pathIndex = -1;
 
         movePieceInGrid(this);
     }

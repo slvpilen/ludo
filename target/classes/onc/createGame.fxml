@@ -23,22 +23,22 @@
       </VBox>
       <VBox layoutX="88.0" layoutY="160.0" prefHeight="290.0" prefWidth="357.0">
          <children>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player1 name" textFill="WHITE">
+            <Label fx:id="player1Name" prefHeight="66.0" prefWidth="490.0" text="Enter player1 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player2 name" textFill="WHITE">
+            <Label fx:id="player2Name" prefHeight="66.0" prefWidth="490.0" text="Enter player2 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player3 name" textFill="WHITE">
+            <Label fx:id="player3Name" prefHeight="66.0" prefWidth="490.0" text="Enter player3 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Enter player4 name" textFill="WHITE">
+            <Label fx:id="player4Name" prefHeight="66.0" prefWidth="490.0" text="Enter player4 name" textFill="WHITE">
                <font>
                   <Font size="40.0" />
                </font>
@@ -51,14 +51,14 @@
          </children>
       </VBox>
       <Button layoutX="361.0" layoutY="586.0" mnemonicParsing="false" onAction="#submit" prefHeight="55.0" prefWidth="168.0" text="SUBMIT" />
-      <RadioButton layoutX="122.0" layoutY="519.0" mnemonicParsing="false" text="1 " textFill="WHITE">
+      <RadioButton fx:id="num1" layoutX="122.0" layoutY="519.0" mnemonicParsing="false" onAction="#radioButton1" text="1 " textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="numbersOfPlayers" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="122.0" layoutY="547.0" mnemonicParsing="false" text="2" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
-      <RadioButton layoutX="122.0" layoutY="573.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
-      <RadioButton layoutX="122.0" layoutY="597.0" mnemonicParsing="false" selected="true" text="4" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
+      <RadioButton fx:id="num2" layoutX="122.0" layoutY="547.0" mnemonicParsing="false" onAction="#radioButton2" text="2" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
+      <RadioButton fx:id="num3" layoutX="122.0" layoutY="573.0" mnemonicParsing="false" onAction="#radioButton3" text="3" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
+      <RadioButton fx:id="num4" layoutX="122.0" layoutY="597.0" mnemonicParsing="false" onAction="#radioButton4" selected="true" text="4" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
       <Label layoutX="110.0" layoutY="488.0" text="Number of players" textFill="WHITE">
          <font>
             <Font size="21.0" />

@@ -89,7 +89,7 @@ public class Player {
             newPieces.add(new Piece(this, location, gameGrid));
 
         if (newPieces.size() != 4)
-            throw new IllegalStateException("Need to be 4 startpieces");
+            throw new IllegalStateException("The player must have 4 pieces!");
 
         return newPieces;
     }

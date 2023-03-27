@@ -231,7 +231,12 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
 
     // This method is used by CreateGameController to initialize the GameFace after clicking submit (creating new game).
-    public void gameSetup() throws IOException {
+    public void gameSetup(int numPlayers) throws IOException {
+
+
+        if (numPlayers < 1 || numPlayers > 4) {
+            throw new IllegalArgumentException("Number of players is incorrect!");
+        }
 
         Settings settings = new Settings();
         
@@ -242,23 +247,88 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         Player player3;
         Player player4;
 
-        if (!player1Name.getText().equals("")) {
-            player1 = new Player(player1Name.getText(), 1, gameGrid);   
-            players.add(player1);
+        if (numPlayers == 4) {
+            if (!player1Name.getText().equals("")) {
+                player1 = new Player(player1Name.getText(), 1, gameGrid);   
+                players.add(player1);
+            }
+            if (!player2Name.getText().equals("")) {
+                player2 = new Player(player2Name.getText(), 2, gameGrid);
+                players.add(player2);
+    
+            }
+            if (!player3Name.getText().equals("")) {
+                player3 = new Player(player3Name.getText(), 3, gameGrid);
+                players.add(player3);
+    
+            }
+            if (!player4Name.getText().equals("")) {
+                player4 = new Player(player4Name.getText(), 4, gameGrid);
+                players.add(player4);
+            }
         }
-        if (!player2Name.getText().equals("")) {
-            player2 = new Player(player2Name.getText(), 2, gameGrid);
-            players.add(player2);
 
+        if (numPlayers == 3) {
+            if (!player1Name.getText().equals("")) {
+                player1 = new Player(player1Name.getText(), 1, gameGrid);   
+                players.add(player1);
+            }
+            if (!player2Name.getText().equals("")) {
+                player2 = new Player(player2Name.getText(), 2, gameGrid);
+                players.add(player2);
+    
+            }
+            if (!player3Name.getText().equals("")) {
+                player3 = new Player(player3Name.getText(), 3, gameGrid);
+                players.add(player3);
+    
+            }
+            if (!player4Name.getText().equals("")) {
+                player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
+                players.add(player4);
+            }
         }
-        if (!player3Name.getText().equals("")) {
-            player3 = new Player(player3Name.getText(), 3, gameGrid);
-            players.add(player3);
 
+        else if (numPlayers == 2) {
+            if (!player1Name.getText().equals("")) {
+                player1 = new Player(player1Name.getText(), 1, gameGrid);   
+                players.add(player1);
+            }
+            if (!player2Name.getText().equals("")) {
+                player2 = new RobotPlayer(player2Name.getText(), 2, gameGrid);
+                players.add(player2);
+    
+            }
+            if (!player3Name.getText().equals("")) {
+                player3 = new Player(player3Name.getText(), 3, gameGrid);
+                players.add(player3);
+    
+            }
+            if (!player4Name.getText().equals("")) {
+                player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
+                players.add(player4);
+            }
         }
-        if (!player4Name.getText().equals("")) {
-            player4 = new Player(player4Name.getText(), 4, gameGrid);
-            players.add(player4);
+
+        else {
+            if (!player1Name.getText().equals("")) {
+                player1 = new Player(player1Name.getText(), 1, gameGrid);   
+                players.add(player1);
+            }
+            if (!player2Name.getText().equals("")) {
+                player2 = new RobotPlayer(player2Name.getText(), 2, gameGrid);
+                players.add(player2);
+    
+            }
+            if (!player3Name.getText().equals("")) {
+                player3 = new RobotPlayer(player3Name.getText(), 3, gameGrid);
+                players.add(player3);
+    
+            }
+            if (!player4Name.getText().equals("")) {
+                player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
+                players.add(player4);
+            }
         }
 
         this.gameEngine = new GameEngine(settings, players);
@@ -269,7 +339,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // This setting is also crucial
+        // This setting is crucial
         updateImageOfDice(1); // setting dice to be 1 as default
 
         
@@ -279,42 +349,36 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         
         
         // This is made to test the robotplayers.
-        Settings settings = new Settings();
         
-        ArrayList<Player> players = new ArrayList<>();
+        // Settings settings = new Settings();
         
-        Player player1;
-        Player player2;
-        Player player3;
-        Player player4;
+        // ArrayList<Player> players = new ArrayList<>();
+        
+        // Player player1;
+        // Player player2;
+        // Player player3;
+        // Player player4;
   
-        player1 = new Player("Christian", 1, gameGrid);   
-        player2 = new RobotPlayer("Roberto", 2, gameGrid);
-        player3 = new RobotPlayer("Rotobert", 3, gameGrid);
-        player4 = new RobotPlayer("Robby", 4, gameGrid);
+        // player1 = new Player("Christian", 1, gameGrid);   
+        // player2 = new RobotPlayer("Roberto", 2, gameGrid);
+        // player3 = new RobotPlayer("Rotobert", 3, gameGrid);
+        // player4 = new RobotPlayer("Robby", 4, gameGrid);
            
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
+        // players.add(player1);
+        // players.add(player2);
+        // players.add(player3);
+        // players.add(player4);
 
-        setName("Robo rampage", 0);
-        setName("Christian", 1);
-        setName("Roberto", 2);
-        setName("Rotobert", 3);
-        setName("Robby", 4);
+        // setName("Robo rampage", 0);
+        // setName("Christian", 1);
+        // setName("Roberto", 2);
+        // setName("Rotobert", 3);
+        // setName("Robby", 4);
+        
+        // this.gameEngine = new GameEngine(settings, players);
+        // gameEngine.addListener(this);
+        
         //End of robotplayer-setup.
-        
-
-
-
-        
-        
-        
-        // This setting must be kept
-        this.gameEngine = new GameEngine(settings, players);
-        gameEngine.addListener(this);
-
         
     }
 
@@ -328,6 +392,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     }
 
 
+    // This is more of a temporary solution, didn't think it would work at first, but it did.
     private void showWinPopup(String playerName) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
