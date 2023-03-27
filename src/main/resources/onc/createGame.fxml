@@ -18,7 +18,7 @@
             <TextField fx:id="player2NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Truls" />
             <TextField fx:id="player3NameField" onAction="#nullstillExceptionLabel" prefHeight="55.0" prefWidth="280.0" promptText="ex Josh" />
             <TextField fx:id="player4NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Kari" />
-            <TextField fx:id="gameName" onAction="#nullstillExceptionLabel" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
+            <TextField fx:id="gameName" onAction="#submit" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
          </children>
       </VBox>
       <VBox layoutX="88.0" layoutY="160.0" prefHeight="290.0" prefWidth="357.0">

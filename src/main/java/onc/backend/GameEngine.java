@@ -2,10 +2,12 @@ package onc.backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.Random;
 import javafx.util.Pair;
+
 
 public class GameEngine {
 
@@ -16,7 +18,7 @@ public class GameEngine {
     private int latestDice;
     private int turnRollCount; // counting how many dice roll on a roll
     private boolean canMakeMove; // possible for a player to make a move this will be true, else if its time to roll dice this will be false.
-
+    private List<InterfaceGameEngineListener> listeners = new ArrayList<>();
 
 
 
@@ -67,6 +69,12 @@ public class GameEngine {
             return;
         
         piece.movePlaces();
+
+        // Sjekker om en spiller har vunnet:
+        if (piece.getOwner().isFinished()) {
+            firePlayerWon(currentPlayer.getUsername());
+        }
+
         this.canMakeMove = false;
         updateCurrentPlayer(piece);
     }
@@ -76,11 +84,14 @@ public class GameEngine {
         this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
 
-        if (latestDice == 6 && turnRollCount<3)
+        if (latestDice == 6 && turnRollCount<3) {
             this.currentPlayer = piece.getOwner();
-
+            fireCurrentPlayerChanged(); 
+        }
+        
         else{
             this.currentPlayer = getNextPlayer();
+            fireCurrentPlayerChanged(); 
             turnRollCount = 0;  // nullstiller tellern
         }    
     }
@@ -111,7 +122,8 @@ public class GameEngine {
         else{
             this.canMakeMove = false;
             latestPlayer = currentPlayer;
-            currentPlayer = getNextPlayer(); 
+            currentPlayer = getNextPlayer();
+            fireCurrentPlayerChanged(); 
             this.turnRollCount = 0;
         }
 
@@ -141,6 +153,32 @@ public class GameEngine {
         players.forEach(player -> player.getPieces().stream().
         filter(piece -> piece.getPosition().equals(endLocation)).collect(Collectors.toList()).
         forEach(piece -> piece.setToHouse()));
+    }
+
+
+    public void addListener(InterfaceGameEngineListener listener) {
+        if (listeners.contains(listener)) {
+            throw new IllegalArgumentException("This object already listens to GameEngine!");
+        }
+
+        listeners.add(listener);
+        
+    }
+
+    public void removeListener(InterfaceGameEngineListener listener) {
+        if (!listeners.contains(listener)) {
+            throw new IllegalArgumentException("This object isn't listening to GameEngine, so it does not make sense to remove it from the list of listeners.");
+        }
+
+        listeners.remove(listener);
+    }
+
+    public void fireCurrentPlayerChanged() {
+        listeners.stream().forEach(InterfaceGameEngineListener::currentPlayerChanged);
+    }
+
+    public void firePlayerWon(String winnerName) {
+        listeners.stream().forEach(listener -> listener.playerWon(winnerName));
     }
 }
 

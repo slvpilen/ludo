@@ -4,6 +4,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
+import onc.GameFaceController;
+
 import java.util.ArrayList;
 import java.util.*;
 

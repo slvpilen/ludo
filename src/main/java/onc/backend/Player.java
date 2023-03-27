@@ -191,7 +191,7 @@ public class Player {
         return false;
     }
 
-    private boolean isFinished() {
+    public boolean isFinished() {
         return pieces.stream().allMatch(Piece::isInFinishPaddock);
     }
 

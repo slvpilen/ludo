@@ -23,8 +23,8 @@ public class App extends Application {
     Image ludoIcon = new Image(getClass().getResourceAsStream("LudoIcon.jpg"));
 
     private static Scene scene;
-        private static MediaPlayer mediaPlayer;
-        private static Media media;
+    private static MediaPlayer mediaPlayer;
+    private static Media media;
 
     @Override
     public void start(Stage stage) throws IOException {

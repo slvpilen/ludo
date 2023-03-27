@@ -4,12 +4,19 @@ package onc;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.channels.NotYetBoundException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -18,19 +25,23 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 //import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import onc.backend.GameEngine;
 import onc.backend.GameInfo;
-import onc.backend.Piece;
+import onc.backend.InterfaceGameEngineListener;
 import onc.backend.Player;
 import onc.backend.Settings;
 
-public class GameFaceController implements Initializable {
+public class GameFaceController implements Initializable, InterfaceGameEngineListener {
 
+    private Scene scene;
     private GameEngine gameEngine;
     private GameInfo gameInfo;
     
     @FXML
     private Text gameName;
+    
+
     
     @FXML
     private Text player1Name;
@@ -59,7 +70,7 @@ public class GameFaceController implements Initializable {
     }
 
     @FXML
-    public void rollDice(MouseEvent event) throws IOException {
+    public void rollDice() throws IOException {
 
         if (!startMessageHidden) {
             startMessage.setVisible(false);
@@ -69,8 +80,22 @@ public class GameFaceController implements Initializable {
         updatePlayerTurn();
         gameEngine.rollDice();
         updateImageOfDice(gameEngine.getDice());
+        
     }
 
+
+    @FXML
+    private void goToStartScreen() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/startScreen.fxml"));
+        scene = new Scene(loader.load());
+        Stage stage = (Stage) gameGrid.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+    
+    
+    
+    
     private void updateImageOfDice(int latestDice) {
         if (latestDice == 1){
             Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice1.png");
@@ -100,7 +125,37 @@ public class GameFaceController implements Initializable {
         }
     }
 
-    private void updatePlayerTurn() {
+    public void updatePlayerTurn() {
+        
+        String p1Name = player1Name.getText();
+        String p2Name = player2Name.getText();
+        String p3Name = player3Name.getText();
+        String p4Name = player4Name.getText();
+        
+        if (gameEngine.getCurrentPlayer().getHouseNumber() == 1) {
+            playerTurn.setText(p1Name + " must move!");
+            playerTurn.setFill(Color.valueOf("#00ff00"));
+        }
+
+        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 2) {
+            playerTurn.setText(p2Name + " must move!");
+            playerTurn.setFill(Color.valueOf("#ffd700"));
+        }
+
+        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 3) {
+            playerTurn.setText(p3Name + " must move!");
+            playerTurn.setFill(Color.valueOf("#4968bc"));
+        }
+
+        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 4) {
+            playerTurn.setText(p4Name + " must move!");
+            playerTurn.setFill(Color.valueOf("#EE4B2B"));
+        }
+
+    }
+
+
+    public void updatePlayerThrow() {
         
         String p1Name = player1Name.getText();
         String p2Name = player2Name.getText();
@@ -109,44 +164,44 @@ public class GameFaceController implements Initializable {
         
         if (gameEngine.getCurrentPlayer().getHouseNumber() == 1) {
             if (p1Name.charAt(p1Name.length()-1) == 's' || p1Name.charAt(p1Name.length()-1) == 'x' || p1Name.charAt(p1Name.length()-1) == 'z' ) {
-                playerTurn.setText(p1Name + "' turn");
+                playerTurn.setText(p1Name + "' throw");
                 playerTurn.setFill(Color.valueOf("#00FF00"));
             }
             else {
-                playerTurn.setText(p1Name + "s turn");
+                playerTurn.setText(p1Name + "s throw");
                 playerTurn.setFill(Color.valueOf("#00FF00"));
             }
         }
 
         else if (gameEngine.getCurrentPlayer().getHouseNumber() == 2) {
             if (p2Name.charAt(p2Name.length()-1) == 's' || p2Name.charAt(p2Name.length()-1) == 'x' || p2Name.charAt(p2Name.length()-1) == 'z' ) {
-                playerTurn.setText(p2Name + "' turn");
+                playerTurn.setText(p2Name + "' throw");
                 playerTurn.setFill(Color.valueOf("#FFD700"));
             }
             else {
-                playerTurn.setText(p2Name + "s turn");
+                playerTurn.setText(p2Name + "s throw");
                 playerTurn.setFill(Color.valueOf("#FFD700"));
             }
         }
 
         else if (gameEngine.getCurrentPlayer().getHouseNumber() == 3) {
             if (p3Name.charAt(p3Name.length()-1) == 's' || p3Name.charAt(p3Name.length()-1) == 'x' || p3Name.charAt(p3Name.length()-1) == 'z' ) {
-                playerTurn.setText(p3Name + "' turn");
+                playerTurn.setText(p3Name + "' throw");
                 playerTurn.setFill(Color.valueOf("#4968bc"));
             }
             else {
-                playerTurn.setText(p3Name + "s turn");
+                playerTurn.setText(p3Name + "s throw");
                 playerTurn.setFill(Color.valueOf("#4968bc"));
             }
         }
 
         else if (gameEngine.getCurrentPlayer().getHouseNumber() == 4) {
             if (p4Name.charAt(p4Name.length()-1) == 's' || p4Name.charAt(p4Name.length()-1) == 'x' || p4Name.charAt(p4Name.length()-1) == 'z' ) {
-                playerTurn.setText(p4Name + "' turn");
+                playerTurn.setText(p4Name + "' throw");
                 playerTurn.setFill(Color.valueOf("#EE4B2B"));
             }
             else {
-                playerTurn.setText(p4Name + "s turn");
+                playerTurn.setText(p4Name + "s throw");
                 playerTurn.setFill(Color.valueOf("#EE4B2B"));
             }
         }
@@ -180,7 +235,7 @@ public class GameFaceController implements Initializable {
 
 
     // This method is used by CreateGameController to initialize the GameFace after clicking submit (creating new game).
-    public void gameSetup() {
+    public void gameSetup() throws IOException {
 
         Settings settings = new Settings();
         
@@ -211,11 +266,45 @@ public class GameFaceController implements Initializable {
         }
 
         this.gameEngine = new GameEngine(settings, players);
+        gameEngine.addListener(this);
+
+        
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
         updateImageOfDice(1); // setting dice to be 1 as default
+
+        
     }
+
+    @Override
+    public void currentPlayerChanged() {
+        updatePlayerThrow();
+    }
+
+    @Override public void playerWon(String winnerName) {
+        showWinPopup(winnerName);
+    }
+
+
+
+
+    private void showWinPopup(String playerName) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText(playerName + " has won the game!");
+        alert.setContentText("Click OK to return to the home screen.");
+    
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                goToStartScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+
 }

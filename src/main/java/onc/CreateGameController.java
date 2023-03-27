@@ -15,11 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import onc.backend.GameInfo;
 import onc.backend.GameInfo.GameNameLengthException;
+
 public class CreateGameController {
 
     private Parent root;
     private Stage stage;
     private Scene scene;
+
 
     @FXML 
     private TextField player1NameField;
@@ -41,9 +43,14 @@ public class CreateGameController {
 
 
     @FXML
-    private void goToStartScreen() throws IOException {
+    private void goToStartScreen(ActionEvent event) throws IOException {
         //nullstillExceptionLabel();
-        App.setRoot("startScreen");
+        // App.setRoot("startScreen");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/startScreen.fxml"));
+        scene = new Scene(loader.load());
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
     }
 
     @FXML
@@ -61,7 +68,9 @@ public class CreateGameController {
             GameFaceController gameFaceController = loader.getController();
 
             gameFaceController.setGameInfo(gameInfo);
-            IntStream.range(0, gameInfoAsList.size()).filter(c -> !gameInfoAsList.get(c).equals("")).forEach(index -> gameFaceController.setName(gameInfoAsList.get(index), index));
+            IntStream.range(0, gameInfoAsList.size()).filter(c -> !gameInfoAsList.get(c).equals(""))
+                                                                    .forEach(index -> gameFaceController
+                                                                    .setName(gameInfoAsList.get(index), index));
             
             gameFaceController.gameSetup();
 

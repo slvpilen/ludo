@@ -4,12 +4,24 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 public class StartScreenController {
 
+    private Scene scene;
+
     @FXML
-    private void createGame() throws IOException {
-        App.setRoot("createGame");
+    private void createGame(ActionEvent event) throws IOException {
+        // App.setRoot("createGame");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/createGame.fxml"));
+        scene = new Scene(loader.load());
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+
     }
 
     @FXML
