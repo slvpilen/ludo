@@ -80,15 +80,20 @@ public class Piece {
 
         if (isInFinishPaddock())
             return false;
-
+        
+        // This section checks if a piece is blocked by a tower from another house:
         Pair<Integer, Integer> currentLocation = new Pair<>(xAxis, yAxis);
         ArrayList<Pair<Integer, Integer>> currentPath = this.getPath();
         
+        // There are som squares near the finish line where an enemy can't have any pieces.
+        // Therefore, we only check for towers if the piece is in the standardRoute.
+
         if (currentPath.indexOf(currentLocation) < 52) {
             
+            // The game checks for each of the squares the piece is going to cross, if there are any enemy towers.
             for (int i = 1; i < latestDice + 1; i++) {
                 
-                // Checking if piece is blocked by tower from another house.
+                // If there is an enemy tower on any of the squares which the piece must cross, the hasLegalMove-method returns false.
                 Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove(i);
                 int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
                 if (numberOfPiecesOnEndLocation >= 2 && !owner.hasPieceOnLocation(endLocationAfterMove)) {
@@ -97,21 +102,7 @@ public class Piece {
             }
         }
 
-
-        // Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove();
-
-        // int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
-
-        // boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2 && !owner.hasPieceOnLocation(endLocationAfterMove);
-
-        // if (stoppedByATowerFromAnotherHouse)
-        //     return false;
-
-        // kunna droppa denne ettersom blir sann uansett?
-        // boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(endLocationAfterMove);
-        // if (onePieceFromAnotherHouseOnEndLocation){
-        //     return true;
-        // }
+        // End of tower section.
 
         return true;
     }
