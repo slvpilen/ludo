@@ -86,12 +86,14 @@ public class GameEngine {
 
         if (latestDice == 6 && turnRollCount<3) {
             this.currentPlayer = piece.getOwner();
-            fireCurrentPlayerChanged(); 
+            fireCurrentPlayerChanged();
+            fireRobotCheck(); 
         }
         
         else{
             this.currentPlayer = getNextPlayer();
-            fireCurrentPlayerChanged(); 
+            fireCurrentPlayerChanged();
+            fireRobotCheck(); 
             turnRollCount = 0;  // nullstiller tellern
         }    
     }
@@ -124,6 +126,7 @@ public class GameEngine {
             latestPlayer = currentPlayer;
             currentPlayer = getNextPlayer();
             fireCurrentPlayerChanged(); 
+            fireRobotCheck();
             this.turnRollCount = 0;
         }
 
@@ -180,6 +183,30 @@ public class GameEngine {
     public void firePlayerWon(String winnerName) {
         listeners.stream().forEach(listener -> listener.playerWon(winnerName));
     }
+
+    public void fireRobotRolledDice() {
+        listeners.stream().forEach(InterfaceGameEngineListener::robotRolledDice);
+    }
+
+
+    public void fireRobotCheck() {
+        if (currentPlayer instanceof RobotPlayer) {
+            robotProcedure();
+        }
+    }
+
+    public void robotProcedure() {
+        
+        RobotPlayer robot = (RobotPlayer) currentPlayer;
+        
+        fireRobotRolledDice();
+        
+        while (robot.equals(currentPlayer)) {
+            fireRobotRolledDice();
+            robot.makeRobotMove();
+        }
+    }
+
 }
 
 

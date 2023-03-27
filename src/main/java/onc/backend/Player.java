@@ -13,12 +13,12 @@ import javafx.util.Pair;
 
 public class Player {
 
-    private String username;
-    private Collection<Piece> pieces;
-    private int numberOfRollsThisTurn;
-    private int houseNumber;
-    private GameEngine gameEngine;
-    // private GridPane gameGrid;
+    protected String username;
+    protected Collection<Piece> pieces;
+    protected int numberOfRollsThisTurn;
+    protected int houseNumber;
+    protected GameEngine gameEngine;
+    // protected GridPane gameGrid;
 
     // Startplass avhenger av farge
 
@@ -46,7 +46,7 @@ public class Player {
         this.gameEngine = gameEngine;
     }
 
-    private void addMouseFunctionToPieces() {
+    protected void addMouseFunctionToPieces() {
         pieces.forEach(piece -> piece.getCircle().setOnMouseClicked(event -> {
             gameEngine.movePiece(piece);
         }));
@@ -82,7 +82,7 @@ public class Player {
         return pieces;
     }
 
-    private Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
+    protected Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
         ArrayList<Piece> newPieces = new ArrayList<>();
 
         for (Pair<Integer, Integer> location : piecesLocation)
@@ -181,7 +181,7 @@ public class Player {
         return false;
     }
 
-    private boolean hasPieceOnHomeSquare() {
+    protected boolean hasPieceOnHomeSquare() {
         Collection<Pair<Integer, Integer>> piecesLocations = getPiecesPositions();
         ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
         for (Pair<Integer, Integer> location : piecesLocations) {

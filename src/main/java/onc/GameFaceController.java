@@ -30,6 +30,7 @@ import onc.backend.GameEngine;
 import onc.backend.GameInfo;
 import onc.backend.InterfaceGameEngineListener;
 import onc.backend.Player;
+import onc.backend.RobotPlayer;
 import onc.backend.Settings;
 
 public class GameFaceController implements Initializable, InterfaceGameEngineListener {
@@ -92,10 +93,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         stage.setScene(scene);
     }
 
-    
-    
-    
-    
     private void updateImageOfDice(int latestDice) {
         if (latestDice == 1){
             Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice1.png");
@@ -153,7 +150,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         }
 
     }
-
 
     public void updatePlayerThrow() {
         
@@ -273,7 +269,51 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        // This setting is also crucial
         updateImageOfDice(1); // setting dice to be 1 as default
+
+        
+        
+        
+        
+        
+        
+        // This is made to test the robotplayers.
+        Settings settings = new Settings();
+        
+        ArrayList<Player> players = new ArrayList<>();
+        
+        Player player1;
+        Player player2;
+        Player player3;
+        Player player4;
+  
+        player1 = new Player("Christian", 1, gameGrid);   
+        player2 = new RobotPlayer("Roberto", 2, gameGrid);
+        player3 = new RobotPlayer("Rotobert", 3, gameGrid);
+        player4 = new RobotPlayer("Robby", 4, gameGrid);
+           
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+
+        setName("Robo rampage", 0);
+        setName("Christian", 1);
+        setName("Roberto", 2);
+        setName("Rotobert", 3);
+        setName("Robby", 4);
+        //End of robotplayer-setup.
+        
+
+
+
+        
+        
+        
+        // This setting must be kept
+        this.gameEngine = new GameEngine(settings, players);
+        gameEngine.addListener(this);
 
         
     }
@@ -286,8 +326,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     @Override public void playerWon(String winnerName) {
         showWinPopup(winnerName);
     }
-
-
 
 
     private void showWinPopup(String playerName) {
@@ -303,6 +341,18 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    public void robotRolledDice() {
+        
+        try {
+            rollDice();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
