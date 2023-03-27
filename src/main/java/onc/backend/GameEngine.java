@@ -15,7 +15,7 @@ public class GameEngine {
     private ArrayList<Player> players;
     private int latestDice;
     private int turnRollCount; // counting how many dice roll on a roll
-    private boolean canMakeMove; // possible for a player to make a move this will be true, else if its time to roll dice this will be false
+    private boolean canMakeMove; // possible for a player to make a move this will be true, else if its time to roll dice this will be false.
 
 
 
@@ -107,14 +107,6 @@ public class GameEngine {
         if(currentPlayer.hasAnyValidMoves()) { // add this method
             this.canMakeMove = true;
         }
-        
-
-        // Will never be used:
-        // else if (latestDice==6 && turnRollCount < 3 ){
-        //     this.canMakeMove = false;
-        //     latestPlayer = currentPlayer;
-        //     this.turnRollCount++;
-        // }
         
         else{
             this.canMakeMove = false;

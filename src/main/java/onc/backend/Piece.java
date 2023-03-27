@@ -69,7 +69,7 @@ public class Piece {
     }
 
     public boolean hasLegalMove(){
-        //System.out.println("has lega move is made, but missing some importain things!!!");
+        //System.out.println("has legal move is made, but missing some important things!!!");
         
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice = owner.getGameEngine().getDice();
@@ -78,31 +78,46 @@ public class Piece {
         if (isInHomeSquare && latestDice!=6)
             return false;
 
-        if (isInHomeSquare && latestDice==6)
-            return true;
-
         if (isInFinishPaddock())
             return false;
 
-        Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove();
+        Pair<Integer, Integer> currentLocation = new Pair<>(xAxis, yAxis);
+        ArrayList<Pair<Integer, Integer>> currentPath = this.getPath();
+        
+        if (currentPath.indexOf(currentLocation) < 52) {
+            
+            for (int i = 1; i < latestDice + 1; i++) {
+                
+                // Checking if piece is blocked by tower from another house.
+                Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove(i);
+                int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
+                if (numberOfPiecesOnEndLocation >= 2 && !owner.hasPieceOnLocation(endLocationAfterMove)) {
+                    return false;
+                }
+            }
+        }
 
-        int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
 
-        boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2 && !owner.hasPieceOnLocation(endLocationAfterMove);
+        // Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove();
 
-        if (stoppedByATowerFromAnotherHouse)
-            return false;
+        // int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
+
+        // boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2 && !owner.hasPieceOnLocation(endLocationAfterMove);
+
+        // if (stoppedByATowerFromAnotherHouse)
+        //     return false;
 
         // kunna droppa denne ettersom blir sann uansett?
-        boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(endLocationAfterMove);
-        if (onePieceFromAnotherHouseOnEndLocation){
-            return true;
-        }
-        
+        // boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(endLocationAfterMove);
+        // if (onePieceFromAnotherHouseOnEndLocation){
+        //     return true;
+        // }
+
         return true;
     }
 
     private Pair<Integer, Integer> getLocationAfterPossibleMove(){
+        
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice= owner.getGameEngine().getDice();
         int indexOfPath = standardPath.indexOf(getPosition());
@@ -117,7 +132,31 @@ public class Piece {
 
             
 
+            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1);      
+            int newIndex = 2*standardPath.size() - indexOfPath - latestDice;      
+            return standardPath.get(newIndex); 
+        }
+        else {
+            int newIndex = indexOfPath + latestDice;
+            return standardPath.get(newIndex); 
+        }
+    }
 
+    private Pair<Integer, Integer> getLocationAfterPossibleMove(int numSpaces){
+        
+        ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
+        int latestDice= numSpaces;
+        int indexOfPath = standardPath.indexOf(getPosition());
+
+        boolean isInHomeSquares = homeSquares.contains(getPosition());
+        boolean isPieceBeyondField = indexOfPath+latestDice > standardPath.size()-1;
+
+        if (isInHomeSquares){
+            return standardPath.get(0);
+        }
+        else if(isPieceBeyondField){
+
+            
 
             // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1);      
             int newIndex = 2*standardPath.size() - indexOfPath - latestDice;      
@@ -128,6 +167,8 @@ public class Piece {
             return standardPath.get(newIndex); 
         }
     }
+
+
 
     public void setToHouse(){
         
