@@ -54,11 +54,13 @@ public class Piece {
         
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
         boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(locationAfterMove);
+        
         if (onePieceFromAnotherHouseOnEndLocation)
             owner.getGameEngine().setPieceOnLocationToHouse(locationAfterMove);
         
         this.xAxis = locationAfterMove.getKey();
         this.yAxis = locationAfterMove.getValue(); 
+        
         movePieceInGrid(this);
     }
 
@@ -75,16 +77,19 @@ public class Piece {
         
         if (isInHomeSquare && latestDice!=6)
             return false;
+
         if (isInHomeSquare && latestDice==6)
             return true;
+
         if (isInFinishPaddock())
             return false;
 
         Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove();
 
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(endLocationAfterMove);
-        boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2;
-        stoppedByATowerFromAnotherHouse = stoppedByATowerFromAnotherHouse && !owner.hasPieceOnLocation(endLocationAfterMove);
+
+        boolean stoppedByATowerFromAnotherHouse = numberOfPiecesOnEndLocation >= 2 && !owner.hasPieceOnLocation(endLocationAfterMove);
+
         if (stoppedByATowerFromAnotherHouse)
             return false;
 
@@ -93,6 +98,7 @@ public class Piece {
         if (onePieceFromAnotherHouseOnEndLocation){
             return true;
         }
+        
         return true;
     }
 
@@ -124,6 +130,7 @@ public class Piece {
     }
 
     public void setToHouse(){
+        
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         if (homeSquares.contains(getPosition()))
             throw new IllegalStateException("setting a piece that already in homeSquares into homeSquares");
@@ -131,11 +138,10 @@ public class Piece {
         List<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
         if (emptyHomeSquares.size() == 0)
             throw new IllegalStateException("No empty squares");
-        
-        System.out.println("kom hit!");
 
         this.xAxis = emptyHomeSquares.get(0).getKey();
         this.yAxis = emptyHomeSquares.get(0).getValue(); 
+
         movePieceInGrid(this);
     }
 
@@ -151,7 +157,7 @@ public class Piece {
 
         if (houseNumber == 4)
             return Color.RED;
-        throw new IllegalStateException("piece dont contain in valide house");
+        throw new IllegalStateException("piece doesn't have a valid house.");
     }
 
     public Pair<Integer, Integer> getPosition(){

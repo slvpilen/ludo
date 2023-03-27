@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 //import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import onc.backend.GameEngine;
@@ -38,8 +40,8 @@ public class GameFaceController implements Initializable {
     private Text player3Name;
     @FXML
     private Text player4Name;
-
-
+    @FXML
+    private Text playerTurn;
 
     @FXML
     private GridPane gameGrid;
@@ -48,6 +50,9 @@ public class GameFaceController implements Initializable {
     @FXML
     private ImageView diceView;
 
+    @FXML private VBox startMessage;
+
+    private boolean startMessageHidden;
 
     public void setGameInfo(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
@@ -55,10 +60,14 @@ public class GameFaceController implements Initializable {
 
     @FXML
     public void rollDice(MouseEvent event) throws IOException {
-        
-        //System.out.println("rulla");
+
+        if (!startMessageHidden) {
+            startMessage.setVisible(false);
+            startMessageHidden = true;
+        }
+
+        updatePlayerTurn();
         gameEngine.rollDice();
-        //this.diceText.setText(("dice: " + gameEngine.getDice()));
         updateImageOfDice(gameEngine.getDice());
     }
 
@@ -91,6 +100,60 @@ public class GameFaceController implements Initializable {
         }
     }
 
+    private void updatePlayerTurn() {
+        
+        String p1Name = player1Name.getText();
+        String p2Name = player2Name.getText();
+        String p3Name = player3Name.getText();
+        String p4Name = player4Name.getText();
+        
+        if (gameEngine.getCurrentPlayer().getHouseNumber() == 1) {
+            if (p1Name.charAt(p1Name.length()-1) == 's' || p1Name.charAt(p1Name.length()-1) == 'x' || p1Name.charAt(p1Name.length()-1) == 'z' ) {
+                playerTurn.setText(p1Name + "' turn");
+                playerTurn.setFill(Color.valueOf("#00FF00"));
+            }
+            else {
+                playerTurn.setText(p1Name + "s turn");
+                playerTurn.setFill(Color.valueOf("#00FF00"));
+            }
+        }
+
+        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 2) {
+            if (p2Name.charAt(p2Name.length()-1) == 's' || p2Name.charAt(p2Name.length()-1) == 'x' || p2Name.charAt(p2Name.length()-1) == 'z' ) {
+                playerTurn.setText(p2Name + "' turn");
+                playerTurn.setFill(Color.valueOf("#FFD700"));
+            }
+            else {
+                playerTurn.setText(p2Name + "s turn");
+                playerTurn.setFill(Color.valueOf("#FFD700"));
+            }
+        }
+
+        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 3) {
+            if (p3Name.charAt(p3Name.length()-1) == 's' || p3Name.charAt(p3Name.length()-1) == 'x' || p3Name.charAt(p3Name.length()-1) == 'z' ) {
+                playerTurn.setText(p3Name + "' turn");
+                playerTurn.setFill(Color.valueOf("#4968bc"));
+            }
+            else {
+                playerTurn.setText(p3Name + "s turn");
+                playerTurn.setFill(Color.valueOf("#4968bc"));
+            }
+        }
+
+        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 4) {
+            if (p4Name.charAt(p4Name.length()-1) == 's' || p4Name.charAt(p4Name.length()-1) == 'x' || p4Name.charAt(p4Name.length()-1) == 'z' ) {
+                playerTurn.setText(p4Name + "' turn");
+                playerTurn.setFill(Color.valueOf("#EE4B2B"));
+            }
+            else {
+                playerTurn.setText(p4Name + "s turn");
+                playerTurn.setFill(Color.valueOf("#EE4B2B"));
+            }
+        }
+
+    }
+
+    // This method is used during initialization of new game. Used in CreateGameController.
     public void setName(String name, int textBox) {
         
         if (textBox == 0) {
@@ -115,34 +178,44 @@ public class GameFaceController implements Initializable {
 
     }
 
+
+    // This method is used by CreateGameController to initialize the GameFace after clicking submit (creating new game).
+    public void gameSetup() {
+
+        Settings settings = new Settings();
+        
+        ArrayList<Player> players = new ArrayList<>();
+        
+        Player player1;
+        Player player2;
+        Player player3;
+        Player player4;
+
+        if (!player1Name.getText().equals("")) {
+            player1 = new Player(player1Name.getText(), 1, gameGrid);   
+            players.add(player1);
+        }
+        if (!player2Name.getText().equals("")) {
+            player2 = new Player(player2Name.getText(), 2, gameGrid);
+            players.add(player2);
+
+        }
+        if (!player3Name.getText().equals("")) {
+            player3 = new Player(player3Name.getText(), 3, gameGrid);
+            players.add(player3);
+
+        }
+        if (!player4Name.getText().equals("")) {
+            player4 = new Player(player4Name.getText(), 4, gameGrid);
+            players.add(player4);
+        }
+
+        this.gameEngine = new GameEngine(settings, players);
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         
         updateImageOfDice(1); // setting dice to be 1 as default
-        
-        // This is for a new game, not for loading game ATM
-        // this ceating of players is a temperarly solution
-
-
-
-
-
-        ArrayList<Player> players = new ArrayList<>();
-        Player player1 = new Player("Kåre", 1, gameGrid);
-        Player player2 = new Player("Trude", 2, gameGrid);
-        Player player3 = new Player("Fred", 3, gameGrid);
-        Player player4 = new Player("Børge", 4, gameGrid);
-        
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
-        //
-        Settings settings = new Settings();
-        this.gameEngine = new GameEngine(settings, players);
-
-        Collection<Piece> pieces = gameEngine.getPieces();
-        
-
     }
 }

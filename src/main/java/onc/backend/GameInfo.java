@@ -1,9 +1,15 @@
 
 package onc.backend;
 
+
 import java.util.HashSet;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Set;
+
+import javax.crypto.IllegalBlockSizeException;
+
+
 
 public class GameInfo {
     
@@ -17,6 +23,8 @@ public class GameInfo {
 
     public GameInfo(List<String> gameInfoAsList){
         
+        List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
+
         if (gameInfoAsList.size() != 5)
             throw new IllegalArgumentException("Missing info about game!");
 
@@ -29,10 +37,14 @@ public class GameInfo {
             throw new IllegalArgumentException("The players must have different names");
         } 
 
-        if (gameInfoAsList.stream().anyMatch(name -> name.length() > 9)) {
+        if (playerInfoList.stream().anyMatch(name -> name.length() > 9)) {
             throw new IllegalMonitorStateException("Maximum name length is 9!");
         }
-            
+        
+        if (gameInfoAsList.get(0).length() > 25) {
+            throw new GameNameLengthException("Maximum game name length is 25");
+        }
+
         this.playerName1 = gameInfoAsList.get(1);
         this.playerName2 = gameInfoAsList.get(2);
         this.playerName3 = gameInfoAsList.get(3);
@@ -61,7 +73,11 @@ public class GameInfo {
         return playerName4;
     }
 
-    
+    public class GameNameLengthException extends IllegalArgumentException {
+        public GameNameLengthException(String message) {
+            super(message);
+        }
+    }
 
     
 }

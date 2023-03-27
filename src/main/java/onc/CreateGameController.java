@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import onc.backend.GameInfo;
-
+import onc.backend.GameInfo.GameNameLengthException;
 public class CreateGameController {
 
     private Parent root;
@@ -61,8 +61,9 @@ public class CreateGameController {
             GameFaceController gameFaceController = loader.getController();
 
             gameFaceController.setGameInfo(gameInfo);
-            IntStream.range(0, gameInfoAsList.size()).forEach(index -> gameFaceController.setName(gameInfoAsList.get(index), index));
+            IntStream.range(0, gameInfoAsList.size()).filter(c -> !gameInfoAsList.get(c).equals("")).forEach(index -> gameFaceController.setName(gameInfoAsList.get(index), index));
             
+            gameFaceController.gameSetup();
 
 
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -71,6 +72,10 @@ public class CreateGameController {
 
             //GameFaceController gameFaceController = loader.getController();
             // App.setRoot("gameFace");
+        }
+
+        catch (GameNameLengthException e) {
+            exceptionLabel.setText("Maximum game name length is 25");
         }
         catch (IllegalStateException e){
             exceptionLabel.setText("Fill out every field!");
@@ -81,6 +86,8 @@ public class CreateGameController {
         catch (IllegalMonitorStateException e) {
             exceptionLabel.setText("Maximum name length is 9!");
         } 
+        
+
         catch (Exception e){
             System.out.println(e);
         }

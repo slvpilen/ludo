@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -272,12 +273,12 @@
          </opaqueInsets>
       </HBox>
       <Button layoutX="639.0" layoutY="631.0" lineSpacing="10.0" mnemonicParsing="false" text="menu" />
-      <Text fx:id="player2Name" fill="#FFD700" layoutX="9.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+      <Text fx:id="player2Name" fill="#FFD700" layoutX="9.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player1Name" fill="#00FF00" layoutX="9.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+      <Text fx:id="player1Name" fill="#00FF00" layoutX="9.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
          <font>
             <Font size="37.0" />
          </font>
@@ -287,16 +288,34 @@
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="player4Name" fill="#EE4B2B" layoutX="870.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+      <Text fx:id="player4Name" fill="#EE4B2B" layoutX="870.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
          <font>
             <Font size="37.0" />
          </font>
       </Text>
-      <Text fx:id="gameName" layoutX="177.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+      <Text fx:id="gameName" layoutX="177.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
          <font>
             <Font name="System Bold Italic" size="64.0" />
          </font>
       </Text>
-      <ImageView fx:id="diceView" fitHeight="83.0" fitWidth="97.0" layoutX="364.0" layoutY="615.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="diceView" fitHeight="83.0" fitWidth="97.0" layoutX="473.0" layoutY="615.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="playerTurnName" layoutX="186.0" layoutY="749.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+         <font>
+            <Font name="System Bold Italic" size="64.0" />
+         </font>
+      </Text>
+      <Text fx:id="playerTurn" layoutX="250.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font></Text>
+      <VBox fx:id="startMessage" layoutX="135.0" layoutY="703.0" style="-fx-background-color: #FF9900;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ROLL THE DICE TO START THE GAME!">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

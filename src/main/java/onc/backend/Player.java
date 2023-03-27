@@ -157,22 +157,27 @@ public class Player {
     }
 
     public boolean hasAnyValidMoves() {
+        
         if (!gameEngine.getCurrentPlayer().equals(this)) {
-            System.out.println("Not this piece players move");
+            System.out.println("Not this players turn");
             return false;
         }
+        
         if (isFinished()) {
             System.out.println("This player has finished the game");
             return false;
         }
+        
         int latestDice = gameEngine.getDice();
-        if (latestDice == 6 && hasPieceOnHomeSquare())
+
+        if (latestDice == 6 && hasPieceOnHomeSquare()) // Unødvendig, sjekken gjøres allerede i hasLegalMove-metoden!
             return true;
 
         for (Piece piece : pieces) {
             if (piece.hasLegalMove())
                 return true;
         }
+
         return false;
     }
 

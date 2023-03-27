@@ -34,7 +34,7 @@ public class App extends Application {
         stage.getIcons().add(ludoIcon);
 
         stage.setScene(scene);
-        stage.setHeight(800);
+        stage.setHeight(830);
         stage.setWidth(1100);
         playMusic(); 
         stage.show();

@@ -56,52 +56,66 @@ public class GameEngine {
     
 
     public void movePiece(Piece piece){
-        System.out.println("clicked on a piece");
+        
         if (!this.canMakeMove)
             return;
+
         if (!piece.hasLegalMove())
             return;
+
         if (piece.getHouseNumber() != currentPlayer.getHouseNumber())
             return;
         
         piece.movePlaces();
-        this.canMakeMove = false; 
+        this.canMakeMove = false;
         updateCurrentPlayer(piece);
     }
 
     private void updateCurrentPlayer(Piece piece){        
+        
         this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
+
         if (latestDice == 6 && turnRollCount<3)
             this.currentPlayer = piece.getOwner();
+
         else{
-            this.currentPlayer = getNextPlayer();  //add this methode!
+            this.currentPlayer = getNextPlayer();
             turnRollCount = 0;  // nullstiller tellern
         }    
     }
 
     private Player getNextPlayer(){
+        
         if(players.size()-1 == players.indexOf(currentPlayer))
             return players.get(0);
-        return players.get(players.indexOf(currentPlayer)+1);
+
+        return players.get(players.indexOf(currentPlayer) + 1);
+
     }
 
 
 
     public void rollDice() {
-        //System.out.println("pressed rolled dice");
-        if (canMakeMove)  // not allowd to roll befor moved
+        
+        if (canMakeMove)  // not allowed to roll before moved
             return;
+        
         Random terning = new Random();
         this.latestDice = terning.nextInt(6) + 1;
 
-        if(currentPlayer.hasAnyValidMoves()) // add this methode
+        if(currentPlayer.hasAnyValidMoves()) { // add this method
             this.canMakeMove = true;
-        else if (latestDice==6 && turnRollCount<3 ){
-            this.canMakeMove = false;
-            latestPlayer = currentPlayer;
-            this.turnRollCount++;
         }
+        
+
+        // Will never be used:
+        // else if (latestDice==6 && turnRollCount < 3 ){
+        //     this.canMakeMove = false;
+        //     latestPlayer = currentPlayer;
+        //     this.turnRollCount++;
+        // }
+        
         else{
             this.canMakeMove = false;
             latestPlayer = currentPlayer;
