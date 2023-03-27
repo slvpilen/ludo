@@ -119,14 +119,27 @@ public class Piece {
         if (isInHomeSquares){
             return standardPath.get(0);
         }
+
+
         else if(isPieceBeyondField){
-
             
+            // Oskar les dette:
+            // Du hadde glemt en parentes mot slutten av uttrykket, derfor ble kalkulert index gal.
+            // Det korrekte uttrykket har blitt implementert.
+            // Slik det var tildigere, tok brikken alltid to steg for lite dersom den var nærme målområdet.
 
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1);      
-            int newIndex = 2*standardPath.size() - indexOfPath - latestDice;      
+            // Galt uttrykk:
+            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1 );      
+            
+            // Riktig uttrykk:
+            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - (standardPath.size()-1) );      
+
+            // Lett feil å fikse da, nå er grunnspillet nesten ferdig!
+
+            int newIndex = 2 * (standardPath.size() - 1) - indexOfPath - latestDice;      
             return standardPath.get(newIndex); 
         }
+
         else {
             int newIndex = indexOfPath + latestDice;
             return standardPath.get(newIndex); 
@@ -140,7 +153,7 @@ public class Piece {
         int indexOfPath = standardPath.indexOf(getPosition());
 
         boolean isInHomeSquares = homeSquares.contains(getPosition());
-        boolean isPieceBeyondField = indexOfPath+latestDice > standardPath.size()-1;
+        boolean isPieceBeyondField = indexOfPath + latestDice > standardPath.size()-1;
 
         if (isInHomeSquares){
             return standardPath.get(0);
