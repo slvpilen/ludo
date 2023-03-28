@@ -45,20 +45,11 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
     
     @FXML
-    private Text player1Name;
-    @FXML
-    private Text player2Name;
-    @FXML
-    private Text player3Name;
-    @FXML
-    private Text player4Name;
-    @FXML
-    private Text playerTurn;
+    private Text player1Name, player2Name, player3Name, player4Name, playerTurn;
 
     @FXML
     private GridPane gameGrid;
-    //@FXML
-    //private Text diceText;
+
     @FXML
     private ImageView diceView;
 
@@ -94,32 +85,11 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     }
 
     private void updateImageOfDice(int latestDice) {
-        if (latestDice == 1){
-            Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice1.png");
-            diceView.setImage(sourceimage1);
-        }
-        else if (latestDice == 2) {
-            //URL url = new URL
-            Image sourceimage2 = new Image("file:src/main/resources/dicesImages/dice2.png");
-            diceView.setImage(sourceimage2);
-        }
-        else if (latestDice == 3) {
-            Image sourceimage3 = new Image("file:src/main/resources/dicesImages/dice3.png");
-            diceView.setImage(sourceimage3);
-        }
-        else if (latestDice == 4) {
-            Image sourceimage4 = new Image("file:src/main/resources/dicesImages/dice4.png");
-            diceView.setImage(sourceimage4);
-        }
-        else if (latestDice == 5) {
-            Image sourceimage5 = new Image("file:src/main/resources/dicesImages/dice5.png");
-            diceView.setImage(sourceimage5);
-        }
-
-        else if (latestDice == 6) {
-            Image sourceimage6 = new Image("file:src/main/resources/dicesImages/dice6.png");
-            diceView.setImage(sourceimage6);
-        }
+        if (latestDice < 1 || latestDice > 6)
+            throw new IllegalArgumentException("Dice must be between 1-6");
+            
+        Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice" + Integer.toString(latestDice) + ".png");
+        diceView.setImage(sourceimage1);
     }
 
     public void updatePlayerTurn() {

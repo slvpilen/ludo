@@ -299,7 +299,7 @@
             <Font name="System Bold Italic" size="64.0" />
          </font>
       </Text>
-      <ImageView fx:id="diceView" fitHeight="83.0" fitWidth="97.0" layoutX="606.0" layoutY="607.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="diceView" fitHeight="95.0" fitWidth="108.0" layoutX="595.0" layoutY="607.0" onMouseClicked="#rollDice" pickOnBounds="true" preserveRatio="true" />
       <Text fx:id="playerTurnName" layoutX="186.0" layoutY="749.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
          <font>
             <Font name="System Bold Italic" size="64.0" />

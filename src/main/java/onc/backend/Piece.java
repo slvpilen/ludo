@@ -247,91 +247,21 @@ public class Piece {
         Pair<Integer, Integer> endLocation = standardPath.get(standardPath.size()-1);
         return endLocation.getKey()==xAxis && endLocation.getValue()==yAxis;
     }
-    
 
     public ArrayList<Pair<Integer, Integer>> getPath() {
-        
-        houseNumber = owner.getHouseNumber();
+        List<Integer> xAxis = Arrays.asList(7,7,7,7,7,6,5,4,3,2,1,1,1,2,3,4,5,6,7,7,7,7,7,7,
+        8,9,9,9,9,9,9,10,11,12,13,14,15,15,15,14,13,12,11,10,9,9,9,9,9,9,8,7);
 
-        ArrayList<Pair<Integer, Integer>> standardPath = new ArrayList<Pair<Integer, Integer>>();
+        List<Integer> yAxis = Arrays.asList(18,17,16,15,14,13,13,13,13,13,13,12,11,11,11,11,11,11,
+        10,9,8,7,6,5,5,5,6,7,8,9,10,11,11,11,11,11,11,12,13,13,13,13,13,13,14,15,16,17,18,19,19,19);
 
-        //GreenSpot
-        standardPath.add(new Pair<Integer, Integer>(7, 18));
-        standardPath.add(new Pair<Integer, Integer>(7, 17));
-        standardPath.add(new Pair<Integer, Integer>(7, 16));
-        standardPath.add(new Pair<Integer, Integer>(7, 15));
-        standardPath.add(new Pair<Integer, Integer>(7, 14));
-        
-        standardPath.add(new Pair<Integer, Integer>(6, 13));
-        standardPath.add(new Pair<Integer, Integer>(5, 13));
-        standardPath.add(new Pair<Integer, Integer>(4, 13));
-        standardPath.add(new Pair<Integer, Integer>(3, 13));
-        standardPath.add(new Pair<Integer, Integer>(2, 13));
-        standardPath.add(new Pair<Integer, Integer>(1, 13));
-        
-        standardPath.add(new Pair<Integer, Integer>(1, 12));
-        standardPath.add(new Pair<Integer, Integer>(1, 11));
-        
-        // YellowSpot
-        standardPath.add(new Pair<Integer, Integer>(2, 11));
-        standardPath.add(new Pair<Integer, Integer>(3, 11));
-        standardPath.add(new Pair<Integer, Integer>(4, 11));
-        standardPath.add(new Pair<Integer, Integer>(5, 11));
-        standardPath.add(new Pair<Integer, Integer>(6, 11));
-        
-        standardPath.add(new Pair<Integer, Integer>(7, 10));
-        standardPath.add(new Pair<Integer, Integer>(7, 9));
-        standardPath.add(new Pair<Integer, Integer>(7, 8));
-        standardPath.add(new Pair<Integer, Integer>(7, 7));
-        standardPath.add(new Pair<Integer, Integer>(7, 6));
-        standardPath.add(new Pair<Integer, Integer>(7, 5));
-        
-        standardPath.add(new Pair<Integer, Integer>(8, 5));
-        standardPath.add(new Pair<Integer, Integer>(9, 5));
-        
-        //BlueSpot
-        standardPath.add(new Pair<Integer, Integer>(9, 6));
-        standardPath.add(new Pair<Integer, Integer>(9, 7));
-        standardPath.add(new Pair<Integer, Integer>(9, 8));
-        standardPath.add(new Pair<Integer, Integer>(9, 9));
-        standardPath.add(new Pair<Integer, Integer>(9, 10));
-        
-        standardPath.add(new Pair<Integer, Integer>(10, 11));
-        standardPath.add(new Pair<Integer, Integer>(11, 11));
-        standardPath.add(new Pair<Integer, Integer>(12, 11));
-        standardPath.add(new Pair<Integer, Integer>(13, 11));
-        standardPath.add(new Pair<Integer, Integer>(14, 11));
-        standardPath.add(new Pair<Integer, Integer>(15, 11));
-        
-        standardPath.add(new Pair<Integer, Integer>(15, 12));
-        standardPath.add(new Pair<Integer, Integer>(15, 13));
-        
-        //RedSpot
-        standardPath.add(new Pair<Integer, Integer>(14, 13));
-        standardPath.add(new Pair<Integer, Integer>(13, 13));
-        standardPath.add(new Pair<Integer, Integer>(12, 13));
-        standardPath.add(new Pair<Integer, Integer>(11, 13));
-        standardPath.add(new Pair<Integer, Integer>(10, 13));
-        
-        standardPath.add(new Pair<Integer, Integer>(9, 14));
-        standardPath.add(new Pair<Integer, Integer>(9, 15));
-        standardPath.add(new Pair<Integer, Integer>(9, 16));
-        standardPath.add(new Pair<Integer, Integer>(9, 17));
-        standardPath.add(new Pair<Integer, Integer>(9, 18));
-        standardPath.add(new Pair<Integer, Integer>(9, 19));
-        
-        standardPath.add(new Pair<Integer, Integer>(8, 19));
-        standardPath.add(new Pair<Integer, Integer>(7, 19));
-        
+        ArrayList<Pair<Integer, Integer>> standardPath =  addXandYlistAsPair(new ArrayList<>(), xAxis, yAxis);
+
         if (this.houseNumber == 1) {
-            standardPath.add(new Pair<Integer, Integer>(7, 18));
-            standardPath.add(new Pair<Integer, Integer>(8, 18));
-            standardPath.add(new Pair<Integer, Integer>(8, 17));
-            standardPath.add(new Pair<Integer, Integer>(8, 16));
-            standardPath.add(new Pair<Integer, Integer>(8, 15));
-            standardPath.add(new Pair<Integer, Integer>(8, 14));
-            standardPath.add(new Pair<Integer, Integer>(8, 13));
-            return standardPath;
+            List<Integer> xAxisHouse1 = Arrays.asList(7,8,8,8,8,8,8);
+            List<Integer> yAxisHouse1 = Arrays.asList(18,18,17,16,15,14,13);
+
+            return addXandYlistAsPair(standardPath, xAxisHouse1, yAxisHouse1);
         }
 
         if (this.houseNumber == 2) {
@@ -339,34 +269,23 @@ public class Piece {
             ArrayList<Pair<Integer, Integer>> path2 = new ArrayList<>(standardPath.subList(13, 52));
             ArrayList<Pair<Integer, Integer>> extra = new ArrayList<>(standardPath.subList(0, 13));
             path2.addAll(extra);
-            
-            path2.add(new Pair<Integer, Integer>(2, 11));
-            path2.add(new Pair<Integer, Integer>(2, 12));
-            path2.add(new Pair<Integer, Integer>(3, 12));
-            path2.add(new Pair<Integer, Integer>(4, 12));
-            path2.add(new Pair<Integer, Integer>(5, 12));
-            path2.add(new Pair<Integer, Integer>(6, 12));
-            path2.add(new Pair<Integer, Integer>(7, 12));
-            
-            return path2;
-        }
 
+            List<Integer> xAxisHouse2 = Arrays.asList(2,2,3,4,5,6,7);
+            List<Integer> yAxisHouse2 = Arrays.asList(11,12,12,12,12,12,12);
+            
+            return addXandYlistAsPair(path2, xAxisHouse2, yAxisHouse2);
+        }
         
         if (this.houseNumber == 3) {
             
             ArrayList<Pair<Integer, Integer>> path3 = new ArrayList<>(standardPath.subList(26, 52));
             ArrayList<Pair<Integer, Integer>> extra = new ArrayList<>(standardPath.subList(0, 26));
             path3.addAll(extra);
+
+            List<Integer> xAxisHouse3 = Arrays.asList(9,8,8,8,8,8,8);
+            List<Integer> yAxisHouse3 = Arrays.asList(6,6,7,8,9,10,11);
             
-            path3.add(new Pair<Integer, Integer>(9, 6));
-            path3.add(new Pair<Integer, Integer>(8, 6));
-            path3.add(new Pair<Integer, Integer>(8, 7));
-            path3.add(new Pair<Integer, Integer>(8, 8));
-            path3.add(new Pair<Integer, Integer>(8, 9));
-            path3.add(new Pair<Integer, Integer>(8, 10));
-            path3.add(new Pair<Integer, Integer>(8, 11));
-            
-            return path3;
+            return addXandYlistAsPair(path3, xAxisHouse3, yAxisHouse3);
         }
 
         if (this.houseNumber == 4) {
@@ -374,21 +293,27 @@ public class Piece {
             ArrayList<Pair<Integer, Integer>> path4 = new ArrayList<>(standardPath.subList(39, 52));
             ArrayList<Pair<Integer, Integer>> extra = new ArrayList<>(standardPath.subList(0, 39));
             path4.addAll(extra);
+
+            List<Integer> xAxisHouse4 = Arrays.asList(14,14,13,12,11,10,9);
+            List<Integer> yAxisHouse4 = Arrays.asList(13,12,12,12,12,12,12);
             
-            path4.add(new Pair<Integer, Integer>(14, 13));
-            path4.add(new Pair<Integer, Integer>(14, 12));
-            path4.add(new Pair<Integer, Integer>(13, 12));
-            path4.add(new Pair<Integer, Integer>(12, 12));
-            path4.add(new Pair<Integer, Integer>(11, 12));
-            path4.add(new Pair<Integer, Integer>(10, 12));
-            path4.add(new Pair<Integer, Integer>(9, 12));
-            
-            return path4;
+            return addXandYlistAsPair(path4, xAxisHouse4, yAxisHouse4);
         }
 
         throw new IllegalMonitorStateException("Din monitor har eksplodert! (noe gikk galt!)");
 
-        
+    }
+
+    
+    private ArrayList<Pair<Integer, Integer>> addXandYlistAsPair(ArrayList<Pair<Integer, Integer>> path, List<Integer> xAxis, List<Integer> yAxis){
+        if (xAxis.size() != yAxis.size())
+            throw new IllegalArgumentException("Need same length of x- and y axis");
+        for (int i =0 ; i <xAxis.size(); i++){
+            Pair<Integer, Integer> pair = new Pair<Integer, Integer>(xAxis.get(i), yAxis.get(i));
+            path.add(pair);
+        }
+        return path;
+
     }
 
     

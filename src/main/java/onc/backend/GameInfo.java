@@ -32,134 +32,54 @@ public class GameInfo {
     }   
 
 
+
+
     public void playerNameCheck(List<String> gameInfoAsList, int numPlayers) {
-
-        if (numPlayers == 4) {
-            List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
-
-            if (gameInfoAsList.size() != 5)
-                throw new MissingInfoException("Missing info about game!");
-
-            boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
-            if (!allNonEmpty)
-                throw new IllegalStateException("Fill out every field!");
-
-            // all names unique 
-            if (gameInfoAsList.stream().anyMatch(name -> gameInfoAsList.indexOf(name) != gameInfoAsList.lastIndexOf(name))) {
-                throw new IllegalArgumentException("The players must have different names");
-            } 
-
-            if (playerInfoList.stream().anyMatch(name -> name.length() > 9)) {
-                throw new IllegalMonitorStateException("Maximum name length is 9!");
-            }
-            
-            if (gameInfoAsList.get(0).length() > 25) {
-                throw new GameNameLengthException("Maximum game name length is 25");
-            }
-            
-            this.playerName1 = gameInfoAsList.get(1);
+        if (numPlayers < 1 || numPlayers > 4) {
+            throw new IllegalArgumentException("Invalid number of players!");
+        }
+        
+        if (gameInfoAsList.size() != numPlayers + 1) {
+            throw new MissingInfoException("Missing info about game!");
+        }
+        
+        if (!gameInfoAsList.stream().allMatch(str -> !str.isEmpty())) {
+            throw new IllegalStateException("Fill out every field!");
+        }
+        
+        if (gameInfoAsList.stream().distinct().count() != numPlayers + 1) {
+            throw new IllegalArgumentException("The players must have different names");
+        }
+        
+        if (gameInfoAsList.stream().skip(1).anyMatch(name -> name.length() > 9)) {
+            throw new IllegalMonitorStateException("Maximum name length is 9!");
+        }
+        
+        if (gameInfoAsList.get(0).length() > 25) {
+            throw new GameNameLengthException("Maximum game name length is 25");
+        }
+        
+        this.playerName1 = gameInfoAsList.get(1);
+        
+        if (numPlayers > 1) {
             this.playerName2 = gameInfoAsList.get(2);
-            this.playerName3 = gameInfoAsList.get(3);
-            this.playerName4 = gameInfoAsList.get(4);
-            return;
-        }
-
-
-
-        if (numPlayers == 3) {
-            
-            List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
-
-            if (gameInfoAsList.size() != 4)
-                throw new MissingInfoException("Missing info about game!");
-
-            boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
-            if (!allNonEmpty)
-                throw new IllegalStateException("Fill out every field!");
-
-            // all names unique 
-            if (gameInfoAsList.stream().anyMatch(name -> gameInfoAsList.indexOf(name) != gameInfoAsList.lastIndexOf(name))) {
-                throw new IllegalArgumentException("The players must have different names");
-            } 
-
-            if (playerInfoList.stream().anyMatch(name -> name.length() > 9)) {
-                throw new IllegalMonitorStateException("Maximum name length is 9!");
-            }
-            
-            if (gameInfoAsList.get(0).length() > 25) {
-                throw new GameNameLengthException("Maximum game name length is 25");
-            }
-
-            this.playerName1 = gameInfoAsList.get(1);
-            this.playerName2 = gameInfoAsList.get(2);
-            this.playerName3 = gameInfoAsList.get(3);
-            this.playerName4 = "LudoLegend";
-            return;
-        }
-
-
-        if (numPlayers == 2) {
-            
-            List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
-
-            if (gameInfoAsList.size() != 3)
-                throw new MissingInfoException("Missing info about game!");
-
-            boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
-            if (!allNonEmpty)
-                throw new IllegalStateException("Fill out every field!");
-
-            // all names unique 
-            if (gameInfoAsList.stream().anyMatch(name -> gameInfoAsList.indexOf(name) != gameInfoAsList.lastIndexOf(name))) {
-                throw new IllegalArgumentException("The players must have different names");
-            } 
-
-            if (playerInfoList.stream().anyMatch(name -> name.length() > 9)) {
-                throw new IllegalMonitorStateException("Maximum name length is 9!");
-            }
-            
-            if (gameInfoAsList.get(0).length() > 25) {
-                throw new GameNameLengthException("Maximum game name length is 25");
-            }
-            
-            this.playerName1 = gameInfoAsList.get(1);
-            this.playerName2 = "DiceBot";
-            this.playerName3 = gameInfoAsList.get(2);
-            this.playerName4 = "LudoLegend";
-            return;
-        }
-
-        if (numPlayers == 1) {
-            
-            List<String> playerInfoList = gameInfoAsList.subList(1, gameInfoAsList.size());
-
-            if (gameInfoAsList.size() != 2)
-                throw new MissingInfoException("Missing info about game!");
-
-            boolean allNonEmpty = gameInfoAsList.stream().allMatch(str -> !str.equals(""));
-            if (!allNonEmpty)
-                throw new IllegalStateException("Fill out every field!");
-
-            // all names unique 
-            if (gameInfoAsList.stream().anyMatch(name -> gameInfoAsList.indexOf(name) != gameInfoAsList.lastIndexOf(name))) {
-                throw new IllegalArgumentException("The players must have different names");
-            } 
-
-            if (playerInfoList.stream().anyMatch(name -> name.length() > 9)) {
-                throw new IllegalMonitorStateException("Maximum name length is 9!");
-            }
-            
-            if (gameInfoAsList.get(0).length() > 25) {
-                throw new GameNameLengthException("Maximum game name length is 25");
-            }
-
-            this.playerName1 = gameInfoAsList.get(1);
+        } else {
             this.playerName2 = "Robby";
+        }
+        
+        if (numPlayers > 2) {
+            this.playerName3 = gameInfoAsList.get(3);
+        } else {
             this.playerName3 = "DiceBot";
+        }
+        
+        if (numPlayers > 3) {
+            this.playerName4 = gameInfoAsList.get(4);
+        } else {
             this.playerName4 = "LudoLegend";
-            return;
         }
     }
+    
     
     
     public String getGameName() {
