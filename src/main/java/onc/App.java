@@ -66,16 +66,17 @@ public class App extends Application {
         }
     } 
 
-    public static void pauseMusic() throws FileNotFoundException {
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
-        }
-        
-    } 
+
 
     public static void resumeMusic() throws FileNotFoundException {
         if (mediaPlayer != null) {
             mediaPlayer.play();
+        }
+    }  
+
+    public static void pauseMusic() throws FileNotFoundException {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
         }
         
     } 

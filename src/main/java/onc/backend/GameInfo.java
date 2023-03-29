@@ -9,11 +9,7 @@ public class GameInfo {
     private String gameName;
 
     // info about players
-    private String playerName1;
-    private String playerName2;
-    private String playerName3;
-    private String playerName4;
-
+    private String playerName1, playerName2, playerName3, playerName4;
     private List<String> gameInfoAsList = new ArrayList<String>();
 
 

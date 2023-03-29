@@ -22,46 +22,25 @@ import onc.backend.GameInfo.MissingInfoException;
 public class CreateGameController {
 
     private Parent root;
-    private Stage stage;
+    private Stage stage; 
     private Scene scene;
     private int numPlayers = 4;
 
     @FXML
-    private Label player1Name;
-    @FXML
-    private Label player2Name;
-    @FXML
-    private Label player3Name;
-    @FXML
-    private Label player4Name;
+    private Label player1Name, player2Name, player3Name, player4Name;
 
     @FXML
-    private RadioButton num1;
-    @FXML
-    private RadioButton num2;
-    @FXML
-    private RadioButton num3;
-    @FXML
-    private RadioButton num4;
-
+    private RadioButton num1, num2, num3, num4;
 
     @FXML 
-    private TextField player1NameField;
-
-    @FXML 
-    private TextField player2NameField;
-
-    @FXML 
-    private TextField player3NameField;
-
-    @FXML 
-    private TextField player4NameField;
+    private TextField player1NameField, player2NameField, player3NameField, player4NameField;
 
     @FXML 
     private TextField gameName; 
 
     @FXML
     private Label exceptionLabel; 
+
 
     @FXML
     private void radioButton1() {
@@ -80,6 +59,7 @@ public class CreateGameController {
         player3NameField.setText("");
         player4NameField.setText("");
     }
+
 
     @FXML
     private void radioButton2() {

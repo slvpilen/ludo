@@ -13,7 +13,7 @@ public class GameEngine {
 
     private Player currentPlayer;
     private Player latestPlayer;
-    private Settings settings;
+    // private Settings settings;
     private ArrayList<Player> players;
     private int latestDice;
     private int turnRollCount; // counting how many dice roll on a roll
@@ -23,7 +23,7 @@ public class GameEngine {
 
 
     public GameEngine(Settings settings, ArrayList<Player> players){
-        this.settings = settings;
+        //this.settings = settings;  // this is not used atm, use it, or delete it. sound on of, could be stored in settings etc
         this.players = players;
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
         houseDistributionCheck(this.players);

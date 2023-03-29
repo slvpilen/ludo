@@ -1,18 +1,26 @@
 package onc;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class StartScreenController {
+public class StartScreenController implements Initializable {
 
     private Scene scene;
 
+    @FXML
+    public CheckBox soundOn;
+
+    
     @FXML
     private void createGame(ActionEvent event) throws IOException {
         // App.setRoot("createGame");
@@ -30,14 +38,19 @@ public class StartScreenController {
     }
 
     @FXML
-    private void pauseMusic() throws IOException {
-        App.pauseMusic();
+    public void startStopMusic() throws IOException {
+        if (soundOn.isSelected()) {
+            App.resumeMusic();
+        } else {
+            App.pauseMusic();
+        }
     }
+    
 
-    @FXML
-    private void resumeMusic() throws IOException {
-        App.resumeMusic();
-    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        soundOn.setSelected(true);
+    }  
 
 
 }

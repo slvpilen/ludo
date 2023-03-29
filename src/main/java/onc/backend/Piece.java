@@ -4,7 +4,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.*;
 
@@ -168,20 +167,6 @@ public class Piece {
 
 
         else if(isPieceBeyondField){
-            
-            
-            // Du hadde glemt en parentes mot slutten av uttrykket, derfor ble kalkulert index gal.
-            // Det korrekte uttrykket har blitt implementert.
-            // Slik det var tildigere, tok brikken alltid to steg for lite dersom den var nærme målområdet.
-
-            // Galt uttrykk:
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1 );      
-            
-            // Riktig uttrykk:
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - (standardPath.size()-1) );      
-
-            // Lett feil å fikse da, nå er grunnspillet nesten ferdig!
-
             copyPathIndex = 2 * (standardPath.size() - 1) - pathIndex - latestDice;
             return standardPath.get(copyPathIndex); 
         }
@@ -304,7 +289,7 @@ public class Piece {
 
     }
 
-    
+
     private ArrayList<Pair<Integer, Integer>> addXandYlistAsPair(ArrayList<Pair<Integer, Integer>> path, List<Integer> xAxis, List<Integer> yAxis){
         if (xAxis.size() != yAxis.size())
             throw new IllegalArgumentException("Need same length of x- and y axis");

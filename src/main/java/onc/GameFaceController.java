@@ -87,35 +87,30 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     private void updateImageOfDice(int latestDice) {
         if (latestDice < 1 || latestDice > 6)
             throw new IllegalArgumentException("Dice must be between 1-6");
-            
+
         Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice" + Integer.toString(latestDice) + ".png");
         diceView.setImage(sourceimage1);
     }
 
     public void updatePlayerTurn() {
         
-        String p1Name = player1Name.getText();
-        String p2Name = player2Name.getText();
-        String p3Name = player3Name.getText();
-        String p4Name = player4Name.getText();
+        String playerName = gameEngine.getCurrentPlayer().getUsername();
+        playerTurn.setText(playerName + " must move!");
         
-        if (gameEngine.getCurrentPlayer().getHouseNumber() == 1) {
-            playerTurn.setText(p1Name + " must move!");
+        int currentHousNumber = gameEngine.getCurrentPlayer().getHouseNumber();
+        if (currentHousNumber == 1) {
             playerTurn.setFill(Color.valueOf("#00ff00"));
         }
 
-        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 2) {
-            playerTurn.setText(p2Name + " must move!");
+        else if (currentHousNumber == 2) {
             playerTurn.setFill(Color.valueOf("#ffd700"));
         }
 
-        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 3) {
-            playerTurn.setText(p3Name + " must move!");
+        else if (currentHousNumber == 3) {
             playerTurn.setFill(Color.valueOf("#4968bc"));
         }
 
-        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 4) {
-            playerTurn.setText(p4Name + " must move!");
+        else if (currentHousNumber == 4) {
             playerTurn.setFill(Color.valueOf("#EE4B2B"));
         }
 

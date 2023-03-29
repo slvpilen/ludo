@@ -6,67 +6,91 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="896.0" style="-fx-background-color: #654321;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.CreateGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="896.0" style="-fx-background-color: #bbbbbb;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.CreateGameController">
    <children>
+      <AnchorPane layoutX="-6.0" layoutY="-10.0" prefHeight="108.0" prefWidth="908.0" style="-fx-background-color: #558585;" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToStartScreen" prefHeight="58.0" prefWidth="108.0" text="BACK" />
-      <VBox layoutX="451.0" layoutY="160.0" prefHeight="290.0" prefWidth="280.0">
-         <children>
-            <TextField fx:id="player1NameField" onAction="#nullstillExceptionLabel" prefHeight="58.0" prefWidth="280.0" promptText="ex Trude" />
-            <TextField fx:id="player2NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Truls" />
-            <TextField fx:id="player3NameField" onAction="#nullstillExceptionLabel" prefHeight="55.0" prefWidth="280.0" promptText="ex Josh" />
-            <TextField fx:id="player4NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Kari" />
-            <TextField fx:id="gameName" onAction="#submit" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
-         </children>
-      </VBox>
-      <VBox layoutX="88.0" layoutY="160.0" prefHeight="290.0" prefWidth="357.0">
-         <children>
-            <Label fx:id="player1Name" prefHeight="66.0" prefWidth="490.0" text="Enter player1 name" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label fx:id="player2Name" prefHeight="66.0" prefWidth="490.0" text="Enter player2 name" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label fx:id="player3Name" prefHeight="66.0" prefWidth="490.0" text="Enter player3 name" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label fx:id="player4Name" prefHeight="66.0" prefWidth="490.0" text="Enter player4 name" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label prefHeight="66.0" prefWidth="490.0" text="Game name" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
       <Button layoutX="361.0" layoutY="586.0" mnemonicParsing="false" onAction="#submit" prefHeight="55.0" prefWidth="168.0" text="SUBMIT" />
-      <RadioButton fx:id="num1" layoutX="122.0" layoutY="519.0" mnemonicParsing="false" onAction="#radioButton1" text="1 " textFill="WHITE">
+      <RadioButton fx:id="num1" layoutX="38.0" layoutY="519.0" mnemonicParsing="false" onAction="#radioButton1" text="1 ">
          <toggleGroup>
             <ToggleGroup fx:id="numbersOfPlayers" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="num2" layoutX="122.0" layoutY="547.0" mnemonicParsing="false" onAction="#radioButton2" text="2" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
-      <RadioButton fx:id="num3" layoutX="122.0" layoutY="573.0" mnemonicParsing="false" onAction="#radioButton3" text="3" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
-      <RadioButton fx:id="num4" layoutX="122.0" layoutY="597.0" mnemonicParsing="false" onAction="#radioButton4" selected="true" text="4" textFill="WHITE" toggleGroup="$numbersOfPlayers" />
-      <Label layoutX="110.0" layoutY="488.0" text="Number of players" textFill="WHITE">
+      <RadioButton fx:id="num2" layoutX="38.0" layoutY="547.0" mnemonicParsing="false" onAction="#radioButton2" text="2" toggleGroup="$numbersOfPlayers" />
+      <RadioButton fx:id="num3" layoutX="38.0" layoutY="573.0" mnemonicParsing="false" onAction="#radioButton3" text="3" toggleGroup="$numbersOfPlayers" />
+      <RadioButton fx:id="num4" layoutX="38.0" layoutY="597.0" mnemonicParsing="false" onAction="#radioButton4" selected="true" text="4" toggleGroup="$numbersOfPlayers" />
+      <Label layoutX="38.0" layoutY="488.0" text="Number of players">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="exceptionLabel" layoutX="171.0" layoutY="60.0" prefHeight="72.0" prefWidth="716.0" textFill="RED">
+      <Label fx:id="exceptionLabel" layoutX="171.0" layoutY="100.0" prefHeight="72.0" prefWidth="716.0" textFill="RED">
          <font>
             <Font size="41.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" cache="true" layoutX="236.0" layoutY="172.0" prefHeight="384.0" prefWidth="567.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="66.0" prefWidth="490.0" text="Game name" textOverrun="WORD_ELLIPSIS">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="gameName" onAction="#submit" prefHeight="64.0" prefWidth="280.0" promptText="ex Eastercup 2024" />
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="68.0" prefWidth="567.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="player1Name" prefHeight="66.0" prefWidth="490.0" text="Enter player1 name">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="player1NameField" onAction="#nullstillExceptionLabel" prefHeight="58.0" prefWidth="280.0" promptText="ex Trude" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="player2Name" prefHeight="66.0" prefWidth="490.0" text="Enter player2 name">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="player2NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Truls" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="player3Name" prefHeight="66.0" prefWidth="490.0" text="Enter player3 name">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="player3NameField" onAction="#nullstillExceptionLabel" prefHeight="55.0" prefWidth="280.0" promptText="ex Josh" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="player4Name" prefHeight="66.0" prefWidth="490.0" text="Enter player4 name">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="player4NameField" onAction="#nullstillExceptionLabel" prefHeight="57.0" prefWidth="280.0" promptText="ex Kari" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="316.0" layoutY="14.0" text="Create game" textFill="WHITE">
+         <font>
+            <Font size="47.0" />
          </font>
       </Label>
    </children>
