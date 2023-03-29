@@ -287,7 +287,8 @@ public class Piece {
 
         throw new IllegalMonitorStateException("Din monitor har eksplodert! (noe gikk galt!)");
 
-    }
+    } 
+
 
 
     private ArrayList<Pair<Integer, Integer>> addXandYlistAsPair(ArrayList<Pair<Integer, Integer>> path, List<Integer> xAxis, List<Integer> yAxis){

@@ -12,7 +12,7 @@ import javafx.util.Pair;
 public class GameEngine {
 
     private Player currentPlayer;
-    private Player latestPlayer;
+    //private Player latestPlayer;
     // private Settings settings;
     private ArrayList<Player> players;
     private int latestDice;
@@ -81,7 +81,7 @@ public class GameEngine {
 
     private void updateCurrentPlayer(Piece piece){        
         
-        this.latestPlayer = piece.getOwner();
+        //this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
 
         if (latestDice == 6 && turnRollCount<3) {
@@ -123,7 +123,7 @@ public class GameEngine {
         
         else{
             this.canMakeMove = false;
-            latestPlayer = currentPlayer;
+            //latestPlayer = currentPlayer;
             currentPlayer = getNextPlayer();
             fireCurrentPlayerChanged(); 
             fireRobotCheck();

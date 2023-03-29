@@ -149,10 +149,10 @@ public class Player {
     }
 
     // make this methode!!
-    public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) {
-        throw new IllegalArgumentException("This method needs to be made!!");
+    //public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) {
+    //    throw new IllegalArgumentException("This method needs to be made!!");
         // return 0;
-    }
+    //}
 
     public boolean hasAnyValidMoves() {
         
