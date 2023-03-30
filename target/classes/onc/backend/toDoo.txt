@@ -1,12 +1,18 @@
 
-
-
+## HAS DONE
 done: Lage metode slik at man kan slå ut en annen spiller
 done: Lage metoder slik at spillet fungerer når man nærmer seg mål. (slik at man går tilbake x antall steg hvis man er ett steg unna mål og slår 6 for eksempel)
-
 
 done:-.pice hasValidMove mangler logikk
 done:-slå ut spiller-fjern knapper i gridPane
 done:-design målområde
 done:-ludo musikk
 done:- i create game, lag kode som sender GameInfo til GameFaceController, slik at spiller navn etc kan skrives inn på brettet.
+
+
+## TO DOO
+- ved utslåing av motstander skal man få et nytt kast
+- mulig man skal få nytt kast ved målgang??
+- Dersom man er feks gul og står på gult felt kan man ikke bli slått ut. Fortsatt lov for andre å stå der OBS! må
+    plassere brikkene i ulike deler av ruten, slik at man kan trykke på de! 
+- Ved tårn skal det vises at det er tårn
