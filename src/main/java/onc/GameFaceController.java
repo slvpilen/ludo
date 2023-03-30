@@ -207,10 +207,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         
         ArrayList<Player> players = new ArrayList<>();
         
-        Player player1;
-        Player player2;
-        Player player3;
-        Player player4;
+        Player player1, player2, player3, player4;
 
         if (numPlayers == 4) {
             if (!player1Name.getText().equals("")) {
@@ -233,7 +230,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             }
         }
 
-        if (numPlayers == 3) {
+        else if (numPlayers == 3) {
             if (!player1Name.getText().equals("")) {
                 player1 = new Player(player1Name.getText(), 1, gameGrid);   
                 players.add(player1);
@@ -295,6 +292,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
                 players.add(player4);
             }
         }
+    
 
         this.gameEngine = new GameEngine(settings, players);
         gameEngine.addListener(this);

@@ -57,13 +57,16 @@ public class GameInfo {
         
         this.playerName1 = gameInfoAsList.get(1);
         
-        if (numPlayers > 1) {
-            this.playerName2 = gameInfoAsList.get(2);
-        } else {
+
+        if (numPlayers == 2) {
             this.playerName2 = "Robby";
+            this.playerName3 = gameInfoAsList.get(2);
+            this.playerName4 = "LudoLegend";
+            return;
         }
-        
+
         if (numPlayers > 2) {
+            this.playerName2 = gameInfoAsList.get(2);
             this.playerName3 = gameInfoAsList.get(3);
         } else {
             this.playerName3 = "DiceBot";

@@ -132,12 +132,13 @@ public class CreateGameController {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/gameFace.fxml"));
             root = loader.load();
+
             GameFaceController gameFaceController = loader.getController();
 
             gameFaceController.setGameInfo(gameInfo); //Det ser ikke ut til at denne brukes
 
             List<String> validatedGameInfoAsList = gameInfo.getGameInfoAsList();
-
+            System.out.println(validatedGameInfoAsList);
             IntStream.range(0, validatedGameInfoAsList.size()).forEach(index -> gameFaceController.setName(validatedGameInfoAsList.get(index), index));
             
             gameFaceController.gameSetup(numPlayers);
