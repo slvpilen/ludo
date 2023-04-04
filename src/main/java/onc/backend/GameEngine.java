@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.util.Pair;
 
 
@@ -87,14 +90,14 @@ public class GameEngine {
         if (latestDice == 6 && turnRollCount<3) {
             this.currentPlayer = piece.getOwner();
             fireCurrentPlayerChanged();
-            fireRobotCheck(); 
+            fireRobotCheck();
         }
         
         else{
             this.currentPlayer = getNextPlayer();
             fireCurrentPlayerChanged();
-            fireRobotCheck(); 
             turnRollCount = 0;  // nullstiller tellern
+            fireRobotCheck(); 
         }    
     }
 
@@ -116,6 +119,9 @@ public class GameEngine {
         
         Random terning = new Random();
         this.latestDice = terning.nextInt(6) + 1;
+        if (currentPlayer instanceof RobotPlayer) {
+            listeners.stream().forEach(s -> s.updateImageOfDice(latestDice));
+        }
 
         if(currentPlayer.hasAnyValidMoves()) { // add this method
             this.canMakeMove = true;
@@ -124,10 +130,10 @@ public class GameEngine {
         else{
             this.canMakeMove = false;
             //latestPlayer = currentPlayer;
+            this.turnRollCount = 0;
             currentPlayer = getNextPlayer();
             fireCurrentPlayerChanged(); 
             fireRobotCheck();
-            this.turnRollCount = 0;
         }
 
     }
@@ -195,17 +201,69 @@ public class GameEngine {
         }
     }
 
+
     public void robotProcedure() {
         
-        RobotPlayer robot = (RobotPlayer) currentPlayer;
-        fireRobotRolledDice();
-        
-        while (robot.equals(currentPlayer)) {
-            fireRobotRolledDice();
-            robot.makeRobotMove();
-        }
+        Timer t1 = new Timer();
+        t1.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                fireRobotRolledDice();
+                t1.cancel();
+                
+                Timer t2 = new Timer();
+                t2.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (currentPlayer instanceof RobotPlayer) {
+                            ((RobotPlayer) currentPlayer).makeRobotMove(); 
+                        }
+                        t2.cancel();
+                    }
+                }, 3000);
+            }
+        }, 3000);
     }
+    
 
+    // public void robotProcedure() {
+        
+        
+        // Timer t = new Timer();
+        // t.schedule(new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         fireRobotRolledDice();
+        //         if (currentPlayer instanceof RobotPlayer) {
+        //             ((RobotPlayer) currentPlayer).makeRobotMove(); 
+        //         }
+        //         t.cancel();
+        //     }
+        // }, 4000);
+    // }
+        
+
+
+    //     Timer t = new Timer();
+    //     t.schedule(new TimerTask() {
+    //         @Override
+    //         public void run() {
+    //             fireRobotRolledDice();
+    //             t.cancel();
+    //         }
+    //     }, 1000);
+        
+    //     if (currentPlayer instanceof RobotPlayer) {
+    //         Timer timer = new Timer();
+    //         timer.schedule(new TimerTask() {
+    //             @Override
+    //             public void run() {
+    //                 ((RobotPlayer) currentPlayer).makeRobotMove(); 
+    //                 timer.cancel();
+    //             }
+    //         }, 1000);
+    //     }
+
+    // }
 }
-
 

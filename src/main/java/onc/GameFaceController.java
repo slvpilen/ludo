@@ -33,6 +33,7 @@ import onc.backend.Player;
 import onc.backend.RobotPlayer;
 import onc.backend.Settings;
 
+
 public class GameFaceController implements Initializable, InterfaceGameEngineListener {
 
     private Scene scene;
@@ -69,11 +70,14 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             startMessageHidden = true;
         }
 
+
         updatePlayerTurn();
         gameEngine.rollDice();
         updateImageOfDice(gameEngine.getDice());
         
+        
     }
+    
 
 
     @FXML
@@ -84,7 +88,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         stage.setScene(scene);
     }
 
-    private void updateImageOfDice(int latestDice) {
+    public void updateImageOfDice(int latestDice) {
         if (latestDice < 1 || latestDice > 6)
             throw new IllegalArgumentException("Dice must be between 1-6");
 

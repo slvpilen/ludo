@@ -68,15 +68,25 @@ public class GameInfo {
         if (numPlayers > 2) {
             this.playerName2 = gameInfoAsList.get(2);
             this.playerName3 = gameInfoAsList.get(3);
-        } else {
+        } 
+        
+        else {
+            playerName2 = "Robby";
             this.playerName3 = "DiceBot";
         }
         
         if (numPlayers > 3) {
             this.playerName4 = gameInfoAsList.get(4);
-        } else {
+        } 
+        
+        else {
             this.playerName4 = "LudoLegend";
         }
+
+        System.out.println(playerName1);
+        System.out.println(playerName2);
+        System.out.println(playerName3);
+        System.out.println(playerName4);
     }
     
     

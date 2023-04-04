@@ -136,7 +136,7 @@ public class CreateGameController {
             GameFaceController gameFaceController = loader.getController();
 
             gameFaceController.setGameInfo(gameInfo); //Det ser ikke ut til at denne brukes
-
+            System.out.println("Glubb");
             List<String> validatedGameInfoAsList = gameInfo.getGameInfoAsList();
             System.out.println(validatedGameInfoAsList);
             IntStream.range(0, validatedGameInfoAsList.size()).forEach(index -> gameFaceController.setName(validatedGameInfoAsList.get(index), index));

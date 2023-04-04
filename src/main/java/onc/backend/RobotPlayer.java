@@ -13,14 +13,28 @@ public class RobotPlayer extends Player {
 
     public void makeRobotMove() {
 
+        if (!hasAnyValidMoves()) {
+            return;
+        }
+
+
+
         List<Piece> availablePieces = pieces.stream().filter(piece -> piece.hasLegalMove()).collect(Collectors.toList());
         
         Random rng = new Random();
         int randomIndex = rng.nextInt(availablePieces.size());
         Piece selectedPiece = availablePieces.get(randomIndex); 
 
+        
+
         gameEngine.movePiece(selectedPiece);
 
+
+    }
+
+    @Override
+    protected void addMouseFunctionToPieces() {
+        pieces.forEach(piece -> piece.getCircle().setOnMouseClicked(null));
     }
 
 }
