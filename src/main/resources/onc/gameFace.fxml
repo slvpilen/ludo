@@ -83,7 +83,6 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="16" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="16" GridPane.rowIndex="5" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="16" GridPane.rowIndex="8" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="6" GridPane.rowIndex="12" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.rowIndex="5" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="1" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="2" />
@@ -106,11 +105,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.rowIndex="8" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.rowIndex="7" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.rowIndex="6" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="5" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="4" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="3" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="11" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700;" GridPane.columnIndex="2" GridPane.rowIndex="6" />
@@ -121,12 +116,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" GridPane.rowIndex="8" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="14" GridPane.rowIndex="6" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="12" GridPane.rowIndex="6" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="9" GridPane.rowIndex="6" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="8" GridPane.rowIndex="6" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="8" GridPane.rowIndex="7" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="8" GridPane.rowIndex="8" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="8" GridPane.rowIndex="9" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc;" GridPane.columnIndex="8" GridPane.rowIndex="10" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="9" GridPane.rowIndex="6" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="12" GridPane.rowIndex="16" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="4" GridPane.rowIndex="16" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="2" GridPane.rowIndex="16" />
@@ -183,18 +173,8 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="6" GridPane.rowIndex="17" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="6" GridPane.rowIndex="16" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="6" GridPane.rowIndex="15" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="8" GridPane.rowIndex="17" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="7" GridPane.rowIndex="18" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="8" GridPane.rowIndex="18" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="8" GridPane.rowIndex="14" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="8" GridPane.rowIndex="16" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;" GridPane.columnIndex="8" GridPane.rowIndex="15" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="11" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="12" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="13" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="14" GridPane.rowIndex="12" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="14" GridPane.rowIndex="13" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B;" GridPane.columnIndex="10" GridPane.rowIndex="12" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="7" GridPane.rowIndex="18" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="14" GridPane.rowIndex="13" />
             <ImageView fitHeight="83.0" fitWidth="121.0" GridPane.columnIndex="7" GridPane.rowIndex="12">
                <image>
                   <Image url="file:src\main\resources\onc\LudoMiddleV3.jpg" />
@@ -212,54 +192,75 @@
             <AnchorPane layoutX="364.0" layoutY="10.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: FF8F00;" GridPane.columnIndex="16" GridPane.rowIndex="11" />
             <AnchorPane layoutX="644.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: FF8F00;" GridPane.columnIndex="16" GridPane.rowIndex="12" />
             <AnchorPane prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: FF8F00;" GridPane.columnIndex="16" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="10.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="49.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <AnchorPane layoutX="49.0" layoutY="226.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="49.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="2" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="88.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="3" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="127.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="4" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="166.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="5" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="205.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="6" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="244.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="10" />
-            <AnchorPane layoutX="284.0" layoutY="172.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="9" />
-            <AnchorPane layoutX="284.0" layoutY="145.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="8" />
-            <AnchorPane layoutX="284.0" layoutY="118.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-            <AnchorPane layoutX="284.0" layoutY="91.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-            <AnchorPane layoutX="284.0" layoutY="64.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-            <AnchorPane layoutX="284.0" layoutY="37.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-            <AnchorPane layoutX="324.0" layoutY="37.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-            <AnchorPane layoutX="364.0" layoutY="37.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="7" />
-            <AnchorPane layoutX="364.0" layoutY="91.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="8" />
-            <AnchorPane layoutX="364.0" layoutY="118.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="9" />
-            <AnchorPane layoutX="364.0" layoutY="145.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="10" />
-            <AnchorPane layoutX="364.0" layoutY="172.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="10" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="404.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="11" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="444.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="12" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="484.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="13" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="524.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="14" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="564.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="3" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="127.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="4" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="166.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="5" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="205.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="6" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="244.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="10" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="404.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="11" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="444.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="12" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="484.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="13" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="524.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="15" GridPane.rowIndex="11" />
-            <AnchorPane layoutX="604.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="15" GridPane.rowIndex="13" />
-            <AnchorPane layoutX="604.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="15" GridPane.rowIndex="12" />
-            <AnchorPane layoutX="604.0" layoutY="226.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="14" />
-            <AnchorPane layoutX="284.0" layoutY="280.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="15" />
-            <AnchorPane layoutX="284.0" layoutY="308.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="16" />
-            <AnchorPane layoutX="284.0" layoutY="336.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="17" />
-            <AnchorPane layoutX="284.0" layoutY="364.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="7" GridPane.rowIndex="19" />
-            <AnchorPane layoutX="284.0" layoutY="420.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="8" GridPane.rowIndex="19" />
-            <AnchorPane layoutX="324.0" layoutY="420.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="14" />
-            <AnchorPane layoutX="364.0" layoutY="280.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="15" />
-            <AnchorPane layoutX="364.0" layoutY="308.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="16" />
-            <AnchorPane layoutX="364.0" layoutY="336.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="17" />
-            <AnchorPane layoutX="364.0" layoutY="364.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="18" />
-            <AnchorPane layoutX="364.0" layoutY="392.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F;" GridPane.columnIndex="9" GridPane.rowIndex="19" />
+            <AnchorPane layoutX="49.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="88.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="127.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="166.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="205.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="6" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="244.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="10" />
+            <AnchorPane layoutX="284.0" layoutY="172.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="9" />
+            <AnchorPane layoutX="284.0" layoutY="145.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+            <AnchorPane layoutX="284.0" layoutY="145.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+            <AnchorPane layoutX="284.0" layoutY="118.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+            <AnchorPane layoutX="284.0" layoutY="91.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+            <AnchorPane layoutX="284.0" layoutY="64.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <AnchorPane layoutX="284.0" layoutY="37.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <AnchorPane layoutX="324.0" layoutY="37.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+            <AnchorPane layoutX="364.0" layoutY="37.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="7" />
+            <AnchorPane layoutX="364.0" layoutY="91.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="8" />
+            <AnchorPane layoutX="364.0" layoutY="118.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="9" />
+            <AnchorPane layoutX="364.0" layoutY="145.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="10" />
+            <AnchorPane layoutX="364.0" layoutY="172.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="10" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="404.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="11" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="444.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="12" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="484.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="13" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="524.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="14" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="127.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="166.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="205.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="6" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="244.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="10" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="404.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="11" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="444.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="12" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="484.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="13" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="524.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="15" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="604.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="15" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="604.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="15" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="604.0" layoutY="226.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="14" />
+            <AnchorPane layoutX="284.0" layoutY="280.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="15" />
+            <AnchorPane layoutX="284.0" layoutY="308.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="16" />
+            <AnchorPane layoutX="284.0" layoutY="336.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="17" />
+            <AnchorPane layoutX="284.0" layoutY="364.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="7" GridPane.rowIndex="19" />
+            <AnchorPane layoutX="284.0" layoutY="420.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="8" GridPane.rowIndex="19" />
+            <AnchorPane layoutX="324.0" layoutY="420.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="14" />
+            <AnchorPane layoutX="364.0" layoutY="280.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="15" />
+            <AnchorPane layoutX="364.0" layoutY="308.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="16" />
+            <AnchorPane layoutX="364.0" layoutY="336.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="17" />
+            <AnchorPane layoutX="364.0" layoutY="364.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="18" />
+            <AnchorPane layoutX="364.0" layoutY="392.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="9" GridPane.rowIndex="19" />
+            <AnchorPane prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <AnchorPane layoutX="49.0" layoutY="199.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="49.0" layoutY="226.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="88.0" layoutY="253.0" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #A1887F; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+            <AnchorPane layoutX="88.0" layoutY="199.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="88.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="127.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="166.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="205.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-border-color: #000000; -fx-border-width: 2;" GridPane.columnIndex="6" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="284.0" layoutY="392.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="18" />
+            <AnchorPane layoutX="324.0" layoutY="392.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="17" />
+            <AnchorPane layoutX="324.0" layoutY="364.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="16" />
+            <AnchorPane layoutX="324.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="15" />
+            <AnchorPane layoutX="324.0" layoutY="308.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="14" />
+            <AnchorPane layoutX="564.0" layoutY="253.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="10" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="404.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="11" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="444.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="12" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="484.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="13" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="524.0" layoutY="226.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EE4B2B; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="14" GridPane.rowIndex="12" />
+            <AnchorPane layoutX="364.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+            <AnchorPane layoutX="364.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+            <AnchorPane layoutX="324.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+            <AnchorPane layoutX="324.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="9" />
+            <AnchorPane layoutX="324.0" layoutY="145.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4968bc; -fx-border-width: 2; -fx-border-color: #000000;" GridPane.columnIndex="8" GridPane.rowIndex="10" />
          </children>
       </GridPane>
       <HBox alignment="TOP_CENTER" layoutX="703.0" layoutY="615.0" prefHeight="55.0" prefWidth="363.0">
