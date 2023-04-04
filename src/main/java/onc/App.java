@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class App extends Application {
     
-    Image ludoIcon = new Image(getClass().getResourceAsStream("LudoIcon.jpg"));
+    Image ludoIcon = new Image(getClass().getResourceAsStream("/onc/LudoIcon.jpg"));
 
     private static Scene scene;
     private static MediaPlayer mediaPlayer;
