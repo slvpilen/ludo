@@ -141,18 +141,28 @@ public class GameEngine {
             return;
         
         Random terning = new Random();
-        this.latestDice = terning.nextInt(6) + 1;
-    
+        // this.latestDice = terning.nextInt(6) + 1;
+        latestDice = 6;
         fireUpdateImageOfDice(latestDice);
     
-        if(currentPlayer.hasAnyValidMoves()) {
+        if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 2 && latestDice == 6)) {
             this.canMakeMove = true;
+            return;
         } 
         
+        int oldTurnRollCount = turnRollCount;
+        fireDiceClickable(false);
+        this.canMakeMove = false;
+        this.turnRollCount = 0;
+        
+        if (oldTurnRollCount == 2 && latestDice == 6) {
+            fireThreeSixInRowText();
+            Timer timer = new Timer();
+            timer.schedule(new TimerNoValidMove(), 2000);
+        }
+        
         else {
-            fireDiceClickable(false);
-            this.canMakeMove = false;
-            this.turnRollCount = 0;
+            
             fireNoValidMoveText();
             Timer timer = new Timer();
             timer.schedule(new TimerNoValidMove(), 2000);
@@ -229,11 +239,15 @@ public class GameEngine {
     }
 
     public void fireNoValidMoveText() {
-        listeners.stream().forEach(InterfaceGameEngineListener::noValidMoveText);
+        listeners.stream().forEach(s -> s.updatePlayerText(" can't move"));
     }
 
     public void fireDiceClickable(boolean arg) {
         listeners.stream().forEach(s -> s.diceClickable(arg));
+    }
+
+    public void fireThreeSixInRowText() {
+        listeners.stream().forEach(s -> s.updatePlayerText(" got three 6's!"));
     }
 
     /**
@@ -265,10 +279,9 @@ public class GameEngine {
         class TimerTask2 extends TimerTask {
             @Override
             public void run() {
-                
+                firePlayerMadeMove();
                 if (currentPlayer instanceof RobotPlayer)
-                    firePlayerMadeMove();
-                    if (currentPlayer.hasAnyValidMoves()) {
+                    if (canMakeMove) {
                         ((RobotPlayer) currentPlayer).makeRobotMove(); 
                     }
             }

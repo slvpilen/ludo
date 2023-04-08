@@ -65,7 +65,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             startMessageHidden = true;
         }
 
-        updatePlayerTurn();
+        updatePlayerText(" must move!");
 
         gameEngine.rollDice();      
         
@@ -95,52 +95,37 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         diceView.setImage(blackDice);
     }
 
-    public void noValidMoveText() {
-        
+
+
+    public void updatePlayerText(String text) {
         String playerName = gameEngine.getCurrentPlayer().getUsername();
-        playerTurn.setText(playerName + " can't move!");
-        
-        int currentHousNumber = gameEngine.getCurrentPlayer().getHouseNumber();
-        if (currentHousNumber == 1) {
-            playerTurn.setFill(Color.valueOf("#00ff00"));
-        }
-
-        else if (currentHousNumber == 2) {
-            playerTurn.setFill(Color.valueOf("#ffd700"));
-        }
-
-        else if (currentHousNumber == 3) {
-            playerTurn.setFill(Color.valueOf("#4968bc"));
-        }
-
-        else if (currentHousNumber == 4) {
-            playerTurn.setFill(Color.valueOf("#EE4B2B"));
+        playerTurn.setText(playerName + text);
+    
+        int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
+        switch (currentHouseNumber) {
+            case 1:
+                playerTurn.setFill(Color.valueOf("#00ff00"));
+                break;
+            case 2:
+                playerTurn.setFill(Color.valueOf("#ffd700"));
+                break;
+            case 3:
+                playerTurn.setFill(Color.valueOf("#4968bc"));
+                break;
+            case 4:
+                playerTurn.setFill(Color.valueOf("#EE4B2B"));
+                break;
         }
     }
-
-    public void updatePlayerTurn() {
-        
-        String playerName = gameEngine.getCurrentPlayer().getUsername();
-        playerTurn.setText(playerName + " must move!");
-        
-        int currentHousNumber = gameEngine.getCurrentPlayer().getHouseNumber();
-        if (currentHousNumber == 1) {
-            playerTurn.setFill(Color.valueOf("#00ff00"));
+    
+    public String getPlayerThrowText(String playerName) {
+        if (playerName.charAt(playerName.length() - 1) == 's' || playerName.charAt(playerName.length() - 1) == 'x' || playerName.charAt(playerName.length() - 1) == 'z') {
+            return playerName + "' throw";
+        } else {
+            return playerName + "s throw";
         }
-
-        else if (currentHousNumber == 2) {
-            playerTurn.setFill(Color.valueOf("#ffd700"));
-        }
-
-        else if (currentHousNumber == 3) {
-            playerTurn.setFill(Color.valueOf("#4968bc"));
-        }
-
-        else if (currentHousNumber == 4) {
-            playerTurn.setFill(Color.valueOf("#EE4B2B"));
-        }
-
     }
+    
 
     public void updatePlayerThrow() {
         
@@ -377,4 +362,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     public void diceClickable(boolean arg) {
         diceView.setDisable(!arg);
     }
+
+
 }
