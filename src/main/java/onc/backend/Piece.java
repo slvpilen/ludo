@@ -70,7 +70,6 @@ public class Piece {
     }
 
     public boolean hasLegalMove(){
-        //System.out.println("has legal move is made, but missing some important things!!!");
         
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice = owner.getGameEngine().getDice();
@@ -102,17 +101,35 @@ public class Piece {
                 }
             }
         }
-
         // End of tower section.
+
+
+        Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove(latestDice);
+        ArrayList<Pair<Integer, Integer>> enemyStartSquares = getEnemyStartSquares(houseNumber);
+
+        if (enemyStartSquares.contains(endLocationAfterMove)) {
+            return false;
+        }
+
+        
 
         return true;
     }
 
+    /**
+     * This method gives the endLocation of a piece after a move.
+     * The endLocation is calculated by using the latest dice-roll.
+     * The method takes into account the complications which might occur
+     * at the end, if your dice-roll isn't exactly right to get your piece in goal.
+     * This method actually moves the piece.
+     * 
+     * @return the end location of the piece after the move
+     */
     private Pair<Integer, Integer> getLocationAfterPossibleMove(){
         
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice= owner.getGameEngine().getDice();
-
+        
         boolean isInHomeSquares = homeSquares.contains(getPosition());
         boolean isPieceBeyondField = pathIndex + latestDice > standardPath.size()-1;
 
@@ -123,20 +140,6 @@ public class Piece {
 
 
         else if(isPieceBeyondField){
-            
-            
-            // Du hadde glemt en parentes mot slutten av uttrykket, derfor ble kalkulert index gal.
-            // Det korrekte uttrykket har blitt implementert.
-            // Slik det var tildigere, tok brikken alltid to steg for lite dersom den var nærme målområdet.
-
-            // Galt uttrykk:
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1 );      
-            
-            // Riktig uttrykk:
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - (standardPath.size()-1) );      
-
-            // Lett feil å fikse da, nå er grunnspillet nesten ferdig!
-
             pathIndex = 2 * (standardPath.size() - 1) - pathIndex - latestDice;
             return standardPath.get(pathIndex); 
         }
@@ -148,8 +151,17 @@ public class Piece {
     }
 
 
-    // must probably copy code over to this one
 
+    /**
+     * This method gives the endLocation of a piece after a move.
+     * The endLocation is calculated by using an integer argument which can be between 1 and 6 (inclusive).
+     * The method takes into account the complications which might occur
+     * at the end, if your dice-roll isn't exactly right to get your piece in goal.
+     * This method does not move the piece. 
+     * 
+     * @param numSpaces The number of spaces to move the piece. Must be an integer between 1 and 6 (inclusive)
+     * @return the end location of the piece after the move
+     */
     private Pair<Integer, Integer> getLocationAfterPossibleMove(int numSpaces){
         
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
@@ -177,7 +189,17 @@ public class Piece {
         }
     }
 
+    public ArrayList<Pair<Integer, Integer>> getEnemyStartSquares(int houseNumber) {
+        
+        List<Integer> xAxis = Arrays.asList(7, 2, 9, 14);
+        List<Integer> yAxis = Arrays.asList(18, 11, 6, 13);
 
+        
+        ArrayList<Pair<Integer, Integer>> enemyStartSquares = addXandYlistAsPair(new ArrayList<>(), xAxis, yAxis);
+        enemyStartSquares.remove(houseNumber - 1);
+        return enemyStartSquares;
+
+    }
 
     public void setToHouse(){
         

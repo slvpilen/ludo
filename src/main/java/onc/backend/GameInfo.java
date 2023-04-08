@@ -79,11 +79,6 @@ public class GameInfo {
         else {
             this.playerName4 = "LudoLegend";
         }
-
-        System.out.println(playerName1);
-        System.out.println(playerName2);
-        System.out.println(playerName3);
-        System.out.println(playerName4);
     }
     
     public String getGameName() {
