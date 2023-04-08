@@ -259,9 +259,11 @@ public class GameEngine {
      * If the next player is a robot, then the ability to click the dice is disabled for all human players. 
      */
     public void fireRobotCheck() {
+        
         if (currentPlayer instanceof RobotPlayer) {
             robotProcedure();
         }
+
         else {
             fireDiceClickable(true);
         }

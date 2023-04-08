@@ -151,7 +151,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     /**  
      * This method is used during initialization of new game. Used in CreateGameController to set the name of the players in the game scene.
      */
-
     public void setName(String name, int textBox) {
 
         Text[] texts = {gameName, player1Name, player2Name, player3Name, player4Name};
@@ -176,7 +175,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             players.add(new RobotPlayer(player2Name.getText(), 2, gameGrid));
             players.add(new RobotPlayer(player3Name.getText(), 3, gameGrid));
             players.add(new RobotPlayer(player4Name.getText(), 4, gameGrid));
-            return;
         }
 
         else {
@@ -185,7 +183,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             players.add(numPlayers == 4 ? new Player(player4Name.getText(), 4, gameGrid) : new RobotPlayer(player4Name.getText(), 4, gameGrid));
         }
 
-        this.gameEngine = new GameEngine(settings, players);
+        gameEngine = new GameEngine(settings, players);
         gameEngine.addListener(this);
     }   
 
