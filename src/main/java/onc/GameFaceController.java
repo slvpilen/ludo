@@ -34,24 +34,16 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
     private Scene scene;
     private GameEngine gameEngine;
     private GameInfo gameInfo;
+    private boolean startMessageHidden;
     
-    @FXML
-    private Text gameName;
-    
+    @FXML private Text gameName, player1Name, player2Name, player3Name, player4Name, playerTurn;
 
-    
-    @FXML
-    private Text player1Name, player2Name, player3Name, player4Name, playerTurn;
+    @FXML private GridPane gameGrid;
 
-    @FXML
-    private GridPane gameGrid;
-
-    @FXML
-    private ImageView diceView;
+    @FXML private ImageView diceView;
 
     @FXML private VBox startMessage;
 
-    private boolean startMessageHidden;
 
     public void setGameInfo(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
@@ -68,8 +60,6 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         gameEngine.rollDice();      
     
     }
-    
-
 
     @FXML
     private void goToStartScreen() throws IOException {
@@ -79,6 +69,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         stage.setScene(scene);
     }
 
+    @Override
     public void updateImageOfDice(int latestDice) {
         if (latestDice < 1 || latestDice > 6)
             throw new IllegalArgumentException("Dice must be between 1-6");
@@ -87,13 +78,16 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         diceView.setImage(sourceimage1);
     }
 
+    /**
+     * This method sets the image of the dice to be a black dice.
+     * This image is always presented before a player has rolled the dice.
+     */
     public void blackDice() {
         Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
         diceView.setImage(blackDice);
     }
 
-
-
+    @Override
     public void updatePlayerText(String text) {
         String playerName = gameEngine.getCurrentPlayer().getUsername();
         playerTurn.setText(playerName + text);
@@ -115,198 +109,85 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         }
     }
     
-    public String getPlayerThrowText(String playerName) {
+
+    /**
+     * This method changes the in-game-text and color to show which player's turn it is
+     */
+    public void updatePlayerThrowText() {
+        
+        String playerName = gameEngine.getCurrentPlayer().getUsername();
+        int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
+        
+        String text;
+        Color color = new Color(0, 0, 0, 1);
+    
         if (playerName.charAt(playerName.length() - 1) == 's' || playerName.charAt(playerName.length() - 1) == 'x' || playerName.charAt(playerName.length() - 1) == 'z') {
-            return playerName + "' throw";
-        } else {
-            return playerName + "s throw";
+            text = playerName + "' throw";
+        } 
+        
+        else {
+            text = playerName + "s throw";
         }
-    }
     
-
-    public void updatePlayerThrow() {
+        switch (currentHouseNumber) {
+            case 1:
+                color = Color.valueOf("#00ff00");
+                break;
+            case 2:
+                color = Color.valueOf("#ffd700");
+                break;
+            case 3:
+                color = Color.valueOf("#4968bc");
+                break;
+            case 4:
+                color = Color.valueOf("#EE4B2B");
+                break;
+        }
         
-        String p1Name = player1Name.getText();
-        String p2Name = player2Name.getText();
-        String p3Name = player3Name.getText();
-        String p4Name = player4Name.getText();
-        
-        if (gameEngine.getCurrentPlayer().getHouseNumber() == 1) {
-            if (p1Name.charAt(p1Name.length()-1) == 's' || p1Name.charAt(p1Name.length()-1) == 'x' || p1Name.charAt(p1Name.length()-1) == 'z' ) {
-                playerTurn.setText(p1Name + "' throw");
-                playerTurn.setFill(Color.valueOf("#00FF00"));
-            }
-            else {
-                playerTurn.setText(p1Name + "s throw");
-                playerTurn.setFill(Color.valueOf("#00FF00"));
-            }
-        }
-
-        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 2) {
-            if (p2Name.charAt(p2Name.length()-1) == 's' || p2Name.charAt(p2Name.length()-1) == 'x' || p2Name.charAt(p2Name.length()-1) == 'z' ) {
-                playerTurn.setText(p2Name + "' throw");
-                playerTurn.setFill(Color.valueOf("#FFD700"));
-            }
-            else {
-                playerTurn.setText(p2Name + "s throw");
-                playerTurn.setFill(Color.valueOf("#FFD700"));
-            }
-        }
-
-        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 3) {
-            if (p3Name.charAt(p3Name.length()-1) == 's' || p3Name.charAt(p3Name.length()-1) == 'x' || p3Name.charAt(p3Name.length()-1) == 'z' ) {
-                playerTurn.setText(p3Name + "' throw");
-                playerTurn.setFill(Color.valueOf("#4968bc"));
-            }
-            else {
-                playerTurn.setText(p3Name + "s throw");
-                playerTurn.setFill(Color.valueOf("#4968bc"));
-            }
-        }
-
-        else if (gameEngine.getCurrentPlayer().getHouseNumber() == 4) {
-            if (p4Name.charAt(p4Name.length()-1) == 's' || p4Name.charAt(p4Name.length()-1) == 'x' || p4Name.charAt(p4Name.length()-1) == 'z' ) {
-                playerTurn.setText(p4Name + "' throw");
-                playerTurn.setFill(Color.valueOf("#EE4B2B"));
-            }
-            else {
-                playerTurn.setText(p4Name + "s throw");
-                playerTurn.setFill(Color.valueOf("#EE4B2B"));
-            }
-        }
-
+        playerTurn.setText(text);
+        playerTurn.setFill(color);
     }
 
-    // This method is used during initialization of new game. Used in CreateGameController.
+    /**  
+     * This method is used during initialization of new game. Used in CreateGameController to set the name of the players in the game scene.
+     */
+
     public void setName(String name, int textBox) {
-        
-        if (textBox == 0) {
-            gameName.setText(gameName.getText() + name);
-        }
 
-        if (textBox == 1) {
-            player1Name.setText(player1Name.getText() + name);
-        }
-
-        if (textBox == 2) {
-            player2Name.setText(player2Name.getText() + name);
-        }
-        
-        if (textBox == 3) {
-            player3Name.setText(player3Name.getText() + name);
-        }
-        
-        if (textBox == 4) {
-            player4Name.setText(player4Name.getText() + name);
-        }
+        Text[] texts = {gameName, player1Name, player2Name, player3Name, player4Name};
+        texts[textBox].setText(texts[textBox].getText() + name);
 
     }
+    
 
-
-    // This method is used by CreateGameController to initialize the GameFace after clicking submit (creating new game).
+    /** 
+     * This method is used by CreateGameController to initialize the game scene after clicking submit.
+     * Specifically, the gameEngine gets initialized with a set of players and some settings.
+     * At this point, custom settings have not yet been implemented, so default settings are applied.
+     */
     public void gameSetup(int numPlayers) throws IOException {
-
-
-        if (numPlayers < 1 || numPlayers > 4) {
-            throw new IllegalArgumentException("Number of players is incorrect!");
-        }
-
+        
         Settings settings = new Settings();
-        
         ArrayList<Player> players = new ArrayList<>();
+    
+        players.add(new Player(player1Name.getText(), 1, gameGrid));
         
-        Player player1, player2, player3, player4;
-
-        if (numPlayers == 4) {
-            if (!player1Name.getText().equals("")) {
-                player1 = new Player(player1Name.getText(), 1, gameGrid);   
-                players.add(player1);
-            }
-            if (!player2Name.getText().equals("")) {
-                player2 = new Player(player2Name.getText(), 2, gameGrid);
-                players.add(player2);
-    
-            }
-            if (!player3Name.getText().equals("")) {
-                player3 = new Player(player3Name.getText(), 3, gameGrid);
-                players.add(player3);
-    
-            }
-            if (!player4Name.getText().equals("")) {
-                player4 = new Player(player4Name.getText(), 4, gameGrid);
-                players.add(player4);
-            }
-        }
-
-        else if (numPlayers == 3) {
-            if (!player1Name.getText().equals("")) {
-                player1 = new Player(player1Name.getText(), 1, gameGrid);   
-                players.add(player1);
-            }
-            if (!player2Name.getText().equals("")) {
-                player2 = new Player(player2Name.getText(), 2, gameGrid);
-                players.add(player2);
-    
-            }
-            if (!player3Name.getText().equals("")) {
-                player3 = new Player(player3Name.getText(), 3, gameGrid);
-                players.add(player3);
-    
-            }
-            if (!player4Name.getText().equals("")) {
-                player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
-                players.add(player4);
-            }
-        }
-
-        else if (numPlayers == 2) {
-            if (!player1Name.getText().equals("")) {
-                player1 = new Player(player1Name.getText(), 1, gameGrid);   
-                players.add(player1);
-            }
-            if (!player2Name.getText().equals("")) {
-                player2 = new RobotPlayer(player2Name.getText(), 2, gameGrid);
-                players.add(player2);
-    
-            }
-            if (!player3Name.getText().equals("")) {
-                player3 = new Player(player3Name.getText(), 3, gameGrid);
-                players.add(player3);
-    
-            }
-            if (!player4Name.getText().equals("")) {
-                player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
-                players.add(player4);
-            }
+        if (numPlayers == 1) {
+            players.add(new RobotPlayer(player2Name.getText(), 2, gameGrid));
+            players.add(new RobotPlayer(player3Name.getText(), 3, gameGrid));
+            players.add(new RobotPlayer(player4Name.getText(), 4, gameGrid));
+            return;
         }
 
         else {
-            if (!player1Name.getText().equals("")) {
-                player1 = new Player(player1Name.getText(), 1, gameGrid);   
-                players.add(player1);
-            }
-            if (!player2Name.getText().equals("")) {
-                player2 = new RobotPlayer(player2Name.getText(), 2, gameGrid);
-                players.add(player2);
-    
-            }
-            if (!player3Name.getText().equals("")) {
-                player3 = new RobotPlayer(player3Name.getText(), 3, gameGrid);
-                players.add(player3);
-    
-            }
-            if (!player4Name.getText().equals("")) {
-                player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
-                players.add(player4);
-            }
+            players.add(numPlayers == 2 ? new RobotPlayer(player2Name.getText(), 2, gameGrid) : new Player(player2Name.getText(), 2, gameGrid));
+            players.add(new Player(player3Name.getText(), 3, gameGrid));
+            players.add(numPlayers == 4 ? new Player(player4Name.getText(), 4, gameGrid) : new RobotPlayer(player4Name.getText(), 4, gameGrid));
         }
-    
 
         this.gameEngine = new GameEngine(settings, players);
         gameEngine.addListener(this);
-
-        
-    }
+    }   
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -315,15 +196,19 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
     @Override
     public void currentPlayerChanged() {
-        updatePlayerThrow();
+        updatePlayerThrowText();
     }
 
-    @Override public void playerWon(String winnerName) {
+    @Override 
+    public void playerWon(String winnerName) {
         showWinPopup(winnerName);
     }
 
 
-    // This is more of a temporary solution, didn't think it would work at first, but it did.
+    /**
+     * This method ensures that a pop-up window appears when a player has won the game.
+     * Clicking the ok-button which appears will take you to the home screen.
+     */
     private void showWinPopup(String playerName) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
@@ -340,7 +225,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         }
     }
 
-
+    @Override
     public void robotRolledDice() {
         
         try {
@@ -352,10 +237,12 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         }
     }
 
+    @Override
     public void playerMadeMove() {
         blackDice();
     }
     
+    @Override
     public void diceClickable(boolean arg) {
         diceView.setDisable(!arg);
     }

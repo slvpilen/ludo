@@ -24,34 +24,31 @@ public class GameInfo {
         this.gameInfoAsList.add(playerName2);
         this.gameInfoAsList.add(playerName3);
         this.gameInfoAsList.add(playerName4);
-        
     }   
 
-
-
-
     public void playerNameCheck(List<String> gameInfoAsList, int numPlayers) {
+        
         if (numPlayers < 1 || numPlayers > 4) {
             throw new IllegalArgumentException("Invalid number of players!");
         }
         
-        if (gameInfoAsList.size() != numPlayers + 1) {
+        else if (gameInfoAsList.size() != numPlayers + 1) {
             throw new MissingInfoException("Missing info about game!");
         }
         
-        if (!gameInfoAsList.stream().allMatch(str -> !str.isEmpty())) {
+        else if (!gameInfoAsList.stream().allMatch(str -> !str.isEmpty())) {
             throw new IllegalStateException("Fill out every field!");
         }
         
-        if (gameInfoAsList.stream().distinct().count() != numPlayers + 1) {
+        else if (gameInfoAsList.stream().distinct().count() != numPlayers + 1) {
             throw new IllegalArgumentException("The players must have different names");
         }
         
-        if (gameInfoAsList.stream().skip(1).anyMatch(name -> name.length() > 9)) {
+        else if (gameInfoAsList.stream().skip(1).anyMatch(name -> name.length() > 9)) {
             throw new IllegalMonitorStateException("Maximum name length is 9!");
         }
         
-        if (gameInfoAsList.get(0).length() > 25) {
+        else if (gameInfoAsList.get(0).length() > 25) {
             throw new GameNameLengthException("Maximum game name length is 25");
         }
         
@@ -88,8 +85,6 @@ public class GameInfo {
         System.out.println(playerName3);
         System.out.println(playerName4);
     }
-    
-    
     
     public String getGameName() {
         return gameName;
