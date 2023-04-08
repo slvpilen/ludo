@@ -141,11 +141,11 @@ public class GameEngine {
             return;
         
         Random terning = new Random();
-        // this.latestDice = terning.nextInt(6) + 1;
-        latestDice = 6;
+        this.latestDice = terning.nextInt(6) + 1;
         fireUpdateImageOfDice(latestDice);
     
         if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 2 && latestDice == 6)) {
+            firePlayerMustMoveText();
             this.canMakeMove = true;
             return;
         } 
@@ -238,17 +238,21 @@ public class GameEngine {
         listeners.stream().forEach(s -> s.updateImageOfDice(latestDice));
     }
 
+    public void firePlayerMustMoveText() {
+        listeners.stream().forEach(s -> s.updatePlayerText(" must move"));
+    }
+
     public void fireNoValidMoveText() {
         listeners.stream().forEach(s -> s.updatePlayerText(" can't move"));
     }
-
+    
+    public void fireThreeSixInRowText() {
+        listeners.stream().forEach(s -> s.updatePlayerText(" got three 6's!"));
+    }
     public void fireDiceClickable(boolean arg) {
         listeners.stream().forEach(s -> s.diceClickable(arg));
     }
 
-    public void fireThreeSixInRowText() {
-        listeners.stream().forEach(s -> s.updatePlayerText(" got three 6's!"));
-    }
 
     /**
      * Checks if the next player is a robot.

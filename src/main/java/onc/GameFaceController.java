@@ -65,11 +65,8 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             startMessageHidden = true;
         }
 
-        updatePlayerText(" must move!");
-
         gameEngine.rollDice();      
-        
-
+    
     }
     
 
