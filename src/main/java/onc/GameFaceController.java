@@ -4,26 +4,21 @@ package onc;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.channels.NotYetBoundException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-//import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import onc.backend.GameEngine;
@@ -70,12 +65,11 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             startMessageHidden = true;
         }
 
-
         updatePlayerTurn();
-        gameEngine.rollDice();
-        updateImageOfDice(gameEngine.getDice());
+
+        gameEngine.rollDice();      
         
-        
+
     }
     
 
@@ -94,6 +88,34 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
         Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice" + Integer.toString(latestDice) + ".png");
         diceView.setImage(sourceimage1);
+    }
+
+    public void blackDice() {
+        Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
+        diceView.setImage(blackDice);
+    }
+
+    public void noValidMoveText() {
+        
+        String playerName = gameEngine.getCurrentPlayer().getUsername();
+        playerTurn.setText(playerName + " can't move!");
+        
+        int currentHousNumber = gameEngine.getCurrentPlayer().getHouseNumber();
+        if (currentHousNumber == 1) {
+            playerTurn.setFill(Color.valueOf("#00ff00"));
+        }
+
+        else if (currentHousNumber == 2) {
+            playerTurn.setFill(Color.valueOf("#ffd700"));
+        }
+
+        else if (currentHousNumber == 3) {
+            playerTurn.setFill(Color.valueOf("#4968bc"));
+        }
+
+        else if (currentHousNumber == 4) {
+            playerTurn.setFill(Color.valueOf("#EE4B2B"));
+        }
     }
 
     public void updatePlayerTurn() {
@@ -306,47 +328,7 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // This setting is crucial
-        updateImageOfDice(1); // setting dice to be 1 as default
-
-        
-        
-        
-        
-        
-        
-        // This is made to test the robotplayers.
-        
-        // Settings settings = new Settings();
-        
-        // ArrayList<Player> players = new ArrayList<>();
-        
-        // Player player1;
-        // Player player2;
-        // Player player3;
-        // Player player4;
-  
-        // player1 = new Player("Christian", 1, gameGrid);   
-        // player2 = new RobotPlayer("Roberto", 2, gameGrid);
-        // player3 = new RobotPlayer("Rotobert", 3, gameGrid);
-        // player4 = new RobotPlayer("Robby", 4, gameGrid);
-           
-        // players.add(player1);
-        // players.add(player2);
-        // players.add(player3);
-        // players.add(player4);
-
-        // setName("Robo rampage", 0);
-        // setName("Christian", 1);
-        // setName("Roberto", 2);
-        // setName("Rotobert", 3);
-        // setName("Robby", 4);
-        
-        // this.gameEngine = new GameEngine(settings, players);
-        // gameEngine.addListener(this);
-        
-        //End of robotplayer-setup.
-        
+        blackDice(); // setting dice to be 1 as default
     }
 
     @Override
@@ -387,6 +369,12 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             e.printStackTrace();
         }
     }
-    
 
+    public void playerMadeMove() {
+        blackDice();
+    }
+    
+    public void diceClickable(boolean arg) {
+        diceView.setDisable(!arg);
+    }
 }

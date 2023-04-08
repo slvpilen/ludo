@@ -72,11 +72,13 @@ public class GameEngine {
             return;
         
         piece.movePlaces();
-
+        
         // Sjekker om en spiller har vunnet:
         if (piece.getOwner().isFinished()) {
             firePlayerWon(currentPlayer.getUsername());
         }
+
+        firePlayerMadeMove();
 
         this.canMakeMove = false;
         updateCurrentPlayer(piece);
@@ -110,6 +112,27 @@ public class GameEngine {
 
     }
 
+    class TimerNoValidMove extends TimerTask {
+
+        @Override
+        public void run() {
+            
+            if (!(currentPlayer instanceof RobotPlayer)) {
+                firePlayerMadeMove();
+                currentPlayer = getNextPlayer();
+                fireCurrentPlayerChanged();
+                fireRobotCheck();
+            } else {
+                currentPlayer = getNextPlayer();
+                fireCurrentPlayerChanged();
+                fireRobotCheck();
+            }
+
+            fireDiceClickable(true);
+        }
+
+    }
+
 
 
     public void rollDice() {
@@ -119,24 +142,23 @@ public class GameEngine {
         
         Random terning = new Random();
         this.latestDice = terning.nextInt(6) + 1;
-        if (currentPlayer instanceof RobotPlayer) {
-            listeners.stream().forEach(s -> s.updateImageOfDice(latestDice));
-        }
-
-        if(currentPlayer.hasAnyValidMoves()) { // add this method
+    
+        fireUpdateImageOfDice(latestDice);
+    
+        if(currentPlayer.hasAnyValidMoves()) {
             this.canMakeMove = true;
-        }
+        } 
         
-        else{
+        else {
+            fireDiceClickable(false);
             this.canMakeMove = false;
-            //latestPlayer = currentPlayer;
             this.turnRollCount = 0;
-            currentPlayer = getNextPlayer();
-            fireCurrentPlayerChanged(); 
-            fireRobotCheck();
+            fireNoValidMoveText();
+            Timer timer = new Timer();
+            timer.schedule(new TimerNoValidMove(), 2000);
         }
-
     }
+    
 
     public int getDice(){
         return latestDice;
@@ -144,6 +166,10 @@ public class GameEngine {
 
     public Player getCurrentPlayer(){
         return currentPlayer;
+    }
+
+    public boolean getCanMakeMove() {
+        return canMakeMove;
     }
 
     public int getNumberOfPiecesOnLocation(Pair<Integer, Integer> location){
@@ -194,76 +220,79 @@ public class GameEngine {
         listeners.stream().forEach(InterfaceGameEngineListener::robotRolledDice);
     }
 
+    public void firePlayerMadeMove() {
+        listeners.stream().forEach(InterfaceGameEngineListener::playerMadeMove);
+    }
 
+    public void fireUpdateImageOfDice(int latestDice) {
+        listeners.stream().forEach(s -> s.updateImageOfDice(latestDice));
+    }
+
+    public void fireNoValidMoveText() {
+        listeners.stream().forEach(InterfaceGameEngineListener::noValidMoveText);
+    }
+
+    public void fireDiceClickable(boolean arg) {
+        listeners.stream().forEach(s -> s.diceClickable(arg));
+    }
+
+    /**
+     * Checks if the next player is a robot.
+     * If the next player is a robot, then the ability to click the dice is disabled for all human players. 
+     */
     public void fireRobotCheck() {
         if (currentPlayer instanceof RobotPlayer) {
             robotProcedure();
         }
+        else {
+            fireDiceClickable(true);
+        }
     }
 
 
+
+
+    /**
+     * Denne metoden gjør slik at en bot kaster terningen, og gjør et trekk dersom han har muligheten til det. 
+     */
     public void robotProcedure() {
         
-        Timer t1 = new Timer();
-        t1.schedule(new TimerTask() {
+        fireDiceClickable(false);
+
+        Timer timer = new Timer();
+
+        // Task 2, flytter en brikke
+        class TimerTask2 extends TimerTask {
+            @Override
+            public void run() {
+                
+                if (currentPlayer instanceof RobotPlayer)
+                    firePlayerMadeMove();
+                    if (currentPlayer.hasAnyValidMoves()) {
+                        ((RobotPlayer) currentPlayer).makeRobotMove(); 
+                    }
+            }
+        }
+
+        // Task1, kaster terningen
+        class TimerTask1 extends TimerTask {
+
             @Override
             public void run() {
                 fireRobotRolledDice();
-                t1.cancel();
-                
-                Timer t2 = new Timer();
-                t2.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        if (currentPlayer instanceof RobotPlayer) {
-                            ((RobotPlayer) currentPlayer).makeRobotMove(); 
-                        }
-                        t2.cancel();
-                    }
-                }, 3000);
+                TimerTask task2 = new TimerTask2();
+                timer.schedule(task2, 2000);
             }
-        }, 3000);
+        
+        }
+
+        TimerTask task1 = new TimerTask1();
+        timer.schedule(task1, 2000);
+
+
     }
-    
-
-    // public void robotProcedure() {
-        
-        
-        // Timer t = new Timer();
-        // t.schedule(new TimerTask() {
-        //     @Override
-        //     public void run() {
-        //         fireRobotRolledDice();
-        //         if (currentPlayer instanceof RobotPlayer) {
-        //             ((RobotPlayer) currentPlayer).makeRobotMove(); 
-        //         }
-        //         t.cancel();
-        //     }
-        // }, 4000);
-    // }
-        
-
-
-    //     Timer t = new Timer();
-    //     t.schedule(new TimerTask() {
-    //         @Override
-    //         public void run() {
-    //             fireRobotRolledDice();
-    //             t.cancel();
-    //         }
-    //     }, 1000);
-        
-    //     if (currentPlayer instanceof RobotPlayer) {
-    //         Timer timer = new Timer();
-    //         timer.schedule(new TimerTask() {
-    //             @Override
-    //             public void run() {
-    //                 ((RobotPlayer) currentPlayer).makeRobotMove(); 
-    //                 timer.cancel();
-    //             }
-    //         }, 1000);
-    //     }
-
-    // }
 }
+
+
+
 

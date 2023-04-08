@@ -28,6 +28,7 @@ public class RobotPlayer extends Player {
         
 
         gameEngine.movePiece(selectedPiece);
+        
 
 
     }
