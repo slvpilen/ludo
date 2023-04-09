@@ -345,12 +345,19 @@ public class Piece {
         return circle;
     }
 
-
+    /**
+     * @return True if the piece has reached the finish spot, otherwise false.
+     */
     public boolean isInFinishPaddock() {
         Pair<Integer, Integer> endLocation = standardPath.get(standardPath.size()-1);
         return endLocation.getKey()==xAxis && endLocation.getValue()==yAxis;
     }
 
+    /**
+     * @return An arrayList which contains the positions which the piece can move to.
+     * The first entry in the Path is the piece's startSpot, and the last position is the endLocation of that piece.
+     * 
+     */
     public ArrayList<Pair<Integer, Integer>> getPath() {
         List<Integer> xAxis = Arrays.asList(7,7,7,7,7,6,5,4,3,2,1,1,1,2,3,4,5,6,7,7,7,7,7,7,
         8,9,9,9,9,9,9,10,11,12,13,14,15,15,15,14,13,12,11,10,9,9,9,9,9,9,8,7);
@@ -408,7 +415,14 @@ public class Piece {
     } 
 
 
-
+    /**
+     * This is a utility method for the PieceClass.
+     * It takes two lists of Integers, combines each of the entries into a pair, and adds them to the path.
+     * @param xAxis The xAxis integers.
+     * @param yAxis The yAxis integers.
+     * @param path The arrayList which the pairs of numbers, which are created when xAxis and yAxis are combined, should be added to.
+     * @throws IllegalArgumentException If the lists xAxis and yAxis do not have the same length.
+     */
     private ArrayList<Pair<Integer, Integer>> addXandYlistAsPair(ArrayList<Pair<Integer, Integer>> path, List<Integer> xAxis, List<Integer> yAxis){
         if (xAxis.size() != yAxis.size())
             throw new IllegalArgumentException("Need same length of x- and y axis");

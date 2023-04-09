@@ -7,16 +7,17 @@ import java.util.stream.Collectors;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
-// Denne klassen virker å være ferdig. 
-
 public class Player {
+
+    // husrekkefølge:
+    // 2 3
+    // 1 4
 
     protected String username;
     protected Collection<Piece> pieces;
     protected int numberOfRollsThisTurn;
     protected int houseNumber;
     protected GameEngine gameEngine;
-    // protected GridPane gameGrid;
 
     public Player(String username, int houseNumber, GridPane gameGrid) {
 
@@ -26,38 +27,29 @@ public class Player {
 
         this.username = username;
         this.houseNumber = houseNumber;
-        // this.gameEngine = gameEngine;
-        // this.gameGrid = gameGrid;
         this.pieces = createPieces(getHomeSquares(), gameGrid);
         addMouseFunctionToPieces();
     }
+    
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn
     // picesLocation etc)
 
-
+    /**
+     * Sets the gameEngine which should be connected to the player.
+     */
     public void setGameEngine(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
     }
 
+    /**
+     * This method adds a click-function to all of the pieces of a human player.
+     * If a human player clicks on one of his pieces, then that piece will move,
+     * provided that it is the player's turn and that the piece has a legal move.
+     */
     protected void addMouseFunctionToPieces() {
         pieces.forEach(piece -> piece.getCircle().setOnMouseClicked(event -> {
             gameEngine.movePiece(piece);
         }));
-    }
-
-    public void setOwnPieceToStart(Pair<Integer, Integer> pieceToRemove) {
-        Collection<Pair<Integer, Integer>> piecesLocation = getPiecesPositions();
-        if (!piecesLocation.contains(pieceToRemove)) {
-            throw new IllegalArgumentException("You tried to remove a piece which the player did not possess.");
-        }
-
-        ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
-        // Putter brikken på første ledige plass i spawn-area
-        piecesLocation.remove(pieceToRemove);
-        for (Pair<Integer, Integer> homeSquare : homeSquares) {
-            if (!this.hasOwnPieceOnSquare(homeSquare))
-                piecesLocation.add(homeSquare);
-        }
     }
 
     public GameEngine getGameEngine() {
@@ -87,9 +79,13 @@ public class Player {
         return newPieces;
     }
 
-    // husrekkefølge:
-    // 2 3
-    // 1 4
+    
+    
+    /**
+     * This method gives you a list of the homeSquares which the player has.
+     * The homeSquares are calculated based on the houseNumber of the player.
+     * @return A list of Pair(Integer, Integer), which contains the homesquare-positions for the player in the gameGrid.
+     */
     public ArrayList<Pair<Integer, Integer>> getHomeSquares() {
         ArrayList<Pair<Integer, Integer>> squares = new ArrayList<Pair<Integer, Integer>>();
 
@@ -125,6 +121,10 @@ public class Player {
 
     }
 
+    /**
+     * This methods returns a list with all of the empty homeSquares which the player has.
+     * @return A list of Pair(Integer, Integer), which tell you the HomeSquare-positions which are unoccupied.
+     */
     public List<Pair<Integer, Integer>> getEmptyHomeSquares() {
         List<Pair<Integer, Integer>> homeSquares = getHomeSquares();
         List<Pair<Integer, Integer>> filledHomeSquares = pieces.stream()
@@ -147,7 +147,7 @@ public class Player {
     public boolean hasAnyValidMoves() {
         
         if (!gameEngine.getCurrentPlayer().equals(this)) {
-            System.out.println("Not this players turn");
+            System.out.println("Not this player's turn");
             return false;
         }
         
