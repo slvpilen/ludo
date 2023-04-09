@@ -18,11 +18,6 @@ public class Player {
     protected GameEngine gameEngine;
     // protected GridPane gameGrid;
 
-    // Startplass avhenger av farge
-
-    // husrekkefølge:
-    // 2 3
-    // 1 4
     public Player(String username, int houseNumber, GridPane gameGrid) {
 
         if (houseNumber > 4 || houseNumber < 1) {
@@ -148,11 +143,6 @@ public class Player {
         return false;
     }
 
-    // make this methode!!
-    //public int getAmountOfPiecesOnSquare(Pair<Integer, Integer> square) {
-    //    throw new IllegalArgumentException("This method needs to be made!!");
-        // return 0;
-    //}
 
     public boolean hasAnyValidMoves() {
         
