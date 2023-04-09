@@ -121,14 +121,16 @@ public class GameEngine {
                 firePlayerMadeMove();
                 currentPlayer = getNextPlayer();
                 fireCurrentPlayerChanged();
+                fireDiceClickable(true);
                 fireRobotCheck();
             } else {
                 currentPlayer = getNextPlayer();
                 fireCurrentPlayerChanged();
+                fireDiceClickable(true);
                 fireRobotCheck();
             }
 
-            fireDiceClickable(true);
+            
         }
 
     }
@@ -141,7 +143,10 @@ public class GameEngine {
             return;
         
         Random terning = new Random();
-        this.latestDice = terning.nextInt(6) + 1;
+
+
+        latestDice = terning.nextInt(6) + 1;
+        latestDice = 6;
         fireUpdateImageOfDice(latestDice);
     
         if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 2 && latestDice == 6)) {
@@ -154,19 +159,18 @@ public class GameEngine {
         fireDiceClickable(false);
         this.canMakeMove = false;
         this.turnRollCount = 0;
-        
+
         if (oldTurnRollCount == 2 && latestDice == 6) {
             fireThreeSixInRowText();
-            Timer timer = new Timer();
-            timer.schedule(new TimerNoValidMove(), 2000);
         }
         
         else {
-            
             fireNoValidMoveText();
-            Timer timer = new Timer();
-            timer.schedule(new TimerNoValidMove(), 2000);
         }
+        
+        Timer timer = new Timer();
+        timer.schedule(new TimerNoValidMove(), 1000);
+    
     }
     
 
@@ -300,13 +304,13 @@ public class GameEngine {
             public void run() {
                 fireRobotRolledDice();
                 TimerTask task2 = new TimerTask2();
-                timer.schedule(task2, 2000);
+                timer.schedule(task2, 1000);
             }
         
         }
 
         TimerTask task1 = new TimerTask1();
-        timer.schedule(task1, 2000);
+        timer.schedule(task1, 1000);
 
 
     }

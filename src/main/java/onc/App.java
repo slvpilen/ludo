@@ -52,7 +52,7 @@ public class App extends Application {
 
     public static void playMusic() throws FileNotFoundException {
         
-        URL songURL = App.class.getResource("BackgroundSongSuperMarioBros.mp3");
+        URL songURL = App.class.getResource("/onc/BackgroundSongSuperMarioBros.mp3");
         
         if (songURL != null) {
             media = new Media(songURL.toString());

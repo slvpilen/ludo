@@ -38,13 +38,45 @@ public class Piece {
         gameGrid.getChildren().add(piece.getCircle());
     }
     
-    private void movePieceInGrid(Piece piece){
-        GridPane.setColumnIndex(piece.getCircle(), piece.getRow());
-        GridPane.setRowIndex(piece.getCircle(), piece.getColumn());
+    /**
+     * Moves a piece in the grid.
+     * If the piece moves to a place where another piece of the same color is located, then the piece gets an offset, 
+     * depending on how many pieces are on that square (ranging from 1 to 3)
+     */
+    private void movePieceInGrid(){
+        
+        int numberOfPiecesOnLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(getPosition());
+        GridPane.setColumnIndex(getCircle(), getRow());
+        GridPane.setRowIndex(getCircle(), getColumn());
+        
+        switch (numberOfPiecesOnLocation) {
+
+            case 2:
+            getCircle().setTranslateX(5);
+            getCircle().setTranslateY(0);
+            break;
+
+            case 3:
+            getCircle().setTranslateX(10);
+            getCircle().setTranslateY(0);
+            break;
+
+            case 4:
+            getCircle().setTranslateX(5);
+            getCircle().setTranslateY(-3);
+            break;
+
+            default:
+            getCircle().setTranslateX(0);
+            getCircle().setTranslateY(0);
+        }
+      
     }
+        
+    
 
     public Player getOwner(){
-        return this.owner;
+        return owner;
     }
 
     // this will only be called if there is it hasLegalMove
@@ -62,13 +94,17 @@ public class Piece {
         this.xAxis = locationAfterMove.getKey();
         this.yAxis = locationAfterMove.getValue(); 
         
-        movePieceInGrid(this);
+        movePieceInGrid();
     }
 
     public int getHouseNumber(){
         return houseNumber;
     }
 
+    /**
+     * This method uses the latestDice of the gameEngine to calculate if the given piece has a legal move.
+     * @return True if the piece has a legal move.
+     */
     public boolean hasLegalMove(){
         
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
@@ -103,14 +139,14 @@ public class Piece {
         }
         // End of tower section.
 
-
+        // Checking if the player is going to land on a square with a color different from its own
         Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove(latestDice);
         ArrayList<Pair<Integer, Integer>> enemyStartSquares = getEnemyStartSquares(houseNumber);
 
         if (enemyStartSquares.contains(endLocationAfterMove)) {
             return false;
         }
-
+        // End of square color check. 
         
 
         return true;
@@ -121,7 +157,7 @@ public class Piece {
      * The endLocation is calculated by using the latest dice-roll.
      * The method takes into account the complications which might occur
      * at the end, if your dice-roll isn't exactly right to get your piece in goal.
-     * This method actually moves the piece.
+     * This method moves the piece.
      * 
      * @return the end location of the piece after the move
      */
@@ -189,6 +225,11 @@ public class Piece {
         }
     }
 
+    /**
+     * This method returns a list of all the squares which the piece may not enter.
+     * @param houseNumber The house which the piece belongs to
+     * @return A list of 3 squares which the piece cannot enter.
+     */
     public ArrayList<Pair<Integer, Integer>> getEnemyStartSquares(int houseNumber) {
         
         List<Integer> xAxis = Arrays.asList(7, 2, 9, 14);
@@ -205,7 +246,7 @@ public class Piece {
         
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         if (homeSquares.contains(getPosition()))
-            throw new IllegalStateException("setting a piece that already in homeSquares into homeSquares");
+            throw new IllegalStateException("Setting a piece that already in homeSquares into homeSquares");
 
         List<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
         if (emptyHomeSquares.size() == 0)
@@ -215,7 +256,7 @@ public class Piece {
         this.yAxis = emptyHomeSquares.get(0).getValue(); 
         pathIndex = -1;
 
-        movePieceInGrid(this);
+        movePieceInGrid();
     }
 
     private Color getColor(){
