@@ -112,6 +112,13 @@ public class GameEngine {
 
     }
 
+    /**
+     * This class sets up a timed task.
+     * The task is to do all the stuff that needs to be done after a player
+     * has thrown the die, and has no valid moves.
+     * This class is used in the method rollDice to ensure that the transition from throwing dice 
+     * to going to the next player is not instant.
+     */
     class TimerNoValidMove extends TimerTask {
 
         @Override
@@ -128,13 +135,9 @@ public class GameEngine {
                 fireCurrentPlayerChanged();
                 fireDiceClickable(true);
                 fireRobotCheck();
-            }
-
-            
+            }            
         }
-
     }
-
 
 
     public void rollDice() {
@@ -143,10 +146,7 @@ public class GameEngine {
             return;
         
         Random terning = new Random();
-
-
         latestDice = terning.nextInt(6) + 1;
-        latestDice = 6;
         fireUpdateImageOfDice(latestDice);
     
         if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 2 && latestDice == 6)) {
@@ -173,7 +173,6 @@ public class GameEngine {
     
     }
     
-
     public int getDice(){
         return latestDice;
     }
@@ -253,6 +252,7 @@ public class GameEngine {
     public void fireThreeSixInRowText() {
         listeners.stream().forEach(s -> s.updatePlayerText(" got three 6's!"));
     }
+
     public void fireDiceClickable(boolean arg) {
         listeners.stream().forEach(s -> s.diceClickable(arg));
     }

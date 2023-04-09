@@ -49,7 +49,13 @@ public class Piece {
         GridPane.setColumnIndex(getCircle(), getRow());
         GridPane.setRowIndex(getCircle(), getColumn());
         
+
+        // NumberOfPiecesOnLocation includes the piece itself.
         switch (numberOfPiecesOnLocation) {
+
+            case 1:
+            getCircle().setTranslateX(0);
+            getCircle().setTranslateY(0);
 
             case 2:
             getCircle().setTranslateX(5);
@@ -65,10 +71,6 @@ public class Piece {
             getCircle().setTranslateX(5);
             getCircle().setTranslateY(-3);
             break;
-
-            default:
-            getCircle().setTranslateX(0);
-            getCircle().setTranslateY(0);
         }
       
     }
@@ -91,8 +93,8 @@ public class Piece {
         if (onePieceFromAnotherHouseOnEndLocation)
             owner.getGameEngine().setPieceOnLocationToHouse(locationAfterMove);
         
-        this.xAxis = locationAfterMove.getKey();
-        this.yAxis = locationAfterMove.getValue(); 
+        xAxis = locationAfterMove.getKey();
+        yAxis = locationAfterMove.getValue(); 
         
         movePieceInGrid();
     }
