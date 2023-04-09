@@ -15,15 +15,26 @@ public class Player {
 
     protected String username;
     protected Collection<Piece> pieces;
-    protected int numberOfRollsThisTurn;
     protected int houseNumber;
     protected GameEngine gameEngine;
 
+
+    /**
+     * The constructor for the Player class.
+     * It sets up the username and houseNumber of the player.
+     * It is also responsible for adding all pieces to the player,
+     * and displaying the pieces in the game scene.
+     * 
+     * @param username The name of the player.
+     * @param houseNumber Determines which corner of the board the player will reside.
+     * @param gameGrid The gridPane which the pieces should be spawned in.
+     * 
+     * @throws IllegalArgumentException If the housenumber is not an integer between 1 and 4 inclusive.
+     * 
+     */
     public Player(String username, int houseNumber, GridPane gameGrid) {
 
-        if (houseNumber > 4 || houseNumber < 1) {
-            throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");
-        }
+        if (houseNumber > 4 || houseNumber < 1) {throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");}
 
         this.username = username;
         this.houseNumber = houseNumber;
@@ -42,6 +53,34 @@ public class Player {
     }
 
     /**
+     * @return The gameEngine which is connected to the player.
+     */
+    public GameEngine getGameEngine() {
+        return gameEngine;
+    }
+
+    /**
+     * @return The houseNumber connected to the player.
+     */
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    /**
+     * @return The username of the player.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @return A collection of the pieces-objects which the player owns.
+     */
+    public Collection<Piece> getPieces() {
+        return pieces;
+    }
+
+    /**
      * This method adds a click-function to all of the pieces of a human player.
      * If a human player clicks on one of his pieces, then that piece will move,
      * provided that it is the player's turn and that the piece has a legal move.
@@ -52,29 +91,35 @@ public class Player {
         }));
     }
 
-    public GameEngine getGameEngine() {
-        return gameEngine;
-    }
+    
 
+    /**
+     * @return A collection of all the Coordinates where the Player has a piece. 
+     * The collection will always have size 4, as a player has 4 pieces.
+     */
     public Collection<Pair<Integer, Integer>> getPiecesPositions() {
         Collection<Pair<Integer, Integer>> positions = new ArrayList<>();
-        for (Piece piece : pieces)
-            positions.add(piece.getPosition());
+        pieces.stream().forEach(p -> positions.add(p.getPosition()));
         return positions;
     }
 
-    public Collection<Piece> getPieces() {
-        return pieces;
-    }
 
+    /**
+     * This method is only used in the constructor of the Player-class.
+     * It creates pieces for the player, one piece for each of the locations in the piecesLocation-list.
+     * 
+     * When this method is used in the constructor, a list of all the homeSquares of the player is used.
+     * With this setup, a new Piece is created in each of the player's homesquares.
+     * 
+     * @param piecesLocation A list with all the positions where a new Piece should be created.
+     * @param gameGrid The GridPane which the Pieces should live in.
+     */
     protected Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
+        
         ArrayList<Piece> newPieces = new ArrayList<>();
-
-        for (Pair<Integer, Integer> location : piecesLocation)
-            newPieces.add(new Piece(this, location, gameGrid));
-
-        if (newPieces.size() != 4)
-            throw new IllegalStateException("The player must have 4 pieces!");
+        piecesLocation.stream().forEach(location -> newPieces.add(new Piece(this, location, gameGrid)));
+        
+        if (newPieces.size() != 4) {throw new IllegalStateException("The player must have 4 pieces!");}
 
         return newPieces;
     }
@@ -136,74 +181,30 @@ public class Player {
     }
     
 
-    public boolean hasOwnPieceOnSquare(Pair<Integer, Integer> square) {
-        if (getPiecesPositions().contains(square)) {
-            return true;
-        }
-        return false;
-    }
-
-
+    /**
+     * Checks if any of the player's pieces has a valid move.
+     * @return True if at least one of the player's pieces has a valid move, otherwise false.
+     */
     public boolean hasAnyValidMoves() {
-        
-        if (!gameEngine.getCurrentPlayer().equals(this)) {
-            System.out.println("Not this player's turn");
-            return false;
-        }
-        
-        if (isFinished()) {
-            System.out.println("This player has finished the game");
-            return false;
-        }
-        
-        int latestDice = gameEngine.getDice();
-
-        if (latestDice == 6 && hasPieceOnHomeSquare()) // Unødvendig, sjekken gjøres allerede i hasLegalMove-metoden!
-            return true;
-
-        for (Piece piece : pieces) {
-            if (piece.hasLegalMove())
-                return true;
-        }
-
-        return false;
+        return pieces.stream().anyMatch(p -> p.hasLegalMove());
     }
 
-    protected boolean hasPieceOnHomeSquare() {
-        Collection<Pair<Integer, Integer>> piecesLocations = getPiecesPositions();
-        ArrayList<Pair<Integer, Integer>> homeSquares = getHomeSquares();
-        for (Pair<Integer, Integer> location : piecesLocations) {
-            if (homeSquares.contains(location))
-                return true;
-        }
-        return false;
-    }
-
+    /**
+     * Checks if the player has all of his pieces in the goal area.
+     * @return True if the player has all of his pieces in the goal area, otherwise false.
+     */
     public boolean isFinished() {
         return pieces.stream().allMatch(Piece::isInFinishPaddock);
     }
 
-    public int getHouseNumber() {
-        return houseNumber;
-    }
+    
 
-    public void addRollThisTurn() {
-        numberOfRollsThisTurn++;
-    }
-
-    public int getNumberOfRollsThisTurn() {
-        return numberOfRollsThisTurn;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
+    /**
+     * Checks if the player has a piece on the location which is provided.
+     * @param location The coordinate in the gameGrid, which you want to know if the player has a piece on.
+     * @return True if the player has one or more pieces on the specified location, otherwise false.
+     */
     public boolean hasPieceOnLocation(Pair<Integer, Integer> location) {
-        for (Piece piece : pieces) {
-            if (piece.getPosition().equals(location))
-                return true;
-        }
-        return false;
+        return getPiecesPositions().contains(location);
     }
 }

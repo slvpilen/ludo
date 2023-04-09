@@ -126,10 +126,16 @@ public class Piece {
 
     /**
      * This method uses the latestDice of the gameEngine to calculate if the given piece has a legal move.
+     * It also checks if the player whose turn it is, is the same player as the owner of the piece.
      * @return True if the piece has a legal move.
      */
     public boolean hasLegalMove(){
         
+        if (!owner.getGameEngine().getCurrentPlayer().equals(owner)) {
+            System.out.println("Not this player's turn");
+            return false;
+        }
+
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice = owner.getGameEngine().getDice();
         boolean isInHomeSquare = homeSquares.contains(getPosition());

@@ -203,7 +203,14 @@ public class GameEngine {
         forEach(piece -> piece.setToHouse()));
     }
 
-
+    /**
+     * This method is used once, to make GameFaceController listen to the changes which happen
+     * in the gameEngine-class.
+     * Because gameFaceController listens to gameEngine, we can inform the controller 
+     * about updates in the game to the controller, and make it react appropriately.
+     * 
+     * @param listener The thing that should listen to GameEngine (usually gameFaceController)
+     */
     public void addListener(InterfaceGameEngineListener listener) {
         if (listeners.contains(listener)) {
             throw new IllegalArgumentException("This object already listens to GameEngine!");
@@ -213,46 +220,70 @@ public class GameEngine {
         
     }
 
-    public void removeListener(InterfaceGameEngineListener listener) {
-        if (!listeners.contains(listener)) {
-            throw new IllegalArgumentException("This object isn't listening to GameEngine, so it does not make sense to remove it from the list of listeners.");
-        }
 
-        listeners.remove(listener);
-    }
-
+    /**
+     * This method tells the gameFaceController that there has been a change in which player's turn it is.
+     */
     public void fireCurrentPlayerChanged() {
         listeners.stream().forEach(InterfaceGameEngineListener::currentPlayerChanged);
     }
 
+    /**
+     * Sends a signal to the gameFaceController that a player has won the game.
+     * The playerWon-method is called in the controller-class, and a pop-up will appear on the gameScreen.
+     */
     public void firePlayerWon(String winnerName) {
         listeners.stream().forEach(listener -> listener.playerWon(winnerName));
     }
 
+    /**
+     * This method is used by the robot to roll the die without actually clicking it.
+     * A signal is sent to gameFaceController, and the die gets rolled.
+     */
     public void fireRobotRolledDice() {
         listeners.stream().forEach(InterfaceGameEngineListener::robotRolledDice);
     }
 
+    /**
+     * This method makes the image of the die go black. 
+     * This indicates that the player who's turn it is, must roll the die to continue.
+     */
     public void firePlayerMadeMove() {
         listeners.stream().forEach(InterfaceGameEngineListener::playerMadeMove);
     }
 
+    /**
+     * Updates the image of the die in the gameFaceScene, such that the latest diceRoll is displayed.
+     */
     public void fireUpdateImageOfDice(int latestDice) {
         listeners.stream().forEach(s -> s.updateImageOfDice(latestDice));
     }
 
+    /**
+     * Text is shown in the gameFaceScene, which tells the player that he must make a move.
+     */
     public void firePlayerMustMoveText() {
         listeners.stream().forEach(s -> s.updatePlayerText(" must move"));
     }
 
+    /**
+     * Text is shown in the gameFaceScene, which tells the player that he can't make a move.
+     */
     public void fireNoValidMoveText() {
         listeners.stream().forEach(s -> s.updatePlayerText(" can't move"));
     }
     
+    /**
+     * Text is shown in the gameFaceScene, which tells the player that he got three 6's in a row.
+     */
     public void fireThreeSixInRowText() {
         listeners.stream().forEach(s -> s.updatePlayerText(" got three 6's!"));
     }
 
+    /**
+     * Sends a signal to the gameFaceController, and tells that a human player should be able to click the dice or not, depending on the argument.
+     * @param arg If true, a player should be able to click the dice. If false, then a player will not be able to click the dice.
+     */
     public void fireDiceClickable(boolean arg) {
         listeners.stream().forEach(s -> s.diceClickable(arg));
     }
@@ -277,7 +308,10 @@ public class GameEngine {
 
 
     /**
-     * Denne metoden gjør slik at en bot kaster terningen, og gjør et trekk dersom han har muligheten til det. 
+     * This method makes the bot throw the die, and make a move if it has any legal moves.
+     * There are timers in this method, such that robot doesn't make moves instantly.
+     * Currently, the robot uses 1 second to think before throwing the dice, and 
+     * also uses 1 second to think about which piece to move. 
      */
     public void robotProcedure() {
         
