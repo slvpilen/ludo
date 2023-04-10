@@ -17,7 +17,7 @@ public class GameEngine {
     private ArrayList<Player> players;
     private int latestDice;
     private int turnRollCount; 
-    private boolean canMakeMove; // possible for a player to make a move this will be true, else if its time to roll dice this will be false.
+    private boolean canMakeMove; 
     private List<InterfaceGameEngineListener> listeners = new ArrayList<>();
 
 
@@ -155,7 +155,7 @@ public class GameEngine {
      */
     public void rollDice() {
         
-        if (canMakeMove)  // not allowed to roll before moved
+        if (canMakeMove) 
             return;
         
         Random terning = new Random();

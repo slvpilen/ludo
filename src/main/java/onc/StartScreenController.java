@@ -26,8 +26,6 @@ public class StartScreenController implements Initializable {
      */
     @FXML
     private void createGame(ActionEvent event) throws IOException {
-        // App.setRoot("createGame");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/createGame.fxml"));
         scene = new Scene(loader.load());
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
