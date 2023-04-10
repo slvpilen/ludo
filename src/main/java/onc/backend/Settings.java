@@ -1,9 +1,9 @@
 package onc.backend;
 
+// At this time, the settings class is not used for anything, it just exists.
+
 public class Settings {
     
-    
-    // settings is default
     int numberPlayers = 4;
     boolean boardContainsFreespaces = false;
     boolean towersAllowed = false; 

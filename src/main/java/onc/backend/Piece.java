@@ -19,7 +19,16 @@ public class Piece {
     private GridPane gameGrid;
     
 
-    
+    /**
+     * The constructor sets up the piece.
+     * It sets the owner, and fixes the position of the piece in the GridPane.
+     * It makes sure that the piece is visible in the GridPane.
+     * It also determines the shape and color of the piece. Currently, all pieces are Circles with radius 15.
+     * 
+     * @param owner The owner of the piece. The owner is a Player.
+     * @param position The start position of the Piece. The start position must be one of the four home squares.
+     * @param gameGrid The GridPane which the Piece should live in.
+     */
     public Piece(Player owner, Pair<Integer, Integer> position, GridPane gameGrid){
         this.owner = owner;
         this.xAxis = position.getKey();
@@ -29,29 +38,73 @@ public class Piece {
         circle.setStroke(Color.BLACK);
         this.standardPath = getPath();
         this.gameGrid = gameGrid;
-        addPieceToGrid(this);
+        addPieceToGrid();
     }
 
-    private void addPieceToGrid(Piece piece){
-        GridPane.setColumnIndex(piece.getCircle(), piece.getRow());
-        GridPane.setRowIndex(piece.getCircle(), piece.getColumn());
-        gameGrid.getChildren().add(piece.getCircle());
+
+    /**
+     * Adds the piece to the grid by setting its column and row index equal to its position.
+     * This method is only used once during the initialization of a Piece
+     */
+    private void addPieceToGrid(){
+        GridPane.setColumnIndex(getCircle(), getRow());
+        GridPane.setRowIndex(getCircle(), getColumn());
+        gameGrid.getChildren().add(getCircle());
     }
     
-    private void movePieceInGrid(Piece piece){
-        GridPane.setColumnIndex(piece.getCircle(), piece.getRow());
-        GridPane.setRowIndex(piece.getCircle(), piece.getColumn());
-    }
+    /**
+     * Moves a piece in the grid.
+     * If the piece moves to a place where another piece of the same color is located, then the piece gets an offset, 
+     * depending on how many pieces are on that square (ranging from 1 to 3)
+     */
+    private void movePieceInGrid(){
+        
+        int numberOfPiecesOnLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(getPosition());
+        GridPane.setColumnIndex(getCircle(), getRow());
+        GridPane.setRowIndex(getCircle(), getColumn());
+        
 
+        // NumberOfPiecesOnLocation includes the piece itself.
+        switch (numberOfPiecesOnLocation) {
+
+            case 2:
+            getCircle().setTranslateX(5);
+            getCircle().setTranslateY(0);
+            break;
+
+            case 3:
+            getCircle().setTranslateX(10);
+            getCircle().setTranslateY(0);
+            break;
+
+            case 4:
+            getCircle().setTranslateX(5);
+            getCircle().setTranslateY(-3);
+            break;
+
+            default:
+            getCircle().setTranslateX(0);
+            getCircle().setTranslateY(0);
+            break;
+        }
+      
+    }
+        
+    
+    /**
+     * @return The owner of the piece.
+     */
     public Player getOwner(){
-        return this.owner;
+        return owner;
     }
 
-    // this will only be called if there is it hasLegalMove
+    /**
+     * This method moves a piece in the grid, and changes the pathIndex of a piece.
+     * It will only be called if the piece has a legal move.
+     */
     public void movePlaces(){ 
 
-        //logic moved down to getLocationAfterPossibleMove(), because it's neccesary to know the possible ending point, before moving
-        Pair<Integer,Integer> locationAfterMove = getLocationAfterPossibleMove();        
+        Pair<Integer,Integer> locationAfterMove = getLocationAfterMove();        
         
         int numberOfPiecesOnEndLocation = owner.getGameEngine().getNumberOfPiecesOnLocation(locationAfterMove);
         boolean onePieceFromAnotherHouseOnEndLocation = numberOfPiecesOnEndLocation==1 && !owner.hasPieceOnLocation(locationAfterMove);
@@ -59,19 +112,31 @@ public class Piece {
         if (onePieceFromAnotherHouseOnEndLocation)
             owner.getGameEngine().setPieceOnLocationToHouse(locationAfterMove);
         
-        this.xAxis = locationAfterMove.getKey();
-        this.yAxis = locationAfterMove.getValue(); 
+        xAxis = locationAfterMove.getKey();
+        yAxis = locationAfterMove.getValue(); 
         
-        movePieceInGrid(this);
+        movePieceInGrid();
     }
 
+    /**
+     * @return The housenumber of the piece (integer between 1 and 4)
+     */
     public int getHouseNumber(){
         return houseNumber;
     }
 
+    /**
+     * This method uses the latestDice of the gameEngine to calculate if the given piece has a legal move.
+     * It also checks if the player whose turn it is, is the same player as the owner of the piece.
+     * @return True if the piece has a legal move.
+     */
     public boolean hasLegalMove(){
-        //System.out.println("has legal move is made, but missing some important things!!!");
         
+        if (!owner.getGameEngine().getCurrentPlayer().equals(owner)) {
+            System.out.println("Not this player's turn");
+            return false;
+        }
+
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice = owner.getGameEngine().getDice();
         boolean isInHomeSquare = homeSquares.contains(getPosition());
@@ -102,17 +167,35 @@ public class Piece {
                 }
             }
         }
-
         // End of tower section.
+
+        // Checking if the player is going to land on a square with a color different from its own
+        Pair<Integer, Integer> endLocationAfterMove = getLocationAfterPossibleMove();
+        ArrayList<Pair<Integer, Integer>> enemyStartSquares = getEnemyStartSquares(houseNumber);
+
+        if (enemyStartSquares.contains(endLocationAfterMove)) {
+            return false;
+        }
+        // End of square color check. 
+        
 
         return true;
     }
 
-    private Pair<Integer, Integer> getLocationAfterPossibleMove(){
+    /**
+     * This method gives the endLocation of a piece after a move.
+     * The endLocation is calculated by using the latest dice-roll.
+     * The method takes into account the complications which might occur
+     * at the end, if your dice-roll isn't exactly right to get your piece in goal.
+     * This method changes the pathIndex of a piece.
+     * 
+     * @return the end location of the piece after the move
+     */
+    private Pair<Integer, Integer> getLocationAfterMove(){
         
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         int latestDice= owner.getGameEngine().getDice();
-
+        
         boolean isInHomeSquares = homeSquares.contains(getPosition());
         boolean isPieceBeyondField = pathIndex + latestDice > standardPath.size()-1;
 
@@ -123,20 +206,6 @@ public class Piece {
 
 
         else if(isPieceBeyondField){
-            
-            
-            // Du hadde glemt en parentes mot slutten av uttrykket, derfor ble kalkulert index gal.
-            // Det korrekte uttrykket har blitt implementert.
-            // Slik det var tildigere, tok brikken alltid to steg for lite dersom den var nærme målområdet.
-
-            // Galt uttrykk:
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - standardPath.size()-1 );      
-            
-            // Riktig uttrykk:
-            // int newIndex = (standardPath.size()-1) - (indexOfPath + latestDice - (standardPath.size()-1) );      
-
-            // Lett feil å fikse da, nå er grunnspillet nesten ferdig!
-
             pathIndex = 2 * (standardPath.size() - 1) - pathIndex - latestDice;
             return standardPath.get(pathIndex); 
         }
@@ -148,8 +217,27 @@ public class Piece {
     }
 
 
-    // must probably copy code over to this one
+    /**
+     * The method gives the endLocation of a piece after a move with the latest dice.
+     * The method does not change the pathIndex of the piece, and it does not change the Piece's position in the grid.
+     * @return The end location of the piece after a hypothetical move with the latest dice.
+     */
+    private Pair<Integer, Integer> getLocationAfterPossibleMove() {
+        int latestDice = owner.getGameEngine().getDice();
+        return getLocationAfterPossibleMove(latestDice);
+    }
 
+
+    /**
+     * This method gives the endLocation of a piece after a move.
+     * The endLocation is calculated by using an integer argument which can be between 1 and 6 (inclusive).
+     * The method takes into account the complications which might occur
+     * at the end, if your dice-roll isn't exactly right to get your piece in goal.
+     * This method does not move the piece. 
+     * 
+     * @param numSpaces The number of spaces to move the piece. Must be an integer between 1 and 6 (inclusive)
+     * @return the end location of the piece after the hypothetical move
+     */
     private Pair<Integer, Integer> getLocationAfterPossibleMove(int numSpaces){
         
         ArrayList<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
@@ -177,13 +265,33 @@ public class Piece {
         }
     }
 
+    /**
+     * This method returns a list of all the squares which the piece may not enter.
+     * @param houseNumber The house which the piece belongs to
+     * @return A list of 3 squares which the piece cannot enter.
+     */
+    public ArrayList<Pair<Integer, Integer>> getEnemyStartSquares(int houseNumber) {
+        
+        List<Integer> xAxis = Arrays.asList(7, 2, 9, 14);
+        List<Integer> yAxis = Arrays.asList(18, 11, 6, 13);
 
+        
+        ArrayList<Pair<Integer, Integer>> enemyStartSquares = addXandYlistAsPair(new ArrayList<>(), xAxis, yAxis);
+        enemyStartSquares.remove(houseNumber - 1);
+        return enemyStartSquares;
 
+    }
+
+    /**
+     * This method is used when a piece is knocked out.
+     * It changes the pathIndex of the piece to -1 (home square),
+     * and moves the piece in the grid visually with the movePieceInGrid()-method.
+     */
     public void setToHouse(){
         
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
         if (homeSquares.contains(getPosition()))
-            throw new IllegalStateException("setting a piece that already in homeSquares into homeSquares");
+            throw new IllegalStateException("Setting a piece that already in homeSquares into homeSquares");
 
         List<Pair<Integer, Integer>> emptyHomeSquares = owner.getEmptyHomeSquares();
         if (emptyHomeSquares.size() == 0)
@@ -193,9 +301,14 @@ public class Piece {
         this.yAxis = emptyHomeSquares.get(0).getValue(); 
         pathIndex = -1;
 
-        movePieceInGrid(this);
+        movePieceInGrid();
     }
 
+    /**
+     * @return The color of the piece
+     * @throws IllegalStateException If the piece doesn't have a valid housenumber 
+     * (housenumber must be int between 1 and 4 inclusive)
+     */
     private Color getColor(){
         if (houseNumber == 1)
             return Color.GREEN;
@@ -211,28 +324,47 @@ public class Piece {
         throw new IllegalStateException("piece doesn't have a valid house.");
     }
 
+    /**
+     * @return A pair of integers which tells you the position of the Piece in the gameGrid.
+     */
     public Pair<Integer, Integer> getPosition(){
         return new Pair<Integer, Integer>(xAxis, yAxis);
     }
 
+    /**
+     * @return The x-coordinate of the piece in the grid.
+     */
     public int getRow(){
         return xAxis;
     }
-
+    
+    /**
+     * @return The y-coordinate of the piece in the grid.
+     */
     public int getColumn(){
         return yAxis;
     }
 
+    /**
+     * @return The circle which is the visual representation of the piece. 
+     */
     public Circle getCircle(){
-        return this.circle;
+        return circle;
     }
 
-
+    /**
+     * @return True if the piece has reached the finish spot, otherwise false.
+     */
     public boolean isInFinishPaddock() {
         Pair<Integer, Integer> endLocation = standardPath.get(standardPath.size()-1);
         return endLocation.getKey()==xAxis && endLocation.getValue()==yAxis;
     }
 
+    /**
+     * @return An arrayList which contains the positions which the piece can move to.
+     * The first entry in the Path is the piece's startSpot, and the last position is the endLocation of that piece.
+     * 
+     */
     public ArrayList<Pair<Integer, Integer>> getPath() {
         List<Integer> xAxis = Arrays.asList(7,7,7,7,7,6,5,4,3,2,1,1,1,2,3,4,5,6,7,7,7,7,7,7,
         8,9,9,9,9,9,9,10,11,12,13,14,15,15,15,14,13,12,11,10,9,9,9,9,9,9,8,7);
@@ -290,7 +422,14 @@ public class Piece {
     } 
 
 
-
+    /**
+     * This is a utility method for the PieceClass.
+     * It takes two lists of Integers, combines each of the entries into a pair, and adds them to the path.
+     * @param xAxis The xAxis integers.
+     * @param yAxis The yAxis integers.
+     * @param path The arrayList which the pairs of numbers, which are created when xAxis and yAxis are combined, should be added to.
+     * @throws IllegalArgumentException If the lists xAxis and yAxis do not have the same length.
+     */
     private ArrayList<Pair<Integer, Integer>> addXandYlistAsPair(ArrayList<Pair<Integer, Integer>> path, List<Integer> xAxis, List<Integer> yAxis){
         if (xAxis.size() != yAxis.size())
             throw new IllegalArgumentException("Need same length of x- and y axis");

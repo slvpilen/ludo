@@ -21,6 +21,9 @@ public class StartScreenController implements Initializable {
     public CheckBox soundOn;
 
     
+    /**
+     * This methods takes you from the startScreen to the createGameScreen.
+     */
     @FXML
     private void createGame(ActionEvent event) throws IOException {
         // App.setRoot("createGame");
@@ -32,21 +35,33 @@ public class StartScreenController implements Initializable {
 
     }
 
+    /**
+     * This method is not yet implemented.
+     */
     @FXML
     private void loadGame() throws IOException {
-        App.setRoot("gameFace");
+        
     }
 
+    /**
+     * This method plays the superMarioBros music if it isn't already playing.
+     * If the music is playing, and the method is run, then the music will be paused.
+     */
     @FXML
     public void startStopMusic() throws IOException {
+        
         if (soundOn.isSelected()) {
             App.resumeMusic();
-        } else {
+        } 
+        
+        else {
             App.pauseMusic();
         }
     }
     
-
+    /**
+     * This method tells java what should happen when you enter the 
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         soundOn.setSelected(true);

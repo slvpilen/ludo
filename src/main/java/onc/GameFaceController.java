@@ -3,15 +3,13 @@ package onc;
 
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.stream.IntStream;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -23,40 +21,33 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import onc.backend.GameEngine;
-import onc.backend.GameInfo;
+import onc.backend.GameNameInfo;
 import onc.backend.InterfaceGameEngineListener;
 import onc.backend.Player;
 import onc.backend.RobotPlayer;
 import onc.backend.Settings;
 
-public class GameFaceController implements Initializable, InterfaceGameEngineListener {
+
+public class GameFaceController implements InterfaceGameEngineListener {
 
     private Scene scene;
     private GameEngine gameEngine;
-    private GameInfo gameInfo;
+    private GameNameInfo gameNameInfo;
+    private boolean startMessageHidden;
     
-    @FXML
-    private Text gameName;
-    
+    @FXML private Text gameName, player1Name, player2Name, player3Name, player4Name, playerTurn;
 
-    
-    @FXML
-    private Text player1Name, player2Name, player3Name, player4Name, playerTurn;
+    @FXML private GridPane gameGrid;
 
-    @FXML
-    private GridPane gameGrid;
-
-    @FXML
-    private ImageView diceView;
+    @FXML private ImageView diceView;
 
     @FXML private VBox startMessage;
 
-    private boolean startMessageHidden;
 
-    public void setGameInfo(GameInfo gameInfo) {
-        this.gameInfo = gameInfo;
-    }
-
+    /**
+     * This method makes the start-info-message disappear at the very first diceroll.
+     * In all other cases the only thing this method does, is to perform the roll-dice method in the gameEngine.
+     */
     @FXML
     public void rollDice() throws IOException {
 
@@ -65,13 +56,13 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             startMessageHidden = true;
         }
 
-        updatePlayerTurn();
         gameEngine.rollDice();
-        updateImageOfDice(gameEngine.getDice());
-        
     }
 
-
+    /**
+     * This method takes you from the gameFaceScreen to the startScreen.
+     * It is run if you click the "main menu" - button.
+     */
     @FXML
     private void goToStartScreen() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/startScreen.fxml"));
@@ -80,7 +71,15 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         stage.setScene(scene);
     }
 
-    private void updateImageOfDice(int latestDice) {
+    /**
+     * This method is run after a player has rolled his die. The method updates the die-image
+     * in the gameFaceScene, such that the image corresponds to the die-roll which the gameEngine produced.
+     * 
+     * @param latestDice The integer value of the die-roll which was just performed.
+     * @throws IllegalArgumentException If the die-roll is not an integer between 1 and 6 inclusive.
+     */
+    @Override
+    public void updateImageOfDice(int latestDice) {
         if (latestDice < 1 || latestDice > 6)
             throw new IllegalArgumentException("Dice must be between 1-6");
 
@@ -88,175 +87,165 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         diceView.setImage(sourceimage1);
     }
 
-    public void updatePlayerTurn() {
+    /**
+     * This method sets the image of the dice to be a black dice.
+     * This image is always presented before a player has rolled the dice.
+     */
+    public void blackDice() {
+        Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
+        diceView.setImage(blackDice);
+    }
+
+    /**
+     * This method is used to update the text to the left of the die.
+     * In the current implementation of the game, there are three possible arguments that may be fired:
+     * " must move!" -----> {playerName} must move!   |
+     * " can't move!" -----> {playerName} can't move!  |
+     * " got three 6's!" ----> {playerName} got three 6's!   |
+     * The method also changes the color of the text to match the color of the current player. 
+     * 
+     * @param text The text which should be added after {playerName}
+     */
+    @Override
+    public void updatePlayerText(String text) {
+        String playerName = gameEngine.getCurrentPlayer().getUsername();
+        playerTurn.setText(playerName + text);
+    
+        int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
+        switch (currentHouseNumber) {
+            case 1:
+                playerTurn.setFill(Color.valueOf("#00ff00"));
+                break;
+            case 2:
+                playerTurn.setFill(Color.valueOf("#ffd700"));
+                break;
+            case 3:
+                playerTurn.setFill(Color.valueOf("#4968bc"));
+                break;
+            case 4:
+                playerTurn.setFill(Color.valueOf("#EE4B2B"));
+                break;
+        }
+    }
+    
+
+    /**
+     * This method changes the in-game-text and color to show which player's turn it is.
+     */
+    public void updatePlayerThrowText() {
         
         String playerName = gameEngine.getCurrentPlayer().getUsername();
-        playerTurn.setText(playerName + " must move!");
+        int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
         
-        int currentHousNumber = gameEngine.getCurrentPlayer().getHouseNumber();
-        if (currentHousNumber == 1) {
-            playerTurn.setFill(Color.valueOf("#00ff00"));
+        String text;
+        Color color = new Color(0, 0, 0, 1);
+    
+        if (playerName.charAt(playerName.length() - 1) == 's' || playerName.charAt(playerName.length() - 1) == 'x' || playerName.charAt(playerName.length() - 1) == 'z') {
+            text = playerName + "' throw";
+        } 
+        
+        else {
+            text = playerName + "'s throw";
         }
-
-        else if (currentHousNumber == 2) {
-            playerTurn.setFill(Color.valueOf("#ffd700"));
+    
+        switch (currentHouseNumber) {
+            case 1:
+                color = Color.valueOf("#00ff00");
+                break;
+            case 2:
+                color = Color.valueOf("#ffd700");
+                break;
+            case 3:
+                color = Color.valueOf("#4968bc");
+                break;
+            case 4:
+                color = Color.valueOf("#EE4B2B");
+                break;
         }
-
-        else if (currentHousNumber == 3) {
-            playerTurn.setFill(Color.valueOf("#4968bc"));
-        }
-
-        else if (currentHousNumber == 4) {
-            playerTurn.setFill(Color.valueOf("#EE4B2B"));
-        }
-
+        
+        playerTurn.setText(text);
+        playerTurn.setFill(color);
     }
 
-    public void updatePlayerThrow() {
+    
 
-        List<String> playerNames = Arrays.asList(player1Name.getText(), player2Name.getText(), 
-        player3Name.getText(), player4Name.getText());
-
-        List<String> collors = Arrays.asList("#00FF00", "#FFD700", "#4968bc", "#EE4B2B"  );
-
-        for (int i = 0; i <4; i++){
-            if (gameEngine.getCurrentPlayer().getHouseNumber() == i+1) {
-                playerTurn.setFill(Color.valueOf(collors.get(i)));  
-                char playersLastLetterInName = playerNames.get(i).toLowerCase().charAt(player1Name.getText().length()-1);
-                if (playersLastLetterInName == 's' || playersLastLetterInName == 'x' || playersLastLetterInName == 'z' ) {
-                    playerTurn.setText(playerNames.get(i) + "' throw");
-                }
-                else {
-                    playerTurn.setText(playerNames.get(i) + "s throw");
-                }   
-            break;                           
-            }
-        }
-
-
-    }
-
-    // This method is used during initialization of new game. Used in CreateGameController.
-    public void setName(String name, int textBox) {
+    /** 
+     * This method is used by CreateGameController to initialize the game scene after clicking submit.
+     * Specifically, the gameEngine gets initialized with a set of players and some settings.
+     * At this point, custom settings have not yet been implemented, so default settings are applied.
+     * 
+     * The method creates the player objects, which represents the players who are playing the game.
+     * It also updates the textBoxes in the gameFaceScene, such that they display the names of the players.
+     * After that, it creates a gameEngine with the specified settings, and the player-objects.
+     * 
+     * At the end, the method makes the gameFaceController observe the gameEngine.
+     * This serves the function of indicating to the gameFaceController when to update the visuals.
+     * 
+     * @param gameNameInfo Information about the number of human players, and the names of the players + the name of the game.
+     */
+    public void gameSetup(GameNameInfo gameNameInfo) throws IOException {
         
-        if (textBox == 0) {
-            gameName.setText(gameName.getText() + name);
-        }
+        this.gameNameInfo = gameNameInfo;
+        List<String> gameNameInfoAsList = gameNameInfo.getGameNameInfoAsList();
+        int numPlayers = gameNameInfo.getNumPlayers();
 
-        if (textBox == 1) {
-            player1Name.setText(player1Name.getText() + name);
-        }
-
-        if (textBox == 2) {
-            player2Name.setText(player2Name.getText() + name);
-        }
+        //Setting the texts in the textboxes to be equal to the playerNames.
+        Text[] texts = {gameName, player1Name, player2Name, player3Name, player4Name};
+        IntStream.range(0, gameNameInfoAsList.size()).forEach(index -> texts[index].setText(texts[index].getText() + gameNameInfoAsList.get(index)));
         
-        if (textBox == 3) {
-            player3Name.setText(player3Name.getText() + name);
-        }
-        
-        if (textBox == 4) {
-            player4Name.setText(player4Name.getText() + name);
-        }
-
-    }
-
-
-    // This method is used by CreateGameController to initialize the GameFace after clicking submit (creating new game).
-    public void gameSetup(int numPlayers) throws IOException {
-
-
-        if (numPlayers < 1 || numPlayers > 4) {
-            throw new IllegalArgumentException("Number of players is incorrect!");
-        }
-
+        //At this time, settings doesn't actually do anything, but it is something that can be worked on in the future.
         Settings settings = new Settings();
         
+        //Creating the player objects, and making a gameEngine with the players.
         ArrayList<Player> players = new ArrayList<>();
+        players.add(new Player(player1Name.getText(), 1, gameGrid));
         
-        Player player1, player2, player3, player4;
-
-        player1 = new Player(player1Name.getText(), 1, gameGrid);   
-        players.add(player1);
-
-        if (numPlayers == 4) {
-
-            player2 = new Player(player2Name.getText(), 2, gameGrid);
-            players.add(player2);
-    
-            player3 = new Player(player3Name.getText(), 3, gameGrid);
-            players.add(player3);
-    
-            player4 = new Player(player4Name.getText(), 4, gameGrid);
-            players.add(player4);
+        if (numPlayers == 1) {
+            players.add(new RobotPlayer(player2Name.getText(), 2, gameGrid));
+            players.add(new RobotPlayer(player3Name.getText(), 3, gameGrid));
+            players.add(new RobotPlayer(player4Name.getText(), 4, gameGrid));
         }
 
-        else if (numPlayers == 3) {
-            
-            player2 = new Player(player2Name.getText(), 2, gameGrid);
-            players.add(player2);
-    
-            player3 = new Player(player3Name.getText(), 3, gameGrid);
-            players.add(player3);
-    
-            player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
-            players.add(player4);
+        else {
+            players.add(numPlayers == 2 ? new RobotPlayer(player2Name.getText(), 2, gameGrid) : new Player(player2Name.getText(), 2, gameGrid));
+            players.add(new Player(player3Name.getText(), 3, gameGrid));
+            players.add(numPlayers == 4 ? new Player(player4Name.getText(), 4, gameGrid) : new RobotPlayer(player4Name.getText(), 4, gameGrid));
         }
 
-        else if (numPlayers == 2) {
-            
-            player2 = new RobotPlayer(player2Name.getText(), 2, gameGrid);
-            players.add(player2);
-            
-            player3 = new Player(player3Name.getText(), 3, gameGrid);
-            players.add(player3);
-    
-            player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
-            players.add(player4);
-        }
-
-        else if (numPlayers == 1) {
-    
-            player2 = new RobotPlayer(player2Name.getText(), 2, gameGrid);
-            players.add(player2);
-
-            player3 = new RobotPlayer(player3Name.getText(), 3, gameGrid);
-            players.add(player3);
-    
-            player4 = new RobotPlayer(player4Name.getText(), 4, gameGrid);
-            players.add(player4);
-        }
-    
-
-        this.gameEngine = new GameEngine(settings, players);
+        gameEngine = new GameEngine(settings, players);
         gameEngine.addListener(this);
-        
-    }
+        blackDice();
+    }   
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        // This setting is crucial
-        updateImageOfDice(1); // setting dice to be 1 as default  
-    }
-
-
+    /**
+     * This method is run when the current player changes, and also when a player has made a move, and must make another move (because he rolled a 6).
+     * This method updates the text shown in the gameFace to the following: "{playerName}'s throw!"
+     * The method also changes the color of the text to match the color of the current player. 
+     */
     @Override
     public void currentPlayerChanged() {
-        updatePlayerThrow();
+        updatePlayerThrowText();
     }
 
-    @Override public void playerWon(String winnerName) {
-        showWinPopup(winnerName);
-    }
-
-
-    // This is more of a temporary solution, didn't think it would work at first, but it did.
-    private void showWinPopup(String playerName) {
+    /**
+     * This method is run when the gameEngine announces that a player has won the game.
+     * 
+     * This method ensures that a pop-up window appears when a player has won the game.
+     * Clicking the ok-button which appears will take you to the home screen.
+     * 
+     * @param winnerName The name of the player who won the game.
+     */
+    @Override 
+    public void playerWon(String winnerName) {
+        
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
-        alert.setHeaderText(playerName + " has won the game!");
+        alert.setHeaderText(winnerName + " has won the game!");
         alert.setContentText("Click OK to return to the home screen.");
-    
+        
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/onc/LudoIcon.jpg")));
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
@@ -267,7 +256,12 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
         }
     }
 
+    
 
+    /**
+     * This method is used by the robotPlayers. It makes it possible for the robots to roll the dice without actually clicking it.
+     */
+    @Override
     public void robotRolledDice() {
         
         try {
@@ -278,6 +272,24 @@ public class GameFaceController implements Initializable, InterfaceGameEngineLis
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method is run after a player has moved a piece, and also in some other cases.
+     * The method makes the picture of the die go black, indicating that the die needs to be rolled to continue the game.
+     */
+    @Override
+    public void playerMadeMove() {
+        blackDice();
+    }
     
+    /**
+     * When this method is run, you will (be able/ not be able) to click the dice, depending on the argument arg.
+     * @param arg If true, a human will player will be able to click the die. If false, then a human player will not be able to click the die.
+     */
+    @Override
+    public void diceClickable(boolean arg) {
+        diceView.setDisable(!arg);
+    }
+
 
 }
