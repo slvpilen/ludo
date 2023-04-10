@@ -4,65 +4,63 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.util.Pair;
 
 
 public class GameEngine {
 
     private Player currentPlayer;
-    //private Player latestPlayer;
     // private Settings settings;
     private ArrayList<Player> players;
     private int latestDice;
-    private int turnRollCount; // counting how many dice roll on a roll
+    private int turnRollCount; 
     private boolean canMakeMove; // possible for a player to make a move this will be true, else if its time to roll dice this will be false.
     private List<InterfaceGameEngineListener> listeners = new ArrayList<>();
 
 
-
+    /**
+     * This method is used to give the GameEngine a list of players which it should keep track of.
+     * Additionally, the constructor takes in some settings. We planned on having some different setttings you could choose between,
+     * but this functionality has not yet been implemented.
+     * 
+     * @param settings The settings which are defined for the ludoGame
+     * @param players The players which are playing the ludoGame
+     */
     public GameEngine(Settings settings, ArrayList<Player> players){
+        
         //this.settings = settings;  // this is not used atm, use it, or delete it. sound on of, could be stored in settings etc
         this.players = players;
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
-        houseDistributionCheck(this.players);
-        this.currentPlayer = players.get(0);
-        this.canMakeMove = false; // game starts to roll dice
+        // houseDistributionCheck(this.players);
+        
         this.currentPlayer = players.get(0);
         players.forEach(player -> player.setGameEngine(this));
     }
     // egen konstruktør for innlastet spill, må ta inn brett etc
-    
 
-    // checks that it's one player for each house (1-4)
-    private void houseDistributionCheck(ArrayList<Player> players){
-        boolean HouseDistributionOK =  IntStream.rangeClosed(1, 4).
-        allMatch(houseNumber -> players.stream().
-        anyMatch(player -> player.getHouseNumber() == houseNumber));
 
-        if(!HouseDistributionOK)
-            throw new IllegalStateException("Need one player for each house 1-4");
-    }
-
+    /**
+     * This method is used to get a collection of all the different pieces which are present on the ludoBoard.
+     * @return A collection of all the pieces on the ludoBoard.
+     */
     public Collection<Piece> getPieces(){
-        Collection<Piece> allPieces = new ArrayList<>();
-    
-        for (Player player : players){
-            Collection<Piece> pieces =  player.getPieces();
-            pieces.forEach(piece -> allPieces.add(piece));
-        }
-    
-        return allPieces;
+
+        return players.stream().map(Player::getPieces).flatMap(Collection::stream).toList();
     }
     
-
+    /**
+     * This method only does something if the selected piece has a valid move.
+     * If you run this method on a piece which does not have a valid move, nothing will happen.
+     * Assuming that the selected piece has a legal move, the method makes the piece move in the ludoBoard, and sets the canMakeMove-variable to false.
+     * The method then runs the updateCurrentPlayer-method, which finds out which player is the next in line.
+     * @param piece The piece which you want to move
+     */
     public void movePiece(Piece piece){
         
-        if (!this.canMakeMove)
+        if (!canMakeMove)
             return;
 
         if (!piece.hasLegalMove())
@@ -72,8 +70,7 @@ public class GameEngine {
             return;
         
         piece.movePlaces();
-        
-        // Sjekker om en spiller har vunnet:
+
         if (piece.getOwner().isFinished()) {
             firePlayerWon(currentPlayer.getUsername());
         }
@@ -84,12 +81,16 @@ public class GameEngine {
         updateCurrentPlayer(piece);
     }
 
+    /**
+     * This utility-method determines who the next player which must make a move is.
+     * The method is only run after a player has moved a piece.
+     * @param piece The piece which just moved.
+     */
     private void updateCurrentPlayer(Piece piece){        
         
-        //this.latestPlayer = piece.getOwner();
         this.turnRollCount++;
 
-        if (latestDice == 6 && turnRollCount<3) {
+        if (latestDice == 6 && turnRollCount < 3) {
             this.currentPlayer = piece.getOwner();
             fireCurrentPlayerChanged();
             fireRobotCheck();
@@ -98,11 +99,16 @@ public class GameEngine {
         else{
             this.currentPlayer = getNextPlayer();
             fireCurrentPlayerChanged();
-            turnRollCount = 0;  // nullstiller tellern
+            turnRollCount = 0;  
             fireRobotCheck(); 
         }    
     }
 
+    /**
+     * This utility-method is used inside of the updateCurrentPlayer-method.
+     * If the player who just made a move is not the player who is next in line,
+     * then getNextPlayer is used to find out who the next player is.
+     */
     private Player getNextPlayer(){
         
         if(players.size()-1 == players.indexOf(currentPlayer))
@@ -139,7 +145,14 @@ public class GameEngine {
         }
     }
 
-
+    /**
+     * This method runs when the dice is rolled.
+     * If the game is in a state where the player is not allowed to roll the dice (for example if a player already has rolled the die that turn),
+     * then this method does nothing.
+     * If the game is in a state where it is legal to roll the dice, then it creates a random number between 1 and 6, and then checks if the player has a legal move.
+     * If the player does not have a legal move, then some text is displayed, and the game switches to the next player.
+     * If the player has a legal move, then the game will not proceed until that player has clicked on a piece which can make a move.
+     */
     public void rollDice() {
         
         if (canMakeMove)  // not allowed to roll before moved
@@ -147,7 +160,7 @@ public class GameEngine {
         
         Random terning = new Random();
         latestDice = terning.nextInt(6) + 1;
-        fireUpdateImageOfDice(latestDice);
+        fireUpdateImageOfDice();
     
         if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 2 && latestDice == 6)) {
             firePlayerMustMoveText();
@@ -173,28 +186,34 @@ public class GameEngine {
     
     }
     
+    /**
+     * @return The latest dice roll.
+     */
     public int getDice(){
         return latestDice;
     }
 
+    /**
+     * @return The player who's turn it is.
+     */
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
 
+    /**
+     * @return True if the current player can make a move, otherwise false.
+     */
     public boolean getCanMakeMove() {
         return canMakeMove;
     }
 
+    /**
+     * This method counts the number of pieces on a specific square in the ludo board.
+     * @param location The location where you want to check the number of pieces. 
+     */
     public int getNumberOfPiecesOnLocation(Pair<Integer, Integer> location){
-        int counter = 0;
-        for (Player player : players){
-            Collection<Piece> pieces = player.getPieces();
-            for (Piece piece : pieces){
-                if (piece.getPosition().equals(location))
-                    counter++;
-            }
-        }
-        return counter;
+        
+        return (int) players.stream().map(Player::getPieces).flatMap(Collection::stream).filter(piece -> piece.getPosition().equals(location)).count();
     }
 
     public void setPieceOnLocationToHouse(Pair<Integer, Integer> endLocation){
@@ -255,7 +274,7 @@ public class GameEngine {
     /**
      * Updates the image of the die in the gameFaceScene, such that the latest diceRoll is displayed.
      */
-    public void fireUpdateImageOfDice(int latestDice) {
+    public void fireUpdateImageOfDice() {
         listeners.stream().forEach(s -> s.updateImageOfDice(latestDice));
     }
 
@@ -291,7 +310,9 @@ public class GameEngine {
 
     /**
      * Checks if the next player is a robot.
-     * If the next player is a robot, then the ability to click the dice is disabled for all human players. 
+     * If the next player is a robot, then the ability to click the die is disabled for all human players. 
+     * Additionally, the robotProcedure is run. The robotProcedure makes the robot roll the dice and
+     * make random legal moves, until it is the next player's turn.
      */
     public void fireRobotCheck() {
         
@@ -308,7 +329,7 @@ public class GameEngine {
 
 
     /**
-     * This method makes the bot throw the die, and make a move if it has any legal moves.
+     * This method makes the bot roll the die, and make a move if it has any legal moves.
      * There are timers in this method, such that robot doesn't make moves instantly.
      * Currently, the robot uses 1 second to think before throwing the dice, and 
      * also uses 1 second to think about which piece to move. 

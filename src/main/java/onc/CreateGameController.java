@@ -4,24 +4,21 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import onc.backend.GameInfo;
-import onc.backend.GameInfo.GameNameLengthException;
-import onc.backend.GameInfo.MissingInfoException;
+import onc.backend.GameNameInfo;
+import onc.backend.GameNameInfo.GameNameLengthException;
+import onc.backend.GameNameInfo.MissingInfoException;
 
 public class CreateGameController {
 
-    private Parent root;
     private Stage stage; 
     private Scene scene;
     private int numPlayers = 4;
@@ -41,7 +38,11 @@ public class CreateGameController {
     @FXML
     private Label exceptionLabel; 
 
-
+    /**
+     * This method is connected to a radio-button in the createGame-Scene.
+     * When this button is clicked, all the text in the textFields other than textField 1 is removed,
+     * and those textFields will no longer be visible.
+     */
     @FXML
     private void radioButton1() {
 
@@ -60,7 +61,11 @@ public class CreateGameController {
         player4NameField.setText("");
     }
 
-
+    /**
+     * This method is connected to a radio-button in the createGame-Scene.
+     * When this button is clicked, all the text in the textFields other than textField 1 and 2 is removed,
+     * and those textFields will no longer be visible.
+     */
     @FXML
     private void radioButton2() {
 
@@ -78,6 +83,11 @@ public class CreateGameController {
         player4NameField.setText("");
     }
 
+    /**
+     * This method is connected to a radio-button in the createGame-Scene.
+     * When this button is clicked, all the text in textField 4 is removed,
+     * and the textFields will no longer be visible.
+     */
     @FXML
     private void radioButton3() {
 
@@ -94,6 +104,10 @@ public class CreateGameController {
         player4NameField.setText("");
     }
 
+    /**
+     * This method is connected to a radio-button in the createGame-Scene.
+     * When this button is clicked, all the textFields will be visibile.
+     */
     @FXML
     private void radioButton4() {
 
@@ -108,10 +122,11 @@ public class CreateGameController {
         numPlayers = 4;
     }
 
+    /**
+     * This method takes you from the createGameScreen to the startScreen.
+     */
     @FXML
     private void goToStartScreen(ActionEvent event) throws IOException {
-        //nullstillExceptionLabel();
-        // App.setRoot("startScreen");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/startScreen.fxml"));
         scene = new Scene(loader.load());
@@ -119,34 +134,34 @@ public class CreateGameController {
         stage.setScene(scene);
     }
 
+    /**
+     * This method is run when the submit-button is clicked.
+     * It checks if the names of the players and the name of the game satisfies the criteria that must be met.
+     * The gameNameInfoClass is responsible for checking if the submitted names are 
+     * valid and it creates an instance of the GameNameInfo-class if they are. 
+     * The GameNameInfo instance is then passed to the gameSetup() method of the GameFaceController class, 
+     * which sets up the game with the specified players and gameName. 
+     * Finally, the scene is switched to the gameFace scene so that the game can be played. 
+     * If any errors occur during the validation or setup process, an appropriate error message is displayed to the user.
+     */
+
     @FXML
     private void submit(ActionEvent event) throws IOException {
         
-        List<String> gameInfoAsList = Arrays.asList(gameName.getText(), player1NameField.getText(), 
-        player2NameField.getText(),player3NameField.getText(), player4NameField.getText()).stream().
-        filter(name -> !name.equals("")).collect(Collectors.toList());
+        List<String> gameNameInfoAsList = Arrays.asList(gameName.getText(), player1NameField.getText(), player2NameField.getText(),player3NameField.getText(), player4NameField.getText()).stream().filter(name -> !name.equals("")).collect(Collectors.toList());
 
-        
         try{
-            GameInfo gameInfo = new GameInfo(gameInfoAsList, numPlayers);
+
+            GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/gameFace.fxml"));
-            root = loader.load();
-
+            scene = new Scene(loader.load());
             GameFaceController gameFaceController = loader.getController();
 
-            gameFaceController.setGameInfo(gameInfo); //Det ser ikke ut til at denne brukes
-            List<String> validatedGameInfoAsList = gameInfo.getGameInfoAsList();
-            IntStream.range(0, validatedGameInfoAsList.size()).forEach(index -> gameFaceController.setName(validatedGameInfoAsList.get(index), index));
-            
-            gameFaceController.gameSetup(numPlayers);
+            gameFaceController.gameSetup(gameNameInfo);
 
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
             stage.setScene(scene);
-
-            //GameFaceController gameFaceController = loader.getController();
-            // App.setRoot("gameFace");
         }
 
         catch (GameNameLengthException e) {
@@ -165,23 +180,9 @@ public class CreateGameController {
             exceptionLabel.setText("Maximum name length is 9!");
         } 
         
-
         catch (Exception e){
             System.out.println(e);
         }
-
-
-
     }
-
-    @FXML
-    private void nullstillExceptionLabel() throws IOException {
-        exceptionLabel.setText("");
-    }
-
-/*     @FXML
-    private void loadGame() throws IOException {
-        App.setRoot("gameFace");
-    } */
 
 }

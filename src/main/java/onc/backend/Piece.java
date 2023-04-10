@@ -67,10 +67,6 @@ public class Piece {
         // NumberOfPiecesOnLocation includes the piece itself.
         switch (numberOfPiecesOnLocation) {
 
-            case 1:
-            getCircle().setTranslateX(0);
-            getCircle().setTranslateY(0);
-
             case 2:
             getCircle().setTranslateX(5);
             getCircle().setTranslateY(0);
@@ -84,6 +80,11 @@ public class Piece {
             case 4:
             getCircle().setTranslateX(5);
             getCircle().setTranslateY(-3);
+            break;
+
+            default:
+            getCircle().setTranslateX(0);
+            getCircle().setTranslateY(0);
             break;
         }
       
