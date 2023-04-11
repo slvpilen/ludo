@@ -11,6 +11,13 @@
         <javafx.version>19.0.2.1</javafx.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.7.0</version>
+        </dependency>
+
         
         
         <dependency>

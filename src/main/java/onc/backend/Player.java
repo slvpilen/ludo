@@ -124,14 +124,17 @@ public class Player {
 
 
     /**
-     * This method is only used in the constructor of the Player-class.
+     * This method is used to create pieces for a player. 
+     * Only used in the constructor of the Player-class.
      * It creates pieces for the player, one piece for each of the locations in the piecesLocation-list.
      * 
      * When this method is used in the constructor, a list of all the homeSquares of the player is used.
      * With this setup, a new Piece is created in each of the player's homesquares.
      * 
-     * @param piecesLocation A list with all the positions where a new Piece should be created.
-     * @param gameGrid The GridPane which the Pieces should live in.
+     * @param piecesLocation piecesLocation An ArrayList of Pair objects representing the x and y 
+     * coordinates of each location where a new Piece should be created.
+     * @param gameGrid The GridPane where the new Pieces should be placed.
+     * @return A Collection of newly created Pieces.
      */
     protected Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
         

@@ -231,7 +231,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         
         gameEngine = new GameEngine(settings, players, currentPlayer, latestDice, turnRollCount, canMakeMove);
         gameEngine.addListener(this);
-        fileSaver = new SaveAndReadToFile();
+        fileSaver = new SaveAndReadToFile();    
         
         if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice());}
         else {blackDice();}
