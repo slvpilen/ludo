@@ -42,14 +42,16 @@ public class GameEngine {
     // egen konstruktør for innlastet spill, må ta inn brett etc
 
     public GameEngine(Settings settings, ArrayList<Player> players, Player currentPlayer, int latestDice, int turnRollCount, boolean canMakeMove, GameNameInfo gameNameInfo) {
-        this.settings = settings;  // this is not used atm, use it, or delete it. sound on/off, could be stored in settings etc
+        this.settings = settings;
         this.players = players;
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
         
+
         this.currentPlayer = currentPlayer;
         this.latestDice = latestDice;
         this.turnRollCount = turnRollCount;
         this.canMakeMove = canMakeMove;
+        this.gameNameInfo = gameNameInfo;
         players.forEach(player -> player.setGameEngine(this));
 
     }
@@ -244,7 +246,7 @@ public class GameEngine {
      */
     public int getNumberOfPiecesOnLocation(Pair<Integer, Integer> location){
         
-        return (int) players.stream().map(Player::getPieces).flatMap(Collection::stream).filter(piece -> piece.getPosition().equals(location)).count();
+        return (int) players.stream().map(Player::getPieces).flatMap(Collection::stream).filter(piece -> piece.getPosition().equals(location) && piece.getGameGrid() != null).count();
     }
 
     public void setPieceOnLocationToHouse(Pair<Integer, Integer> endLocation){

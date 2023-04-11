@@ -34,7 +34,6 @@ public class App extends Application {
         scene = new Scene(loadFXML("startScreen"));
         stage.setTitle("LUDO cNo");
         stage.getIcons().add(ludoIcon);
-        
 
         stage.setScene(scene);
         stage.setHeight(720); //830

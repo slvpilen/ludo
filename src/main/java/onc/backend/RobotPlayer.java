@@ -41,11 +41,19 @@ public class RobotPlayer extends Player {
     }
 
     /**
-     * This method ensures that a human player cannot roll the dice, when it is the robots turn. 
+     * This method ensures that a human player cannot move one of the robot's pieces, when it is the robots turn. 
      */
     @Override
     protected void addMouseFunctionToPieces() {
         pieces.forEach(piece -> piece.getCircle().setOnMouseClicked(null));
+    }
+
+    /**
+     * This method ensures that a human player cannot move one of the robot's pieces, when it is the robots turn.
+     */
+    @Override
+    protected void addMouseFunctionToPiece(Piece piece) {
+        piece.getCircle().setOnMouseClicked(null);
     }
 
 }

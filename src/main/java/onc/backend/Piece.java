@@ -41,6 +41,27 @@ public class Piece {
         addPieceToGrid();
     }
 
+    public Piece(Player owner, Pair<Integer, Integer> position, int pathIndex) {
+        this.owner = owner;
+        this.xAxis = position.getKey();
+        this.yAxis = position.getValue();
+        this.houseNumber = owner.getHouseNumber();
+        this.pathIndex = pathIndex;
+        this.circle = new Circle(15, getColor());  // could add setting to this
+        circle.setStroke(Color.BLACK);
+        this.standardPath = getPath();
+        owner.addPieceToPlayer(this);
+    }
+
+    public void addPieceToGrid(GridPane gameGrid) {
+        this.gameGrid = gameGrid;
+        GridPane.setColumnIndex(getCircle(), getRow());
+        GridPane.setRowIndex(getCircle(), getColumn());
+        gameGrid.getChildren().add(getCircle());
+        // To make sure that 2 pieces are not stacked directly on top of each other.
+        movePieceInGrid();
+    }
+
 
     /**
      * Adds the piece to the grid by setting its column and row index equal to its position.
@@ -123,6 +144,13 @@ public class Piece {
      */
     public int getHouseNumber(){
         return houseNumber;
+    }
+
+    /**
+     * @return The GridPane object which the piece lives in. 
+     */
+    public GridPane getGameGrid() {
+        return gameGrid;
     }
 
     /**

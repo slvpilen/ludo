@@ -14,7 +14,7 @@ public class Player {
     // 1 4
 
     protected String username;
-    protected Collection<Piece> pieces;
+    protected Collection<Piece> pieces = new ArrayList<>();
     protected int houseNumber;
     protected GameEngine gameEngine;
 
@@ -41,7 +41,10 @@ public class Player {
         this.pieces = createPieces(getHomeSquares(), gameGrid);
         addMouseFunctionToPieces();
     }
-
+    /**
+     * This constructor is used when loading a saved file.
+     * Players are created without Pieces
+     */
     public Player(String username, int houseNumber) {
         if (houseNumber > 4 || houseNumber < 1) {throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");}
         this.username = username;
@@ -50,6 +53,11 @@ public class Player {
     
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn
     // picesLocation etc)
+
+    public void addPieceToPlayer(Piece piece) {
+        pieces.add(piece);
+        addMouseFunctionToPiece(piece);
+    }
 
     /**
      * Sets the gameEngine which should be connected to the player.
@@ -87,16 +95,12 @@ public class Player {
     }
 
     /**
-     * Method used by SaveAndReadToFile to find out if the player is a robot, or a human player.
-     * @return "RobotPlayer" if the player is a robotPlayer, otherwise "Player" is returned.
+     * This method is used when loading a game.
+     * It takes a piece is argument, and makes the piece clickable, 
+     * such that a human player can move the piece, if it has a legal move.
      */
-    public String getType() {
-        if (this instanceof RobotPlayer) {
-            return "RobotPlayer";
-        }
-        else {
-            return "Player";
-        }
+    protected void addMouseFunctionToPiece(Piece piece) {
+        piece.getCircle().setOnMouseClicked(event -> gameEngine.movePiece(piece));
     }
 
     /**
