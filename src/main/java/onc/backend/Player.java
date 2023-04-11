@@ -41,6 +41,12 @@ public class Player {
         this.pieces = createPieces(getHomeSquares(), gameGrid);
         addMouseFunctionToPieces();
     }
+
+    public Player(String username, int houseNumber) {
+        if (houseNumber > 4 || houseNumber < 1) {throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");}
+        this.username = username;
+        this.houseNumber = houseNumber;
+    }
     
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn
     // picesLocation etc)
@@ -78,6 +84,19 @@ public class Player {
      */
     public Collection<Piece> getPieces() {
         return pieces;
+    }
+
+    /**
+     * Method used by SaveAndReadToFile to find out if the player is a robot, or a human player.
+     * @return "RobotPlayer" if the player is a robotPlayer, otherwise "Player" is returned.
+     */
+    public String getType() {
+        if (this instanceof RobotPlayer) {
+            return "RobotPlayer";
+        }
+        else {
+            return "Player";
+        }
     }
 
     /**

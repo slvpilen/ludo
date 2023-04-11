@@ -14,7 +14,7 @@ public class Piece {
     private int pathIndex = -1;
     private ArrayList<Pair<Integer, Integer>> standardPath;
     private Player owner;
-    private int houseNumber; // this decide the color of the piece
+    private int houseNumber;
     private Circle circle;
     private GridPane gameGrid;
     
@@ -346,6 +346,13 @@ public class Piece {
     }
 
     /**
+     * @return The pathIndex of the piece (Integer between -1 and 58 inclusive).
+     */
+    public int getPathIndex() {
+        return pathIndex;
+    }
+
+    /**
      * @return The circle which is the visual representation of the piece. 
      */
     public Circle getCircle(){
@@ -442,5 +449,10 @@ public class Piece {
     }
 
     
-
+    public static void main(String[] args) {
+        Pair<Integer, Integer> par = new Pair(2, 4);
+        System.out.println(par.getKey());
+        System.out.println(par.getValue());
+        
+    }
 }

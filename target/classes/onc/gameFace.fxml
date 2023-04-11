@@ -267,7 +267,7 @@
          <children>
             <Button lineSpacing="10.0" mnemonicParsing="false" text="menu" />
             <Button mnemonicParsing="false" text="load game" />
-            <Button mnemonicParsing="false" text="save game" />
+            <Button mnemonicParsing="false" onAction="#saveGameState" text="save game" />
             <Button mnemonicParsing="false" prefWidth="67.0" text="settings" />
             <Button mnemonicParsing="false" onAction="#goToStartScreen" text="main menu" />
          </children>

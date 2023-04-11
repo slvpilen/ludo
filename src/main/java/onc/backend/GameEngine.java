@@ -13,11 +13,12 @@ import javafx.util.Pair;
 public class GameEngine {
 
     private Player currentPlayer;
-    // private Settings settings;
+    private Settings settings;
     private ArrayList<Player> players;
     private int latestDice;
     private int turnRollCount; 
-    private boolean canMakeMove; 
+    private boolean canMakeMove;
+    private GameNameInfo gameNameInfo;
     private List<InterfaceGameEngineListener> listeners = new ArrayList<>();
 
 
@@ -31,16 +32,27 @@ public class GameEngine {
      */
     public GameEngine(Settings settings, ArrayList<Player> players){
         
-        //this.settings = settings;  // this is not used atm, use it, or delete it. sound on of, could be stored in settings etc
+        this.settings = settings;  // this is not used atm, use it, or delete it. sound on/off, could be stored in settings etc
         this.players = players;
         this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
-        // houseDistributionCheck(this.players);
         
         this.currentPlayer = players.get(0);
         players.forEach(player -> player.setGameEngine(this));
     }
     // egen konstruktør for innlastet spill, må ta inn brett etc
 
+    public GameEngine(Settings settings, ArrayList<Player> players, Player currentPlayer, int latestDice, int turnRollCount, boolean canMakeMove, GameNameInfo gameNameInfo) {
+        this.settings = settings;  // this is not used atm, use it, or delete it. sound on/off, could be stored in settings etc
+        this.players = players;
+        this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
+        
+        this.currentPlayer = currentPlayer;
+        this.latestDice = latestDice;
+        this.turnRollCount = turnRollCount;
+        this.canMakeMove = canMakeMove;
+        players.forEach(player -> player.setGameEngine(this));
+
+    }
 
     /**
      * This method is used to get a collection of all the different pieces which are present on the ludoBoard.
@@ -48,7 +60,7 @@ public class GameEngine {
      */
     public Collection<Piece> getPieces(){
 
-        return players.stream().map(Player::getPieces).flatMap(Collection::stream).toList();
+        return players.stream().map(Player::getPieces).flatMap(Collection::stream).collect(Collectors.toList());
     }
     
     /**
@@ -88,8 +100,6 @@ public class GameEngine {
      */
     private void updateCurrentPlayer(Piece piece){        
         
-        this.turnRollCount++;
-
         if (latestDice == 6 && turnRollCount < 3) {
             this.currentPlayer = piece.getOwner();
             fireCurrentPlayerChanged();
@@ -149,7 +159,7 @@ public class GameEngine {
      * This method runs when the dice is rolled.
      * If the game is in a state where the player is not allowed to roll the dice (for example if a player already has rolled the die that turn),
      * then this method does nothing.
-     * If the game is in a state where it is legal to roll the dice, then it creates a random number between 1 and 6, and then checks if the player has a legal move.
+     * If the game is in a state where it is legal to roll the dice, then it creates a random number between 1 and 6, adds 1 to turnRollCount, and checks if the current player has a legal move.
      * If the player does not have a legal move, then some text is displayed, and the game switches to the next player.
      * If the player has a legal move, then the game will not proceed until that player has clicked on a piece which can make a move.
      */
@@ -158,11 +168,12 @@ public class GameEngine {
         if (canMakeMove) 
             return;
         
+        turnRollCount++;
         Random terning = new Random();
         latestDice = terning.nextInt(6) + 1;
         fireUpdateImageOfDice();
     
-        if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 2 && latestDice == 6)) {
+        if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 3 && latestDice == 6)) {
             firePlayerMustMoveText();
             this.canMakeMove = true;
             return;
@@ -173,7 +184,7 @@ public class GameEngine {
         this.canMakeMove = false;
         this.turnRollCount = 0;
 
-        if (oldTurnRollCount == 2 && latestDice == 6) {
+        if (oldTurnRollCount == 3 && latestDice == 6) {
             fireThreeSixInRowText();
         }
         
@@ -207,6 +218,26 @@ public class GameEngine {
         return canMakeMove;
     }
 
+    /**
+     * @return A list of size four, containing all the Player-objects.
+     */
+    public List<Player> getPlayers() {
+        return List.copyOf(players);
+    }
+
+    /**
+     * @return The gameNameInfo-class connected to the gameEngine.
+     */
+    public GameNameInfo getGameNameInfo() {
+        return gameNameInfo;
+    }
+
+    /**
+     * @return The total number of die-rolls the current player has performed during his turn.
+     */
+    public int getTurnRollCount() {
+        return turnRollCount;
+    }
     /**
      * This method counts the number of pieces on a specific square in the ludo board.
      * @param location The location where you want to check the number of pieces. 

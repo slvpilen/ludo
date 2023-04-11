@@ -1,13 +1,10 @@
 package onc;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,6 +22,7 @@ import onc.backend.GameNameInfo;
 import onc.backend.InterfaceGameEngineListener;
 import onc.backend.Player;
 import onc.backend.RobotPlayer;
+import onc.backend.SaveAndReadToFile;
 import onc.backend.Settings;
 
 
@@ -34,6 +32,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
     private GameEngine gameEngine;
     private GameNameInfo gameNameInfo;
     private boolean startMessageHidden;
+    private SaveAndReadToFile fileSaver;
     
     @FXML private Text gameName, player1Name, player2Name, player3Name, player4Name, playerTurn;
 
@@ -214,8 +213,30 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
         gameEngine = new GameEngine(settings, players);
         gameEngine.addListener(this);
+        fileSaver = new SaveAndReadToFile();
         blackDice();
-    }   
+    }
+    
+    public void loadGameSetup(GameEngine gameEngine) {
+        
+        this.gameNameInfo = gameEngine.getGameNameInfo();
+        List<String> gameNameInfoAsList = gameNameInfo.getGameNameInfoAsList();
+        int numPlayers = gameNameInfo.getNumPlayers();
+
+        //Setting the texts in the textboxes to be equal to the playerNames.
+        Text[] texts = {gameName, player1Name, player2Name, player3Name, player4Name};
+        IntStream.range(0, gameNameInfoAsList.size()).forEach(index -> texts[index].setText(texts[index].getText() + gameNameInfoAsList.get(index)));
+        
+        //At this time, settings doesn't actually do anything, but it is something that can be worked on in the future.
+        
+        gameEngine = new GameEngine(settings, players, currentPlayer, latestDice, turnRollCount, canMakeMove);
+        gameEngine.addListener(this);
+        fileSaver = new SaveAndReadToFile();
+        
+        if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice());}
+        else {blackDice();}
+        
+    }
 
     /**
      * This method is run when the current player changes, and also when a player has made a move, and must make another move (because he rolled a 6).
@@ -291,5 +312,12 @@ public class GameFaceController implements InterfaceGameEngineListener {
         diceView.setDisable(!arg);
     }
 
+    /**
+     * This method saves the current game state to the ludoSave.txt - file
+     */
+    @FXML
+    private void saveGameState() throws IOException {
+        fileSaver.saveGameState(gameEngine, gameNameInfo);
+    }
 
 }

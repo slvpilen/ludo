@@ -17,6 +17,10 @@ public class RobotPlayer extends Player {
         super(username, houseNumber, gameGrid);
     }
 
+    public RobotPlayer(String username, int houseNumber) {
+        super(username, houseNumber);
+    }
+
     /**
      *This method checks if the robot has any valid moves.  
      *If the bot has one or more valid moves, it takes a look at all of the pieces which have
