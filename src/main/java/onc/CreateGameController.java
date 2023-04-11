@@ -3,6 +3,7 @@ package onc;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,6 +133,13 @@ public class CreateGameController {
         scene = new Scene(loader.load());
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+
+        // Workaround to get the vBox in the startScreen to update its position.
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+        stage.setWidth(currentWidth+0.001);
+        stage.setHeight(currentHeight+0.001);
+        
     }
 
     /**

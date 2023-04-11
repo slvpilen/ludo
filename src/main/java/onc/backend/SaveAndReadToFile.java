@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import javafx.scene.Node;
 import onc.GameFaceController;
 
@@ -28,6 +29,7 @@ public class SaveAndReadToFile {
         
 
         lines.add(Integer.toString(gameEngine.getCurrentPlayer().getHouseNumber()));
+        lines.add(Integer.toString(gameEngine.getDice()));
         lines.add(Integer.toString(gameEngine.getTurnRollCount()));
         lines.add(String.valueOf(gameEngine.getCanMakeMove() ? 1 : 0));
 
@@ -36,19 +38,38 @@ public class SaveAndReadToFile {
         Files.write(Paths.get(SAVE_FOLDER_PATH, SAVE_FILE_NAME), lines);
     }
 
-    public GameEngine loadGameState() throws IOException {
+    public GameEngine loadLudoGame() throws IOException {
         
-        List<String> lines = Files.readAllLines(Paths.get(SAVE_FILE_NAME));
+        List<String> lines = Files.readAllLines(Paths.get(SAVE_FOLDER_PATH, SAVE_FILE_NAME));
         Iterator<String> it = lines.iterator();
 
         int numPlayers = Integer.valueOf(it.next());
         List<String> gameNameInfoAsList = new ArrayList<>();
 
         IntStream.range(0, 5).forEach(num -> gameNameInfoAsList.add(it.next()));
+        System.out.println(gameNameInfoAsList);
         GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers);
         
+        ArrayList<Player> players = new ArrayList<>();
+        
+        players.add(new Player(gameNameInfo.getPlayerName1(), 1));
+        
+        if (numPlayers == 1) {
+            players.add(new RobotPlayer(gameNameInfo.getPlayerName2(), 2));
+            players.add(new RobotPlayer(gameNameInfo.getPlayerName3(), 3));
+            players.add(new RobotPlayer(gameNameInfo.getPlayerName4(), 4));
+        }
+
+        else {
+            players.add(numPlayers == 2 ? new RobotPlayer(gameNameInfo.getPlayerName2(), 2) : new Player(gameNameInfo.getPlayerName2(), 2));
+            players.add(new Player(gameNameInfo.getPlayerName3(), 3));
+            players.add(numPlayers == 4 ? new Player(gameNameInfo.getPlayerName4(), 4) : new RobotPlayer(gameNameInfo.getPlayerName4(), 4));
+        }
+
         int currentPlayerHouse = Integer.valueOf(it.next());
+        Player currentPlayer = players.get(currentPlayerHouse - 1);
         int latestDice = Integer.valueOf(it.next());
+        int turnRollCount = Integer.valueOf(it.next());
         boolean canMakeMove = Boolean.valueOf(it.next());
         Settings settings = new Settings();
 
@@ -56,16 +77,16 @@ public class SaveAndReadToFile {
             String[] pieceData = it.next().split(",");
             int positionX = Integer.parseInt(pieceData[0]);
             int positionY = Integer.valueOf(pieceData[1]);
-            int index = Integer.parseInt(pieceData[2]);
-            int owner = Integer.parseInt(pieceData[3]);
+            Pair<Integer, Integer> position = new Pair<Integer, Integer>(positionX, positionY);
+            int pathIndex = Integer.parseInt(pieceData[2]);
+            int houseNumber = Integer.parseInt(pieceData[3]);
+            Player owner = players.get(houseNumber - 1);
             
-            game.addPiece(new Piece(position, index, owner));
+            new Piece(owner, position, pathIndex);
         }
-        
-       
 
-        GameEngine gameEngine = new GameEngine(settings, players, );
-        return game;
+        GameEngine gameEngine = new GameEngine(settings, players, currentPlayer, latestDice, turnRollCount, canMakeMove, gameNameInfo);
+        return gameEngine;
     }
 
 }
