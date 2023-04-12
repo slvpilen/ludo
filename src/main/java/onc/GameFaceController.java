@@ -491,5 +491,12 @@ public class GameFaceController implements InterfaceGameEngineListener {
     private void firePopupClosed() {
         listeners.stream().forEach(InterfacePopupListener::popupClosed);
     }
+
+    /**
+     * This method is used only for testing purposes, to acces gameEngine
+     */
+    public GameEngine getGameEngine(){
+        return this.gameEngine;
+    }
     
 }
