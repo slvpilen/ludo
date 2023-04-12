@@ -17,6 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #F5F0E1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onc.GameFaceController">
    <children>
+      <AnchorPane fx:id="diceBackground" layoutX="616.0" layoutY="624.0" prefHeight="59.0" prefWidth="55.0" />
       <HBox alignment="TOP_CENTER" layoutX="703.0" layoutY="615.0" prefHeight="55.0" prefWidth="363.0">
          <children>
             <Button mnemonicParsing="false" onAction="#goToStartScreen" text="main menu" />

@@ -14,9 +14,13 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import onc.backend.GameEngine;
@@ -47,6 +51,8 @@ public class GameFaceController implements InterfaceGameEngineListener {
     @FXML private VBox startMessage;
 
     @FXML private Label exceptionLabel;
+
+    @FXML private AnchorPane diceBackground;
 
 
     /**
@@ -107,9 +113,11 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * This image is always presented before a player has rolled the dice.
      */
     public void blackDice() {
-        Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
-        diceView.setImage(blackDice);
+        diceBackground.setStyle("-fx-background-color: #555555");
+        //Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
+        //diceView.setImage(blackDice);
     }
+
 
     /**
      * This method is used to update the text to the left of the die.
@@ -118,11 +126,12 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * " can't move!" -----> {playerName} can't move!  |
      * " got three 6's!" ----> {playerName} got three 6's!   |
      * The method also changes the color of the text to match the color of the current player. 
+     * It update the collor of the dice as well
      * 
      * @param text The text which should be added after {playerName}
      */
     @Override
-    public void updatePlayerText(String text) {
+    public void updatePlayerText(String text) {        
         String playerName = gameEngine.getCurrentPlayer().getUsername();
         playerTurn.setText(playerName + text);
     
@@ -130,15 +139,19 @@ public class GameFaceController implements InterfaceGameEngineListener {
         switch (currentHouseNumber) {
             case 1:
                 playerTurn.setFill(Color.valueOf("#00ff00"));
+                diceBackground.setStyle("-fx-background-color: #00ff00");
                 break;
             case 2:
                 playerTurn.setFill(Color.valueOf("#ffd700"));
+                diceBackground.setStyle("-fx-background-color: #ffd700");
                 break;
             case 3:
                 playerTurn.setFill(Color.valueOf("#4968bc"));
+                diceBackground.setStyle("-fx-background-color: #4968bc");
                 break;
             case 4:
                 playerTurn.setFill(Color.valueOf("#EE4B2B"));
+                diceBackground.setStyle("-fx-background-color: #EE4B2B");
                 break;
         }
     }
