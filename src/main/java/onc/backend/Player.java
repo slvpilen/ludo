@@ -56,6 +56,12 @@ public class Player {
     // lage egen kosntruktør for å laste inn eksisterende spill (ta inn
     // picesLocation etc)
 
+    /**
+     * This method is used when loading a saved game, and it adds the piece argument to the list of pieces of the player.
+     * When a new piece is created (when a game is being loaded), the pieces are one after the other
+     * added to the list of pieces connected to the owner of the piece.
+     * @param piece The piece which the player should 
+     */
     public void addPieceToPlayer(Piece piece) {
         pieces.add(piece);
         addMouseFunctionToPiece(piece);

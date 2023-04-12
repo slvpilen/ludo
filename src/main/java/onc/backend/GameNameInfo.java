@@ -3,7 +3,10 @@ package onc.backend;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Objects of this class contain validated information about the gameName, and the names of each player.
+ * Additionally, the number of human players is stored here. 
+ */
 public class GameNameInfo {
     
     private String gameName;
@@ -15,6 +18,7 @@ public class GameNameInfo {
      * The constructor checks if the names entered in the createGame-Scene are valid, 
      * and that the number of names correspond to the number of human players.
      * We are assuming that the names are valid if they are in a saved game.
+     * Therefore, there is no name-validation if you are loading a new game.
      * 
      * @param gameInfoAsList The list containing the gameName and the names for the human players.
      * @param numPlayers The number of human players.

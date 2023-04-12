@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.Random;
 import javafx.scene.layout.GridPane;
 
+
+
 public class RobotPlayer extends Player {
 
     /**

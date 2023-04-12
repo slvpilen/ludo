@@ -3,7 +3,6 @@ package onc;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -149,7 +148,6 @@ public class CreateGameController {
      * Finally, the scene is switched to the gameFace scene so that the game can be played. 
      * If any errors occur during the validation or setup process, an appropriate error message is displayed to the user.
      */
-
     @FXML
     private void submit(ActionEvent event) throws IOException {
         

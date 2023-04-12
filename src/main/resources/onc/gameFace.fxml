@@ -21,7 +21,7 @@
       <HBox alignment="TOP_CENTER" layoutX="703.0" layoutY="615.0" prefHeight="55.0" prefWidth="363.0">
          <children>
             <Button mnemonicParsing="false" onAction="#goToStartScreen" text="main menu" />
-            <Button mnemonicParsing="false" onAction="#saveGameState" text="save game" />
+            <Button mnemonicParsing="false" onAction="#saveLudoGame" text="save game" />
             <Button mnemonicParsing="false" onAction="#loadGameInGameFace" text="load game" />
          </children>
          <opaqueInsets>

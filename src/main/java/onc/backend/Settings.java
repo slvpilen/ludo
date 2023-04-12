@@ -1,7 +1,8 @@
 package onc.backend;
 
-// At this time, the settings class is not used for anything, it just exists.
-
+/**
+ * The settings class is currently not being used.
+ */
 public class Settings {
     
     int numberPlayers = 4;

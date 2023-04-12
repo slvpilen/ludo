@@ -7,13 +7,26 @@ import java.util.stream.IntStream;
 import javafx.util.Pair;
 
 
-
+/**
+ * This class is used to save or load a ludoGame.
+ */
 public class SaveAndReadToFile {
     
     private static final String SAVE_FILE_NAME = "ludoSave.txt";
     private static final String SAVE_FOLDER_PATH = System.getProperty("user.dir") + "/src/main/resources/saveFile";
 
-    public void saveGameState(GameEngine gameEngine, GameNameInfo gameNameInfo) throws IOException {
+    /**
+    * This method is used to save a game that you are currently playing in the gameFace.
+    * The game state includes information about the number of players, the game name, the usernames of the players,
+    * the current player's house number, the current dice value, the number of rolls in the current turn, and
+    * whether the current player can make a move.
+    * It also includes information about the positions and owners of all game pieces.
+    *
+    * @param gameEngine The GameEngine instance that the current Ludo game is running on.
+    * @param gameNameInfo The GameNameInfo instance that contains information about the names in the current Ludo game.
+    * @throws IOException If the path to the save folder is not found.
+    */
+    public void saveLudoGame(GameEngine gameEngine, GameNameInfo gameNameInfo) throws IOException {
         
         List<String> lines = new ArrayList<>();
 
@@ -32,6 +45,16 @@ public class SaveAndReadToFile {
         Files.write(Paths.get(SAVE_FOLDER_PATH, SAVE_FILE_NAME), lines);
     }
 
+
+   
+    /**
+    *This method is used to load the saved ludo game by reading data from the save file.
+    *It creates a new GameEngine object containing all the relevant information about the saved game,
+    *including the players, the current player, the latest dice roll, the number of rolls in the current turn, and whether a move can be made.
+    *It also creates a new GameNameInfo object containing information about the names of players in the saved game, and inserts the GameNameInfo in the returned gameEngine.
+    *@return A GameEngine object containing all relevant information about the saved game.
+    *@throws IOException If the save-file cannot be found.
+    */
     public GameEngine loadLudoGame() throws IOException {
         
         List<String> lines = Files.readAllLines(Paths.get(SAVE_FOLDER_PATH, SAVE_FILE_NAME));

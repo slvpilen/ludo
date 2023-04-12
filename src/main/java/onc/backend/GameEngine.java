@@ -42,8 +42,19 @@ public class GameEngine implements InterfacePopupListener {
         this.currentPlayer = players.get(0);
         players.forEach(player -> player.setGameEngine(this));
     }
-    // egen konstruktør for innlastet spill, må ta inn brett etc
-
+    
+    /**
+     * This method is used in the SaveAndReadToFile-class when a saved game is loaded.
+     * The SaveAndReadToFile-class will return a gameEngine using this constructor.
+     * By using this constructor, all the relevant information about the game will be stored in the gameEngine.
+     * @param settings The settings which the ludoGame is running on.
+     * @param players The players who are playing.
+     * @param currentPlayer The player which is currently at turn.
+     * @param latestDice The value of the latest diceroll.
+     * @param turnRollCount The number of dice-rolls the current player has performed during his turn.
+     * @param canMakeMove True if the current player can make a move, otherwise false.
+     * @param gameNameInfo An object of the gameNameInfo-class, containing information about the names of the players.
+     */
     public GameEngine(Settings settings, ArrayList<Player> players, Player currentPlayer, int latestDice, int turnRollCount, boolean canMakeMove, GameNameInfo gameNameInfo) {
         this.settings = settings;
         this.players = players;
@@ -244,6 +255,7 @@ public class GameEngine implements InterfacePopupListener {
     public int getTurnRollCount() {
         return turnRollCount;
     }
+    
     /**
      * This method counts the number of pieces on a specific square in the ludo board.
      * @param location The location where you want to check the number of pieces. 
@@ -253,6 +265,14 @@ public class GameEngine implements InterfacePopupListener {
         return (int) players.stream().map(Player::getPieces).flatMap(Collection::stream).filter(piece -> piece.getPosition().equals(location) && piece.getGameGrid() != null).count();
     }
 
+    /**
+     * This method is used in the movePlaces-method in the Piece class.
+     * If the piece which moves lands on a endLocation where there is one enemy piece,
+     * then this method is performed.
+     * This method looks through all of the pieces in the gameEngine, and sets the enemy piece on the
+     * endlocation to one of the houseSquares.
+     * @param endLocation The location which the moving piece is moving to. 
+     */
     public void setPieceOnLocationToHouse(Pair<Integer, Integer> endLocation){
         players.forEach(player -> player.getPieces().stream().
         filter(piece -> piece.getPosition().equals(endLocation)).collect(Collectors.toList()).
@@ -275,7 +295,6 @@ public class GameEngine implements InterfacePopupListener {
         listeners.add(listener);
         
     }
-
 
     /**
      * This method tells the gameFaceController that there has been a change in which player's turn it is.
@@ -344,7 +363,6 @@ public class GameEngine implements InterfacePopupListener {
         listeners.stream().forEach(s -> s.diceClickable(arg));
     }
 
-
     /**
      * Checks if the next player is a robot.
      * If the next player is a robot, then the ability to click the die is disabled for all human players. 
@@ -362,11 +380,19 @@ public class GameEngine implements InterfacePopupListener {
         }
     }
     
+    /**
+     * This method sets the popupDisplayed variable to be true.
+     * The method is run when a popup is displayed in the gameFaceScene.
+     */
     @Override
     public void popupDisplayed() {
         popupDisplayed = true;
     }
 
+    /**
+     * This method sets the popupDisplayed variable to be false, and it counts down
+     * the popupLatch, such that the robotPlayers may continue their operations.
+     */
     @Override
     public void popupClosed() {
         popupLatch.countDown();
@@ -378,7 +404,8 @@ public class GameEngine implements InterfacePopupListener {
      * This method makes the bot roll the die, and make a move if it has any legal moves.
      * There are timers in this method, such that robot doesn't make moves instantly.
      * Currently, the robot uses 1 second to think before throwing the dice, and 
-     * also uses 1 second to think about which piece to move. 
+     * also uses 1 second to think about which piece to move.
+     * If a popup is displayed in the gameEngine while robotProcedure is running, the robotProcedure will pause until the popup is closed.
      */
     public void robotProcedure() {
 
@@ -431,9 +458,6 @@ public class GameEngine implements InterfacePopupListener {
 
         TimerTask task1 = new TimerTask1();
         timer.schedule(task1, 1000);
-
-
-    
     }
         
 }

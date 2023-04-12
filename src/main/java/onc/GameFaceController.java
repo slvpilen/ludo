@@ -15,12 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import onc.backend.GameEngine;
@@ -110,17 +107,14 @@ public class GameFaceController implements InterfaceGameEngineListener {
     }
 
     /**
-     * This method sets the background to the dice to be grey
+     * This method sets the background color of the dice to grey.
      */
     public void blackDice() {
         diceBackground.setStyle("-fx-background-color: #555555");
-        //Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
-        //diceView.setImage(blackDice);
     }
 
     /**
-     * This method sets the dice collor to be the color of the house of the current player 
-     * as background to the dice
+     * This method sets the bakground color of the die to be the color of the house of the current player.
      */
     public void colorDice() {  
         int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
@@ -147,8 +141,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * " must move!" -----> {playerName} must move!   |
      * " can't move!" -----> {playerName} can't move!  |
      * " got three 6's!" ----> {playerName} got three 6's!   |
-     * The method also changes the color of the text to match the color of the current player. 
-     * It update the color of the dice as well
+     * The method also changes the color of the text and the background color of the die, to match the color of the current player. 
      * 
      * @param text The text which should be added after {playerName}
      */
@@ -262,11 +255,18 @@ public class GameFaceController implements InterfaceGameEngineListener {
         gameEngine.addListener(this);
         listeners.add(gameEngine);
         fileSaver = new SaveAndReadToFile();
-        //blackDice();
         updateImageOfDice(1);
         colorDice();
     }
     
+    /**
+     * This method is used when you load the saved game from the startScreen.
+     * It displays the saved game in the gameFace-screen.
+     * The method does exactly the same thing as gameSetup, the only difference 
+     * is that this method loads a saved game, instead of loading a newly created game. 
+     * 
+     * @param gameEngine The gameEngine which contains all the information that is needed to load the game.  
+     */ 
     public void loadGameSetup(GameEngine gameEngine) {
         
         this.gameEngine = gameEngine;
@@ -290,6 +290,14 @@ public class GameFaceController implements InterfaceGameEngineListener {
         
     }
 
+    /**
+     * This method loads the saved ludogame with the help of the filesaver.
+     * Before the saved game is loaded, the gameFace cleans all info from the game you were currently playing.
+     * The cleaning process includes removing all the pieces, resetting player names and so on (see cleanGameFace).
+     * If you try to load a saved game while a robotPlayer is playing,
+     * a popup is displayed saying that you must wait until it is a human player's turn to load the saved game.
+     * @throws IOException If the saveFile is not found.
+     */
     @FXML
     public void loadGameInGameFace() throws IOException{
         
@@ -315,6 +323,11 @@ public class GameFaceController implements InterfaceGameEngineListener {
         loadGameSetup(fileSaver.loadLudoGame());
     }
 
+    /**
+     * This method basically resets the gameFace, and the method is used in the loadGameInGameFace() method.
+     * The method resets alle the player names, it removes all the pieces from the screen,
+     * and it removes all gameEngines listening to gameFaceController.
+     */
     private void cleanGameFace() {
 
         Text[] texts = {gameName, player1Name, player2Name, player3Name, player4Name};
@@ -383,7 +396,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
     /**
      * This method is run after a player has moved a piece, and also in some other cases.
-     * The method makes the picture of the die go correct collor, indicating that the die needs to be rolled to continue the game.
+     * The method makes the bakcground color of the die match the color of the current player's housenumber, indicating that the die needs to be rolled to continue the game.
      */
     @Override
     public void playerMadeMove() {
@@ -403,7 +416,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * This method saves the current game state to the ludoSave.txt - file
      */
     @FXML
-    private void saveGameState() throws IOException {
+    private void saveLudoGame() throws IOException {
         
         if (gameEngine.getCurrentPlayer() instanceof RobotPlayer) {
             
@@ -424,7 +437,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
             return;
         }
 
-        fileSaver.saveGameState(gameEngine, gameNameInfo);
+        fileSaver.saveLudoGame(gameEngine, gameNameInfo);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success!");
@@ -444,7 +457,15 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
     }
 
-
+    /**
+     * This method is used by the gameFaceController when creating/loading a game,
+     * to make the gameEngine listen to changes in the gameFaceController.
+     * The reason that the gameEngine must listen to the controller, is that the gameEngine
+     * must know when there is a popup displayed in the gameFace.
+     * When a popup is displayed, all robotPlayers must pause their actions, and not continue 
+     * until the popup is gone. 
+     * @param listener
+     */
     public void addListener(InterfacePopupListener listener) {
         
         if (listeners.contains(listener)) {
@@ -455,11 +476,19 @@ public class GameFaceController implements InterfaceGameEngineListener {
         
     }
 
-    public void firePopupDisplayed() {
+   /**
+    * This method is used by the gameFaceController when a popup is displayed.
+    * It sends a signal to the gameEngine, and the gameEngine responds by pausing all robotPlayer actions.
+    */ 
+    private void firePopupDisplayed() {
         listeners.stream().forEach(InterfacePopupListener::popupDisplayed);
     }
 
-    public void firePopupClosed() {
+    /**
+     * This method is used by the gameFaceController when a popup is closed.
+     * It sends a signal to the gameEngine, and the gameEngine responds by continuing all robotPlayer actions.
+     */
+    private void firePopupClosed() {
         listeners.stream().forEach(InterfacePopupListener::popupClosed);
     }
     

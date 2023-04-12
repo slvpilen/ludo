@@ -41,18 +41,31 @@ public class Piece {
         addPieceToGrid();
     }
 
+    /**
+     * This constructor is used when the saved game is loaded.
+     * It sets up the field-variables of the piece, and it gives the piece a color which matches the color of the player owning the piece.
+     * Finally, the piece is added to the pieceList of the player which owns the piece.
+     * @param owner The owner of the piece.
+     * @param position The position of the piece on the ludoBoard
+     * @param pathIndex A number between -1 and 58 inclusive, which says something about which location the piece is on.
+     */
     public Piece(Player owner, Pair<Integer, Integer> position, int pathIndex) {
         this.owner = owner;
         this.xAxis = position.getKey();
         this.yAxis = position.getValue();
         this.houseNumber = owner.getHouseNumber();
         this.pathIndex = pathIndex;
-        this.circle = new Circle(15, getColor());  // could add setting to this
+        this.circle = new Circle(15, getColor()); 
         circle.setStroke(Color.BLACK);
         this.standardPath = getPath();
         owner.addPieceToPlayer(this);
     }
 
+    /**
+     * This method is used when a game is loaded, and it adds the piece to the specified GridPane.
+     * It does the exactly the same thing as the method addPieceToGrid. 
+     * @param gameGrid The gridPane which the piece should be added to.
+    */
     public void addPieceToGrid(GridPane gameGrid) {
         this.gameGrid = gameGrid;
         GridPane.setColumnIndex(getCircle(), getRow());
@@ -339,16 +352,16 @@ public class Piece {
      */
     private Color getColor(){
         if (houseNumber == 1)
-            return Color.GREEN;
+            return Color.valueOf("#00ff00");
 
         if (houseNumber == 2)
-            return Color.YELLOW;
+            return Color.valueOf("#ffd700");
         
         if (houseNumber == 3)
-            return Color.BLUE;
+            return Color.valueOf("#4968bc");
 
         if (houseNumber == 4)
-            return Color.RED;
+            return Color.valueOf("#EE4B2B");
         throw new IllegalStateException("piece doesn't have a valid house.");
     }
 
