@@ -157,7 +157,7 @@ public class CreateGameController {
 
         try{
 
-            GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers);
+            GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers, true);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/gameFace.fxml"));
             scene = new Scene(loader.load());

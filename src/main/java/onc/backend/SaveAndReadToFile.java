@@ -4,13 +4,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.IntStream;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.util.Pair;
-import javafx.scene.Node;
-import onc.GameFaceController;
 
 
 
@@ -47,8 +41,7 @@ public class SaveAndReadToFile {
         List<String> gameNameInfoAsList = new ArrayList<>();
 
         IntStream.range(0, 5).forEach(num -> gameNameInfoAsList.add(it.next()));
-        System.out.println(gameNameInfoAsList);
-        GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers);
+        GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers, false);
         
         ArrayList<Player> players = new ArrayList<>();
         
@@ -70,7 +63,7 @@ public class SaveAndReadToFile {
         Player currentPlayer = players.get(currentPlayerHouse - 1);
         int latestDice = Integer.valueOf(it.next());
         int turnRollCount = Integer.valueOf(it.next());
-        boolean canMakeMove = Boolean.valueOf(it.next());
+        boolean canMakeMove = Boolean.valueOf(Integer.valueOf(it.next()) == 1);
         Settings settings = new Settings();
 
         while (it.hasNext()) {

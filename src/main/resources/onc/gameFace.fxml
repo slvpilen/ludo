@@ -22,7 +22,6 @@
             <Button mnemonicParsing="false" onAction="#goToStartScreen" text="main menu" />
             <Button mnemonicParsing="false" onAction="#saveGameState" text="save game" />
             <Button mnemonicParsing="false" onAction="#loadGameInGameFace" text="load game" />
-            <Button mnemonicParsing="false" prefWidth="67.0" text="settings" />
          </children>
          <opaqueInsets>
             <Insets />
