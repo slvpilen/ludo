@@ -123,6 +123,7 @@ public class GameEngine implements InterfacePopupListener {
      * This utility-method is used inside of the updateCurrentPlayer-method.
      * If the player who just made a move is not the player who is next in line,
      * then getNextPlayer is used to find out who the next player is.
+     * @return The next player in correct order.
      */
     private Player getNextPlayer(){
         
