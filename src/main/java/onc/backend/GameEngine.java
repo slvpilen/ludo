@@ -301,7 +301,7 @@ public class GameEngine implements InterfacePopupListener {
     }
 
     /**
-     * This method makes the image of the die go to correct collor. 
+     * This method makes the image of the die go to correct color. 
      * This indicates that the player who's turn it is, must roll the die to continue.
      */
     public void firePlayerMadeMove() {

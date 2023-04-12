@@ -68,6 +68,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         }
 
         gameEngine.rollDice();
+        blackDice();
     }
 
     /**
@@ -106,16 +107,40 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
         Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice" + Integer.toString(latestDice) + ".png");
         diceView.setImage(sourceimage1);
+        
+        blackDice();
     }
 
     /**
-     * This method sets the image of the dice to be a black dice.
-     * This image is always presented before a player has rolled the dice.
+     * This method sets the background to the dice to be grey
+     * 
      */
     public void blackDice() {
         diceBackground.setStyle("-fx-background-color: #555555");
         //Image blackDice = new Image("file:src/main/resources/dicesImages/SvartTerning.jpg");
         //diceView.setImage(blackDice);
+    }
+
+    /**
+     * This method sets the color of the house to the current player as background 
+     * to the dice
+     */
+    public void colorDice() {  
+        int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
+        switch (currentHouseNumber) {
+            case 1:
+                diceBackground.setStyle("-fx-background-color: #00ff00");
+                break;
+            case 2:
+                diceBackground.setStyle("-fx-background-color: #ffd700");
+                break;
+            case 3:
+                diceBackground.setStyle("-fx-background-color: #4968bc");
+                break;
+            case 4:
+                diceBackground.setStyle("-fx-background-color: #EE4B2B");
+                break;
+        }
     }
 
 
@@ -126,12 +151,12 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * " can't move!" -----> {playerName} can't move!  |
      * " got three 6's!" ----> {playerName} got three 6's!   |
      * The method also changes the color of the text to match the color of the current player. 
-     * It update the collor of the dice as well
+     * It update the color of the dice as well
      * 
      * @param text The text which should be added after {playerName}
      */
     @Override
-    public void updatePlayerText(String text) {        
+    public void updatePlayerText(String text) {   
         String playerName = gameEngine.getCurrentPlayer().getUsername();
         playerTurn.setText(playerName + text);
     
@@ -139,19 +164,19 @@ public class GameFaceController implements InterfaceGameEngineListener {
         switch (currentHouseNumber) {
             case 1:
                 playerTurn.setFill(Color.valueOf("#00ff00"));
-                diceBackground.setStyle("-fx-background-color: #00ff00");
+                //diceBackground.setStyle("-fx-background-color: #00ff00");
                 break;
             case 2:
                 playerTurn.setFill(Color.valueOf("#ffd700"));
-                diceBackground.setStyle("-fx-background-color: #ffd700");
+                //diceBackground.setStyle("-fx-background-color: #ffd700");
                 break;
             case 3:
                 playerTurn.setFill(Color.valueOf("#4968bc"));
-                diceBackground.setStyle("-fx-background-color: #4968bc");
+                //diceBackground.setStyle("-fx-background-color: #4968bc");
                 break;
             case 4:
                 playerTurn.setFill(Color.valueOf("#EE4B2B"));
-                diceBackground.setStyle("-fx-background-color: #EE4B2B");
+                //diceBackground.setStyle("-fx-background-color: #EE4B2B");
                 break;
         }
     }
@@ -167,6 +192,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         
         String text;
         Color color = new Color(0, 0, 0, 1);
+        colorDice();
     
         if (playerName.charAt(playerName.length() - 1) == 's' || playerName.charAt(playerName.length() - 1) == 'x' || playerName.charAt(playerName.length() - 1) == 'z') {
             text = playerName + "' throw";
@@ -364,7 +390,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
      */
     @Override
     public void playerMadeMove() {
-        blackDice();
+        colorDice();
     }
     
     /**
