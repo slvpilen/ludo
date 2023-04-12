@@ -2,80 +2,84 @@ package backend;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import onc.App;
-import onc.GameFaceController;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+
 import onc.backend.GameEngine;
 import onc.backend.Player;
 import onc.backend.GameNameInfo;
 import onc.backend.SaveAndReadToFile;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.framework.junit5.ApplicationExtension;
+import onc.backend.Settings;
 
 
-public class SaveAndReadToFileTest extends Application {
 
-    GameFaceController gameFaceController;
-    GameNameInfo gameNameInfo;
+public class SaveAndReadToFileTest {
+    GridPane gameGrid;
+    Player player1;
+    Player player2;
+    Player player3;
+    Player player4;
     GameEngine gameEngine;
-    SaveAndReadToFile fileSaver;
+    GameNameInfo gameNameInfo;
+    SaveAndReadToFile saveAndReadToFile;
 
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("gameFace.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-    }
-
-    @BeforeAll
-    public static void setupClass() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("gameFace.fxml"));
-        fxmlLoader.load();
-    }
 
     @BeforeEach
-    public void setup() throws IOException {
-        List<String> gameNameInfoAsList = Arrays.asList("Paaske cup", "Kari", "Ola","Truls", "Fredd");
-        GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, 4, true);
-
-        FXMLLoader loader = new FXMLLoader(GameNameInfo.class.getResource("/onc/startScreen.fxml"));
-        loader.load();
-        GameFaceController gameFaceController = loader.getController();
-
-        gameFaceController.gameSetup(gameNameInfo);
-        SaveAndReadToFile fileSaver = new SaveAndReadToFile();
-    }
-
-    
-
-    
-    @Test
-    public void testSaveAndLoad() throws IOException {
-        fileSaver.saveLudoGame(gameFaceController.getGameEngine(), gameNameInfo);
-        GameEngine loadedGameEngine = fileSaver.loadLudoGame();
-        List<String> playerNames = loadedGameEngine.getPlayers().stream().map(Player::getUsername).collect(Collectors.toList());
-
-        assertEquals(playerNames.get(0), "Kari");
+    public void setup() {
         
-    
+        GridPane gameGrid = new GridPane();
+
+        // Add 50 columns
+        for (int i = 0; i < 50; i++) {
+            ColumnConstraints col = new ColumnConstraints();
+            col.setPercentWidth(100 / 50.0);
+            gameGrid.getColumnConstraints().add(col);
+        }
+
+        // Add 50 rows
+        for (int i = 0; i < 50; i++) {
+            RowConstraints row = new RowConstraints();
+            row.setPercentHeight(100 / 50.0);
+            gameGrid.getRowConstraints().add(row);
+        }
+
+        player1 = new Player("Truls", 1, gameGrid);
+        player2 = new Player("Fred", 2, gameGrid);
+        player3 = new Player("Megan", 3, gameGrid);
+        player4 = new Player("Ivan", 4, gameGrid);
+
+        ArrayList<Player> players = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
+        gameEngine = new GameEngine(new Settings(), players);
+
+        ArrayList<String> gameInfoAsList = new ArrayList<>(Arrays.asList("PaaskeCup", "Truls", "Fred", "Megan", "Ivan"));
+        gameNameInfo = new GameNameInfo(gameInfoAsList, 4, true);
+        saveAndReadToFile = new SaveAndReadToFile();
     }
 
 
+    @Test
+    public void testSaveAndLoad2() throws IOException {
+        
+        saveAndReadToFile.saveLudoGame(gameEngine, gameNameInfo);
+        GameEngine loadedGameEngine = saveAndReadToFile.loadLudoGame();
+        
+        assertEquals("Truls", gameEngine.getPlayers().get(0).getUsername());
+        assertEquals("Fred", gameEngine.getPlayers().get(1).getUsername());
+        assertEquals("Megan", gameEngine.getPlayers().get(2).getUsername());
+        assertEquals("Ivan", gameEngine.getPlayers().get(3).getUsername());
 
-
-
+        assertEquals("Truls", loadedGameEngine.getPlayers().get(0).getUsername());
+        assertEquals("Fred", loadedGameEngine.getPlayers().get(1).getUsername());
+        assertEquals("Megan", loadedGameEngine.getPlayers().get(2).getUsername());
+        assertEquals("Ivan", loadedGameEngine.getPlayers().get(3).getUsername());
+    
+    }
 }
