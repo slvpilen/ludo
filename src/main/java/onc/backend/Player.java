@@ -33,8 +33,8 @@ public class Player {
      * 
      */
     public Player(String username, int houseNumber, GridPane gameGrid) {
-
         if (houseNumber > 4 || houseNumber < 1) {throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");}
+        if (username.length() == 0) {throw new IllegalArgumentException("username can't be empty");}
 
         this.username = username;
         this.houseNumber = houseNumber;
@@ -47,6 +47,8 @@ public class Player {
      */
     public Player(String username, int houseNumber) {
         if (houseNumber > 4 || houseNumber < 1) {throw new IllegalArgumentException("Housenumber must be an integer between 1 and 4.");}
+        if (username.length() == 0) {throw new IllegalArgumentException("username can't be empty");}
+
         this.username = username;
         this.houseNumber = houseNumber;
     }

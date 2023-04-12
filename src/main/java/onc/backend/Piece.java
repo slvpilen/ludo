@@ -166,8 +166,8 @@ public class Piece {
         }
 
         Collection<Pair<Integer, Integer>> homeSquares = owner.getHomeSquares();
-        int latestDice = owner.getGameEngine().getDice();
         boolean isInHomeSquare = homeSquares.contains(getPosition());
+        int latestDice = owner.getGameEngine().getDice();
         
         if (isInHomeSquare && latestDice!=6)
             return false;

@@ -374,7 +374,7 @@ public class GameEngine {
      * Currently, the robot uses 1 second to think before throwing the dice, and 
      * also uses 1 second to think about which piece to move. 
      */
-    public void robotProcedure() {
+/* */    public void robotProcedure() {
         
         fireDiceClickable(false);
 
@@ -393,7 +393,7 @@ public class GameEngine {
         }
 
         // Task1, kaster terningen
-        class TimerTask1 extends TimerTask {
+         class TimerTask1 extends TimerTask {
 
             CountDownLatch popupTimer = new CountDownLatch(1);
             @Override
@@ -419,7 +419,8 @@ public class GameEngine {
         timer.schedule(task1, 1000);
 
 
-    }
+    } 
+    
 }
 
 

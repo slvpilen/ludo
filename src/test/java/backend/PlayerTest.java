@@ -5,14 +5,14 @@ import onc.backend.Player;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Collection;
-import java.util.List;
-
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.TestMethodOrder;
 import javafx.util.Pair;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PlayerTest {
     Player player1 = new Player("Truls", 1);
     Player player2 = new Player("Fred", 2);
@@ -20,6 +20,7 @@ public class PlayerTest {
     Player player4 = new Player("Ivan", 4);
 
     @Test
+    @Order(1)
     void testPlayerCreation() {
         assertEquals("Truls", player1.getUsername());
         assertEquals("Fred", player2.getUsername());
@@ -31,17 +32,17 @@ public class PlayerTest {
         assertEquals(4, player4.getHouseNumber());
         assertThrows(IllegalArgumentException.class, () -> new Player("Truls", 0));
         assertThrows(IllegalArgumentException.class, () -> new Player("Truls", 5));
+        assertThrows(IllegalArgumentException.class, () -> new Player("", 1));
     }
 
     @Test
-    void testHomeSquaresPlayer1(){
-
+    void testHomeSquares(){
         Collection<Pair<Integer, Integer>> homesquare = player1.getHomeSquares();
         assertEquals(homesquare.size(), 4);
         assertTrue(homesquare.contains(new Pair<Integer, Integer>(2, 18)));
         assertTrue(homesquare.contains(new Pair<Integer, Integer>(2, 16)));
         assertTrue(homesquare.contains(new Pair<Integer, Integer>(4, 16)));
-        assertTrue(homesquare.contains(new Pair<Integer, Integer>(4, 18)));
+        assertTrue(homesquare.contains(new Pair<Integer, Integer>(4, 18)));  
     }
 
     @Test
@@ -73,5 +74,8 @@ public class PlayerTest {
         assertTrue(homesquare.contains(new Pair<Integer, Integer>(14, 16)));
         assertTrue(homesquare.contains(new Pair<Integer, Integer>(14, 18)));
     }
+
+
+
 
 }
