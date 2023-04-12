@@ -57,10 +57,11 @@ public class SaveAndReadToFileTest {
         player4 = new Player("Ivan", 4, gameGrid);
 
         ArrayList<Player> players = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
-        gameEngine = new GameEngine(new Settings(), players);
-
         ArrayList<String> gameInfoAsList = new ArrayList<>(Arrays.asList("PaaskeCup", "Truls", "Fred", "Megan", "Ivan"));
         gameNameInfo = new GameNameInfo(gameInfoAsList, 4, true);
+        
+        gameEngine = new GameEngine(new Settings(), players, player1, 1, 0, false, gameNameInfo);
+
         saveAndReadToFile = new SaveAndReadToFile();
     }
 
