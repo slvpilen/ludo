@@ -41,7 +41,7 @@ public class SaveAndReadToFile {
         List<String> gameNameInfoAsList = new ArrayList<>();
 
         IntStream.range(0, 5).forEach(num -> gameNameInfoAsList.add(it.next()));
-        GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers);
+        GameNameInfo gameNameInfo = new GameNameInfo(gameNameInfoAsList, numPlayers, false);
         
         ArrayList<Player> players = new ArrayList<>();
         

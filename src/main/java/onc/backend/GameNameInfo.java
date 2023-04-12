@@ -14,16 +14,18 @@ public class GameNameInfo {
     /**
      * The constructor checks if the names entered in the createGame-Scene are valid, 
      * and that the number of names correspond to the number of human players.
+     * We are assuming that the names are valid if they are in a saved game.
      * 
      * @param gameInfoAsList The list containing the gameName and the names for the human players.
      * @param numPlayers The number of human players.
+     * @param creatingNewGame True if you are creating a new game, otherwise if you are loading a saved game, this parameterer is set to false.
      * 
      * @return A list of size 5, which contains the names of the game and the players. The first entry is the name of the game, 
      * and the next entries are the names of player1, player2, player3 and player4.
      */
-    public GameNameInfo(List<String> gameInfoAsList, int numPlayers){
-        
-        playerNameCheck(gameInfoAsList, numPlayers);
+    public GameNameInfo(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame){
+
+        playerNameCheck(gameInfoAsList, numPlayers, creatingNewGame);
 
         this.numPlayers = numPlayers;
         this.gameInfoAsList.add(gameName);
@@ -32,6 +34,8 @@ public class GameNameInfo {
         this.gameInfoAsList.add(playerName3);
         this.gameInfoAsList.add(playerName4);
     }   
+
+
 
     /**
      * Utility-method which is run when a player clicks submit in the createGame-scene.
@@ -48,31 +52,35 @@ public class GameNameInfo {
      * @throws IllegalMonitorStateException If some of the players names have more than 9 characters.
      * @throws GameNameLengthException If the name of the game has more than 25 characters.
      */
-    private void playerNameCheck(List<String> gameInfoAsList, int numPlayers) {
+    private void playerNameCheck(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame) {
         
-        if (numPlayers < 1 || numPlayers > 4) {
-            throw new IllegalArgumentException("Invalid number of players!");
+        if (creatingNewGame) {
+            
+            if (numPlayers < 1 || numPlayers > 4) {
+                throw new IllegalArgumentException("Invalid number of players!");
+            }
+            
+            else if (gameInfoAsList.size() != numPlayers + 1) {
+                throw new MissingInfoException("Missing info about game!");
+            }
+            
+            else if (!gameInfoAsList.stream().allMatch(str -> !str.isEmpty())) {
+                throw new IllegalStateException("Fill out every field!");
+            }
+            
+            else if (gameInfoAsList.stream().distinct().count() != numPlayers + 1) {
+                throw new IllegalArgumentException("The players must have different names");
+            }
+            
+            else if (gameInfoAsList.stream().skip(1).anyMatch(name -> name.length() > 9)) {
+                throw new IllegalMonitorStateException("Maximum name length is 9!");
+            }
+            
+            else if (gameInfoAsList.get(0).length() > 25) {
+                throw new GameNameLengthException("Maximum game name length is 25");
+            }
         }
         
-        // else if (gameInfoAsList.size() != numPlayers + 1) {
-        //     throw new MissingInfoException("Missing info about game!");
-        // }
-        
-        // else if (!gameInfoAsList.stream().allMatch(str -> !str.isEmpty())) {
-        //     throw new IllegalStateException("Fill out every field!");
-        // }
-        
-        // else if (gameInfoAsList.stream().distinct().count() != numPlayers + 1) {
-        //     throw new IllegalArgumentException("The players must have different names");
-        // }
-        
-        // else if (gameInfoAsList.stream().skip(1).anyMatch(name -> name.length() > 9)) {
-        //     throw new IllegalMonitorStateException("Maximum name length is 9!");
-        // }
-        
-        // else if (gameInfoAsList.get(0).length() > 25) {
-        //     throw new GameNameLengthException("Maximum game name length is 25");
-        // }
         
         this.gameName = gameInfoAsList.get(0);
         this.playerName1 = gameInfoAsList.get(1);
@@ -103,6 +111,7 @@ public class GameNameInfo {
             this.playerName4 = "LudoLegend";
         }
     }
+
     
     /**
      * @return The name of the game.
