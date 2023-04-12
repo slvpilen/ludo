@@ -134,7 +134,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
         }
     }
 
-
     /**
      * This method is used to update the text to the left of the die.
      * In the current implementation of the game, there are three possible arguments that may be fired:
@@ -167,7 +166,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
         }
     }
     
-
     /**
      * This method changes the in-game-text and color to show which player's turn it is.
      */
@@ -205,8 +203,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
         playerTurn.setText(text);
         playerTurn.setFill(color);
     }
-
-    
 
     /** 
      * This method is used by CreateGameController to initialize the game scene after clicking submit.
@@ -266,7 +262,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * is that this method loads a saved game, instead of loading a newly created game. 
      * 
      * @param gameEngine The gameEngine which contains all the information that is needed to load the game.  
-     */ 
+     */
     public void loadGameSetup(GameEngine gameEngine) {
         
         this.gameEngine = gameEngine;

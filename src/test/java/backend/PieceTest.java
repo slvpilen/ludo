@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
@@ -20,10 +22,19 @@ import javafx.util.Pair;
 
 public class PieceTest {
 
-    Player player1 = new Player("testPlayer1", 1);
-    Player player2 = new Player("testPlayer2", 2);
-    Player player3 = new Player("testPlayer3", 3);
-    Player player4 = new Player("testPlayer4", 4);
+    Player player1;
+    Player player2;
+    Player player3;
+    Player player4;
+
+    @BeforeEach
+    public void setup() {
+        player1 = new Player("testPlayer1", 1);
+        player2 = new Player("testPlayer2", 2);
+        player3 = new Player("testPlayer3", 3);
+        player4 = new Player("testPlayer4", 4);
+    }
+    
 
 
 
