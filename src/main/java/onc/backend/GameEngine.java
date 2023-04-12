@@ -164,12 +164,23 @@ public class GameEngine implements InterfacePopupListener {
      */
     public void rollDice() {
         
+        Random rng = new Random();
+        int diceRoll = rng.nextInt(6) + 1;
+        rollDice(diceRoll);
+    }
+
+    /**
+     * This method is only used in the PieceTest-class, and it is used to roll the dice without any randomness.
+     * It allows you to roll the dice, with the argument diceRoll as the roll.
+     * @param diceRoll The diceroll you want.
+     */
+    public void rollDice(int diceRoll) {
+
         if (canMakeMove) 
             return;
         
         turnRollCount++;
-        Random terning = new Random();
-        latestDice = terning.nextInt(6) + 1;
+        latestDice = diceRoll;
         fireUpdateImageOfDice();
     
         if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 3 && latestDice == 6)) {
@@ -193,7 +204,7 @@ public class GameEngine implements InterfacePopupListener {
         
         Timer timer = new Timer();
         timer.schedule(new TimerNoValidMove(), 1000);
-    
+
     }
 
     /**
