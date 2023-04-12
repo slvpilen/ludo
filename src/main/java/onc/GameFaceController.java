@@ -113,7 +113,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
     /**
      * This method sets the background to the dice to be grey
-     * 
      */
     public void blackDice() {
         diceBackground.setStyle("-fx-background-color: #555555");
@@ -122,8 +121,8 @@ public class GameFaceController implements InterfaceGameEngineListener {
     }
 
     /**
-     * This method sets the color of the house to the current player as background 
-     * to the dice
+     * This method sets the dice collor to be the color of the house of the current player 
+     * as background to the dice
      */
     public void colorDice() {  
         int currentHouseNumber = gameEngine.getCurrentPlayer().getHouseNumber();
@@ -164,19 +163,15 @@ public class GameFaceController implements InterfaceGameEngineListener {
         switch (currentHouseNumber) {
             case 1:
                 playerTurn.setFill(Color.valueOf("#00ff00"));
-                //diceBackground.setStyle("-fx-background-color: #00ff00");
                 break;
             case 2:
                 playerTurn.setFill(Color.valueOf("#ffd700"));
-                //diceBackground.setStyle("-fx-background-color: #ffd700");
                 break;
             case 3:
                 playerTurn.setFill(Color.valueOf("#4968bc"));
-                //diceBackground.setStyle("-fx-background-color: #4968bc");
                 break;
             case 4:
                 playerTurn.setFill(Color.valueOf("#EE4B2B"));
-                //diceBackground.setStyle("-fx-background-color: #EE4B2B");
                 break;
         }
     }
@@ -192,7 +187,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
         
         String text;
         Color color = new Color(0, 0, 0, 1);
-        colorDice();
     
         if (playerName.charAt(playerName.length() - 1) == 's' || playerName.charAt(playerName.length() - 1) == 'x' || playerName.charAt(playerName.length() - 1) == 'z') {
             text = playerName + "' throw";
@@ -290,7 +284,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         gameEngine.getPieces().forEach(piece -> piece.addPieceToGrid(gameGrid));
 
         if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice()); updatePlayerText(" must move!");}
-        else {blackDice(); updatePlayerThrowText();}
+        else {colorDice(); updatePlayerThrowText();}
         startMessage.setVisible(false);
         
     }
@@ -332,10 +326,12 @@ public class GameFaceController implements InterfaceGameEngineListener {
      * This method is run when the current player changes, and also when a player has made a move, and must make another move (because he rolled a 6).
      * This method updates the text shown in the gameFace to the following: "{playerName}'s throw!"
      * The method also changes the color of the text to match the color of the current player. 
+     * Updating bacground color of dice to current player
      */
     @Override
     public void currentPlayerChanged() {
         updatePlayerThrowText();
+        colorDice();
     }
 
     /**
@@ -386,7 +382,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
     /**
      * This method is run after a player has moved a piece, and also in some other cases.
-     * The method makes the picture of the die go black, indicating that the die needs to be rolled to continue the game.
+     * The method makes the picture of the die go correct collor, indicating that the die needs to be rolled to continue the game.
      */
     @Override
     public void playerMadeMove() {
