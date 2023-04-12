@@ -475,12 +475,4 @@ public class Piece {
         return path;
 
     }
-
-    
-    public static void main(String[] args) {
-        Pair<Integer, Integer> par = new Pair(2, 4);
-        System.out.println(par.getKey());
-        System.out.println(par.getValue());
-        
-    }
 }

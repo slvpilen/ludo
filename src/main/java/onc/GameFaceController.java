@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.IntStream;
-import javafx.scene.Node;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +22,7 @@ import javafx.stage.Stage;
 import onc.backend.GameEngine;
 import onc.backend.GameNameInfo;
 import onc.backend.InterfaceGameEngineListener;
+import onc.backend.InterfacePopupListener;
 import onc.backend.Player;
 import onc.backend.RobotPlayer;
 import onc.backend.SaveAndReadToFile;
@@ -38,6 +36,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
     private GameNameInfo gameNameInfo;
     private boolean startMessageHidden;
     private SaveAndReadToFile fileSaver;
+    private List<InterfacePopupListener> listeners = new ArrayList<>();
     
     @FXML private Text gameName, player1Name, player2Name, player3Name, player4Name, playerTurn;
 
@@ -230,6 +229,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
         gameEngine = new GameEngine(settings, players);
         gameEngine.addListener(this);
+        listeners.add(gameEngine);
         fileSaver = new SaveAndReadToFile();
         blackDice();
     }
@@ -246,6 +246,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
     
         
         gameEngine.addListener(this);
+        listeners.add(gameEngine);
         fileSaver = new SaveAndReadToFile(); 
         gameEngine.getPieces().forEach(piece -> piece.addPieceToGrid(gameGrid));
 
@@ -259,6 +260,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
     public void loadGameInGameFace() throws IOException{
         
         if (gameEngine.getCurrentPlayer() instanceof RobotPlayer) {
+            firePopupDisplayed();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Illegal Action");
             alert.setHeaderText("You tried to load the saved game during a robotPlayer's turn!");
@@ -270,6 +272,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 alertStage.close();
+                firePopupClosed();
             }
             return;
         }
@@ -283,6 +286,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         Text[] texts = {gameName, player1Name, player2Name, player3Name, player4Name};
         IntStream.range(0, gameNameInfo.getGameNameInfoAsList().size()).forEach(index -> texts[index].setText(""));
         gameEngine.getPieces().stream().forEach(piece -> gameGrid.getChildren().remove(piece.getCircle()));
+        listeners.clear();
     }
 
     /**
@@ -364,9 +368,10 @@ public class GameFaceController implements InterfaceGameEngineListener {
      */
     @FXML
     private void saveGameState() throws IOException {
+        
         if (gameEngine.getCurrentPlayer() instanceof RobotPlayer) {
             
-            gameEngine.setPopupDisplayed(true);
+            firePopupDisplayed();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Illegal Action");
             alert.setHeaderText("You tried to save the game during a robotPlayer's turn!");
@@ -378,10 +383,48 @@ public class GameFaceController implements InterfaceGameEngineListener {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 alertStage.close();
+                firePopupClosed();
             } 
             return;
         }
 
         fileSaver.saveGameState(gameEngine, gameNameInfo);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success!");
+        alert.setHeaderText("You successfully saved the game!");
+        alert.setContentText("Click OK to return to the ludoBoard.");
+
+        DialogPane popup = alert.getDialogPane();
+        popup.setContent(null);
+
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/onc/LudoIcon.jpg")));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            alertStage.close();
+        } 
+
     }
+
+
+    public void addListener(InterfacePopupListener listener) {
+        
+        if (listeners.contains(listener)) {
+            throw new IllegalArgumentException("This object already listens to GameFaceController!");
+        }
+
+        listeners.add(listener);
+        
+    }
+
+    public void firePopupDisplayed() {
+        listeners.stream().forEach(InterfacePopupListener::popupDisplayed);
+    }
+
+    public void firePopupClosed() {
+        listeners.stream().forEach(InterfacePopupListener::popupClosed);
+    }
+    
 }

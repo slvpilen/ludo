@@ -11,7 +11,7 @@ import javafx.util.Pair;
 import java.util.concurrent.CountDownLatch;
 
 
-public class GameEngine {
+public class GameEngine implements InterfacePopupListener {
 
     private Player currentPlayer;
     private Settings settings;
@@ -20,6 +20,7 @@ public class GameEngine {
     private int turnRollCount; 
     private boolean canMakeMove;
     private boolean popupDisplayed;
+    private CountDownLatch popupLatch;
     private GameNameInfo gameNameInfo;
     private List<InterfaceGameEngineListener> listeners = new ArrayList<>();
 
@@ -200,10 +201,6 @@ public class GameEngine {
         timer.schedule(new TimerNoValidMove(), 1000);
     
     }
-    
-    public void setPopupDisplayed(boolean arg) {
-        popupDisplayed = arg;
-    }
 
     /**
      * @return The latest dice roll.
@@ -363,8 +360,17 @@ public class GameEngine {
             fireDiceClickable(true);
         }
     }
+    
+    @Override
+    public void popupDisplayed() {
+        popupDisplayed = true;
+    }
 
-
+    @Override
+    public void popupClosed() {
+        popupLatch.countDown();
+        popupDisplayed = false;
+    }
 
 
     /**
@@ -374,15 +380,24 @@ public class GameEngine {
      * also uses 1 second to think about which piece to move. 
      */
     public void robotProcedure() {
-        
-        fireDiceClickable(false);
 
+        fireDiceClickable(false);
+        popupLatch = new CountDownLatch(1);
         Timer timer = new Timer();
 
         // Task 2, flytter en brikke
         class TimerTask2 extends TimerTask {
             @Override
             public void run() {
+                
+                if (popupDisplayed) {
+                    try {
+                        popupLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 firePlayerMadeMove();
                 if (currentPlayer instanceof RobotPlayer)
                     if (canMakeMove) {
@@ -394,13 +409,12 @@ public class GameEngine {
         // Task1, kaster terningen
         class TimerTask1 extends TimerTask {
 
-            CountDownLatch popupTimer = new CountDownLatch(1);
+
             @Override
             public void run() {
                 
                 if (popupDisplayed) {
                     try {
-                        
                         popupLatch.await();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -418,7 +432,9 @@ public class GameEngine {
         timer.schedule(task1, 1000);
 
 
+    
     }
+        
 }
 
 
