@@ -23,7 +23,7 @@ public class App extends Application {
     private static Media media;
 
     /**
-     * This method is run when the program gets launched.
+     * This method runs when the program gets launched.
      * The startScreen gets loaded, and the title of the screen is set to "LUDO cNo"
      * Additionally, a ludoIcon is applied to the app.
      * The startScreen is shown at the end, and superMarioBros music gets played.
@@ -94,7 +94,7 @@ public class App extends Application {
     
     /**
      * This method starts the entire program.
-     * When the program starts, the run-method is executed.
+     * When the program starts, the launch-method extended from Application is executed.
      */
     public static void main(String[] args) {
         launch();
