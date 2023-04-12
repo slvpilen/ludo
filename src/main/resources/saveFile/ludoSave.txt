@@ -1,21 +1,11 @@
 4
-<<<<<<< HEAD
-PaaskeCup
-Truls
-Fred
-Megan
-Ivan
+Klubb
+greg
+jio
+jif
+jof
 1
 1
-=======
-kj
-lkjfw
-hnjuf
-njkfw
-njukisfw
-2
-5
->>>>>>> ca052a9a4c7d62af3251fd86bc04d93c8b4a2d8d
 0
 0
 2,18,-1,1

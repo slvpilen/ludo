@@ -251,7 +251,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
             players.add(numPlayers == 4 ? new Player(player4Name.getText(), 4, gameGrid) : new RobotPlayer(player4Name.getText(), 4, gameGrid));
         }
 
-        gameEngine = new GameEngine(settings, players);
+        gameEngine = new GameEngine(settings, players, players.get(0), 1, 0, false, gameNameInfo);
         gameEngine.addListener(this);
         listeners.add(gameEngine);
         fileSaver = new SaveAndReadToFile();
