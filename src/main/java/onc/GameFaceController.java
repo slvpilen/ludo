@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -45,6 +46,8 @@ public class GameFaceController implements InterfaceGameEngineListener {
     @FXML private ImageView diceView;
 
     @FXML private VBox startMessage;
+
+    @FXML private Label exceptionLabel;
 
 
     /**
@@ -254,6 +257,23 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
     @FXML
     public void loadGameInGameFace() throws IOException{
+        
+        if (gameEngine.getCurrentPlayer() instanceof RobotPlayer) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Illegal Action");
+            alert.setHeaderText("You tried to load the saved game during a robotPlayer's turn!");
+            alert.setContentText("Loading the saved game is not allowed during a robotPlayer's turn. Please wait until a human player is at turn to load the saved the game.");
+            
+            Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/onc/LudoIcon.jpg")));
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                alertStage.close();
+            }
+            return;
+        }
+
         cleanGameFace();
         loadGameSetup(fileSaver.loadLudoGame());
     }
@@ -344,7 +364,24 @@ public class GameFaceController implements InterfaceGameEngineListener {
      */
     @FXML
     private void saveGameState() throws IOException {
+        if (gameEngine.getCurrentPlayer() instanceof RobotPlayer) {
+            
+            gameEngine.setPopupDisplayed(true);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Illegal Action");
+            alert.setHeaderText("You tried to save the game during a robotPlayer's turn!");
+            alert.setContentText("Saving is not allowed during a robotPlayer's turn. Please wait until a human player is at turn to save the game.");
+            
+            Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/onc/LudoIcon.jpg")));
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                alertStage.close();
+            } 
+            return;
+        }
+
         fileSaver.saveGameState(gameEngine, gameNameInfo);
     }
-
 }

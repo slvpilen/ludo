@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.util.Pair;
+import java.util.concurrent.CountDownLatch;
 
 
 public class GameEngine {
@@ -18,6 +19,7 @@ public class GameEngine {
     private int latestDice;
     private int turnRollCount; 
     private boolean canMakeMove;
+    private boolean popupDisplayed;
     private GameNameInfo gameNameInfo;
     private List<InterfaceGameEngineListener> listeners = new ArrayList<>();
 
@@ -199,6 +201,10 @@ public class GameEngine {
     
     }
     
+    public void setPopupDisplayed(boolean arg) {
+        popupDisplayed = arg;
+    }
+
     /**
      * @return The latest dice roll.
      */
@@ -388,8 +394,19 @@ public class GameEngine {
         // Task1, kaster terningen
         class TimerTask1 extends TimerTask {
 
+            CountDownLatch popupTimer = new CountDownLatch(1);
             @Override
             public void run() {
+                
+                if (popupDisplayed) {
+                    try {
+                        
+                        popupLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 fireRobotRolledDice();
                 TimerTask task2 = new TimerTask2();
                 timer.schedule(task2, 1000);

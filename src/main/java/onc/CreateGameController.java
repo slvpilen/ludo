@@ -31,10 +31,7 @@ public class CreateGameController {
     private RadioButton num1, num2, num3, num4;
 
     @FXML 
-    private TextField player1NameField, player2NameField, player3NameField, player4NameField;
-
-    @FXML 
-    private TextField gameName; 
+    private TextField gameName, player1NameField, player2NameField, player3NameField, player4NameField;
 
     @FXML
     private Label exceptionLabel; 
