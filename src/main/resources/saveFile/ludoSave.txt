@@ -1,10 +1,10 @@
-1
-heiia
-oski
-Robby
-DiceBot
-LudoLegend
-1
+4
+kj
+lkjfw
+hnjuf
+njkfw
+njukisfw
+3
 5
 0
 0
@@ -17,7 +17,7 @@ LudoLegend
 4,6,-1,2
 4,8,-1,2
 12,8,-1,3
-9,10,4,3
+12,6,-1,3
 14,6,-1,3
 14,8,-1,3
 12,18,-1,4

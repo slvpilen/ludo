@@ -286,7 +286,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice()); updatePlayerText(" must move!"); blackDice();}
         else {colorDice(); updatePlayerThrowText();}
         startMessage.setVisible(false);
-        updateImageOfDice(1);
+        updateImageOfDice(gameEngine.getDice()); 
         
     }
 
