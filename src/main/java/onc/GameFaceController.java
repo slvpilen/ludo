@@ -107,8 +107,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
 
         Image sourceimage1 = new Image("file:src/main/resources/dicesImages/dice" + Integer.toString(latestDice) + ".png");
         diceView.setImage(sourceimage1);
-        
-        blackDice();
     }
 
     /**
@@ -264,7 +262,9 @@ public class GameFaceController implements InterfaceGameEngineListener {
         gameEngine.addListener(this);
         listeners.add(gameEngine);
         fileSaver = new SaveAndReadToFile();
-        blackDice();
+        //blackDice();
+        updateImageOfDice(1);
+        colorDice();
     }
     
     public void loadGameSetup(GameEngine gameEngine) {
@@ -283,9 +283,10 @@ public class GameFaceController implements InterfaceGameEngineListener {
         fileSaver = new SaveAndReadToFile(); 
         gameEngine.getPieces().forEach(piece -> piece.addPieceToGrid(gameGrid));
 
-        if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice()); updatePlayerText(" must move!");}
+        if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice()); updatePlayerText(" must move!"); blackDice();}
         else {colorDice(); updatePlayerThrowText();}
         startMessage.setVisible(false);
+        updateImageOfDice(1);
         
     }
 
