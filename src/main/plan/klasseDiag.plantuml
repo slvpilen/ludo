@@ -1,0 +1,201 @@
+@startuml
+
+
+class GameEngine {
+    -currentPlayer: Player
+    -settings: Settings
+    -players: ArrayList<Player>
+    -latestDice: int
+    -turnRollCount: int
+    -canMakeMove: boolean
+    -popupDisplayed: boolean
+    -popupLatch: CountDownLatch
+    -gameNameInfo: GameNameInfo
+    -listeners: List<InterfaceGameEngineListener>
+
+    +GameEngine(settings: Settings, players: ArrayList<Player>, currentPlayer: Player, latestDice: int, turnRollCount: int, canMakeMove: boolean, gameNameInfo: GameNameInfo)
+    +getPieces(): Collection<Piece>
+    +movePiece(piece: Piece): void
+    +rollDice(): void
+    +rollDice(diceRoll: int): void
+    +getDice(): int
+    +getCurrentPlayer(): Player
+    +getCanMakeMove(): boolean
+    +getPlayers(): List<Player>
+    +getGameNameInfo(): GameNameInfo
+    +getTurnRollCount(): int
+    +getNumberOfPiecesOnLocation(location: Pair<Integer, Integer>): int
+    +setPieceOnLocationToHouse(endLocation: Pair<Integer, Integer>): void
+    +addListener(listener: InterfaceGameEngineListener): void
+    +fireCurrentPlayerChanged(): void
+    +firePlayerWon(winnerName: String): void
+    +fireRobotRolledDice(): void
+    +firePlayerMadeMove(): void
+    +fireUpdateImageOfDice(): void
+    +firePlayerMustMoveText(): void
+    +fireNoValidMoveText(): void
+    +fireThreeSixInRowText(): void
+    +fireDiceClickable(arg: boolean): void
+    +fireRobotCheck(): void
+    +popupDisplayed(): void
+    +popupClosed(): void
+    -updateCurrentPlayer(piece: Piece): void
+    -getNextPlayer(): Player
+    -robotProcedure(): void
+}
+
+
+
+
+interface InterfaceGameEngineListener {
+    + currentPlayerChanged() : void
+    + playerWon(winnerName : String): void
+    + robotRolledDice(): void
+    + updateImageOfDice(latestDice: int): void
+    + updatePlayerText(text : String): void
+    + playerMadeMove(): void
+    + diceClickable(arg : boolean): void
+}
+
+interface InterfacePopupListener {
+    + popupDisplayed(): void
+    + popupClosed(): void
+}
+
+class GameNameInfo {
+    - gameName: String
+    - numPlayers: int
+    - playerName1: String
+    - playerName2: String
+    - playerName3: String
+    - playerName4: String
+    - gameInfoAsList: List<String>
+    + GameNameInfo(gameInfoAsList: List<String>, numPlayers: int, creatingNewGame: boolean): void
+    - playerNameCheck(gameInfoAsList: List<String>, numPlayers: int, creatingNewGame: boolean): void
+    + getGameName(): String
+    + getPlayerName1(): String
+    + getPlayerName2(): String
+    + getPlayerName3(): String
+    + getPlayerName4(): String
+    + getNumPlayers(): int
+    + getGameNameInfoAsList(): List<String>
+}
+
+class GameNameLengthException {
+    + GameNameLengthException(message: String)
+}
+
+class MissingInfoException {
+    + MissingInfoException(message: String)
+}
+
+
+
+class Piece {
+    -xAxis: int
+    -yAxis: int
+    -pathIndex: int
+    -standardPath: ArrayList<Pair<Integer, Integer>>
+    -owner: Player
+    -houseNumber: int
+    -circle: Circle
+    -gameGrid: GridPane
+    +Piece(owner: Player, position: Pair<Integer, Integer>, gameGrid: GridPane)
+    +Piece(owner: Player, position: Pair<Integer, Integer>, pathIndex: int)
+    -addPieceToGrid(gameGrid: GridPane): void
+    -addPieceToGrid(): void
+    -movePieceInGrid(): void
+    +getOwner(): Player
+    +movePlaces(): void
+    +getHouseNumber(): int
+    +getGameGrid(): GridPane
+    +hasLegalMove(): boolean
+    -getLocationAfterMove(): Pair<Integer, Integer>
+    -getLocationAfterPossibleMove(): Pair<Integer, Integer>
+    -getLocationAfterPossibleMove(numSpaces: int): Pair<Integer, Integer>
+    +getEnemyStartSquares(houseNumber: int): ArrayList<Pair<Integer, Integer>>
+    +setToHouse(): void
+    -getColor(): Color
+    +getPosition(): Pair<Integer, Integer>
+    +getRow(): int
+    +getColumn(): int
+    +getPathIndex(): int
+    +getCircle(): Circle
+    +isInFinishPaddock(): boolean
+    +getPath(): ArrayList<Pair<Integer, Integer>>
+    -addXandYlistAsPair(path: ArrayList<Pair<Integer, Integer>>, xAxis: List<Integer>, yAxis: List<Integer>): ArrayList<Pair<Integer, Integer>>
+}
+
+
+GameNameInfo *-- GameNameLengthException
+GameNameInfo *-- MissingInfoException
+
+class Player {
+    -username: String
+    -pieces: List<Piece>
+    -houseNumber: int
+    -gameEngine: GameEngine
+
+    +Player(username: String, houseNumber: int, gameGrid: GridPane)
+    +Player(username: String, houseNumber: int)
+    +addPieceToPlayer(piece: Piece): void
+    +setGameEngine(gameEngine: GameEngine): void
+    +getGameEngine(): GameEngine
+    +getHouseNumber(): int
+    +getUsername(): String
+    +getPieces(): List<Piece>
+    +toString(): String
+    +getPiecesPositions(): Collection<Pair<Integer, Integer>>
+    +getHomeSquares(): ArrayList<Pair<Integer, Integer>>
+    +getEmptyHomeSquares(): List<Pair<Integer, Integer>>
+    +hasAnyValidMoves(): boolean
+    +isFinished(): boolean
+    +hasPieceOnLocation(location: Pair<Integer, Integer>): boolean
+    -addMouseFunctionToPiece(piece: Piece): void
+    -addMouseFunctionToPieces(): void
+    -createPieces(piecesLocation: ArrayList<Pair<Integer, Integer>>, gameGrid: GridPane): List<Piece>
+}
+
+class RobotPlayer {
+    +RobotPlayer(username: String, houseNumber: int, gameGrid: GridPane)
+    +RobotPlayer(username: String, houseNumber: int)
+    +makeRobotMove(): void
+}
+
+class SaveAndReadToFile {
+    -SAVE_FILE_NAME: String
+    -SAVE_FOLDER_PATH: String
+    +saveLudoGame(gameEngine: GameEngine, gameNameInfo: GameNameInfo): void
+    +loadLudoGame(): GameEngine
+}
+
+class Settings {
+    -numberPlayers: int
+    -boardContainsFreeSpaces: boolean
+    -towersAllowed: boolean
+    -firstWinnerEndGame: boolean
+    +Settings()
+    +Settings(numPlayers: int)
+}
+
+class GameFaceController {
+
+}
+
+GameFaceController..|>InterfaceGameEngineListener
+GameFaceController-->GameEngine
+GameFaceController-->GameNameInfo
+GameFaceController-->SaveAndReadToFile
+
+GameEngine-->Settings
+Player --> GameEngine
+Player --> Piece
+GameEngine --> GameNameInfo
+GameEngine ..|> InterfacePopupListener
+RobotPlayer --|> Player
+
+@enduml
+
+
+
+
