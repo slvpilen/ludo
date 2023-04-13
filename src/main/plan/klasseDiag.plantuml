@@ -1,4 +1,4 @@
-@startuml
+@startuml klasseDiag
 
 
 class GameEngine {
@@ -151,9 +151,9 @@ class Player {
     +hasAnyValidMoves(): boolean
     +isFinished(): boolean
     +hasPieceOnLocation(location: Pair<Integer, Integer>): boolean
-    -addMouseFunctionToPiece(piece: Piece): void
-    -addMouseFunctionToPieces(): void
-    -createPieces(piecesLocation: ArrayList<Pair<Integer, Integer>>, gameGrid: GridPane): List<Piece>
+    #addMouseFunctionToPiece(piece: Piece): void
+    #addMouseFunctionToPieces(): void
+    #createPieces(piecesLocation: ArrayList<Pair<Integer, Integer>>, gameGrid: GridPane): List<Piece>
 }
 
 class RobotPlayer {
@@ -186,10 +186,11 @@ GameFaceController..|>InterfaceGameEngineListener
 GameFaceController-->GameEngine
 GameFaceController-->GameNameInfo
 GameFaceController-->SaveAndReadToFile
-
+GameEngine-->Player
 GameEngine-->Settings
 Player --> GameEngine
 Player --> Piece
+Piece-->Player
 GameEngine --> GameNameInfo
 GameEngine ..|> InterfacePopupListener
 RobotPlayer --|> Player
