@@ -69,16 +69,22 @@ public class SaveAndReadToFile {
         
         ArrayList<Player> players = new ArrayList<>();
         
-        for (String info : gameNameInfoAsList) {
-            System.out.println(info);
             
-        }
+        
         
         players.add(new Player(gameNameInfo.getPlayerName1(), 1));
-        players.add(numPlayers >= 2 ? new RobotPlayer(gameNameInfo.getPlayerName2(), 2) : new Player(gameNameInfo.getPlayerName2(), 2));
-        players.add(numPlayers >= 3 ? new RobotPlayer(gameNameInfo.getPlayerName3(), 3) : new Player(gameNameInfo.getPlayerName2(), 3));
-        players.add(numPlayers == 4 ? new RobotPlayer(gameNameInfo.getPlayerName4(), 4) : new Player(gameNameInfo.getPlayerName4(), 4));
 
+        if (numPlayers == 1) {
+            players.add(new RobotPlayer(gameNameInfo.getPlayerName2(), 2));
+            players.add(new RobotPlayer(gameNameInfo.getPlayerName3(), 3));
+            players.add(new RobotPlayer(gameNameInfo.getPlayerName4(), 4));
+        }
+
+        else {
+            players.add(numPlayers == 2 ? new RobotPlayer(gameNameInfo.getPlayerName2(), 2) : new Player(gameNameInfo.getPlayerName2(), 2));
+            players.add(new Player(gameNameInfo.getPlayerName3(), 3));
+            players.add(numPlayers == 4 ? new Player(gameNameInfo.getPlayerName4(), 4) : new RobotPlayer(gameNameInfo.getPlayerName4(), 4));
+        }
         
 
         int currentPlayerHouse = Integer.valueOf(it.next());
