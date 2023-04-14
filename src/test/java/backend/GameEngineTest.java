@@ -187,7 +187,7 @@ public class GameEngineTest {
         // testing that piece is not moved, because its player1 currentplayer and not player4
         assertTrue(homeSquaresPlayer4.contains(player4.getPieces().get(0).getPosition()));
         // testing current player still player 1
-        assertEquals(player1, gameEngine.getCurrentPlayer());
+        assertEquals(player1, gameEngine.getCurrentPlayer(),"wrong current player");
 
     }
 

@@ -88,32 +88,10 @@ public class GameNameInfo {
         
         this.gameName = gameInfoAsList.get(0);
         this.playerName1 = gameInfoAsList.get(1);
+        this.playerName2 = numPlayers >= 2 ? gameInfoAsList.get(2) : "Robby";
+        this.playerName3 = numPlayers >= 3 ? gameInfoAsList.get(3) : "DiceBot";
+        this.playerName4 = numPlayers == 4 ? gameInfoAsList.get(4) : "LudoLegend";
         
-
-        if (numPlayers == 2) {
-            this.playerName2 = "Robby";
-            this.playerName3 = gameInfoAsList.get(2);
-            this.playerName4 = "LudoLegend";
-            return;
-        }
-
-        if (numPlayers > 2) {
-            this.playerName2 = gameInfoAsList.get(2);
-            this.playerName3 = gameInfoAsList.get(3);
-        } 
-        
-        else {
-            playerName2 = "Robby";
-            this.playerName3 = "DiceBot";
-        }
-        
-        if (numPlayers > 3) {
-            this.playerName4 = gameInfoAsList.get(4);
-        } 
-        
-        else {
-            this.playerName4 = "LudoLegend";
-        }
     }
 
     
