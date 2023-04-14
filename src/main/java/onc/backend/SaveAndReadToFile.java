@@ -26,7 +26,7 @@ public class SaveAndReadToFile {
     * @param gameNameInfo The GameNameInfo instance that contains information about the names in the current Ludo game.
     * @throws IOException If the path to the save folder is not found.
     */
-    public void saveLudoGame(GameEngine gameEngine, GameNameInfo gameNameInfo) throws IOException {
+    public static void saveLudoGame(GameEngine gameEngine, GameNameInfo gameNameInfo) throws IOException {
         
         List<String> lines = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class SaveAndReadToFile {
     *@return A GameEngine object containing all relevant information about the saved game.
     *@throws IOException If the save-file cannot be found.
     */
-    public GameEngine loadLudoGame() throws IOException {
+    public static GameEngine loadLudoGame() throws IOException {
         
         List<String> lines = Files.readAllLines(Paths.get(SAVE_FOLDER_PATH, SAVE_FILE_NAME));
         Iterator<String> it = lines.iterator();
@@ -73,7 +73,6 @@ public class SaveAndReadToFile {
         
         
         players.add(new Player(gameNameInfo.getPlayerName1(), 1));
-
         if (numPlayers == 1) {
             players.add(new RobotPlayer(gameNameInfo.getPlayerName2(), 2));
             players.add(new RobotPlayer(gameNameInfo.getPlayerName3(), 3));

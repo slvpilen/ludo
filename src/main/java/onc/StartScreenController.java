@@ -41,8 +41,7 @@ public class StartScreenController implements Initializable {
      */
     @FXML
     private void loadGame(ActionEvent event) throws IOException {
-        SaveAndReadToFile fileLoader = new SaveAndReadToFile();
-        GameEngine loadedGameEngine = fileLoader.loadLudoGame();
+        GameEngine loadedGameEngine = SaveAndReadToFile.loadLudoGame();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/onc/gameFace.fxml"));
         scene = new Scene(loader.load());

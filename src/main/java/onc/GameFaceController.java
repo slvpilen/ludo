@@ -36,7 +36,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
     private GameEngine gameEngine;
     private GameNameInfo gameNameInfo;
     private boolean startMessageHidden;
-    private SaveAndReadToFile fileSaver;
     private List<InterfacePopupListener> listeners = new ArrayList<>();
     
     @FXML private Text gameName, player1Name, player2Name, player3Name, player4Name, playerTurn;
@@ -250,7 +249,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
         gameEngine = new GameEngine(settings, players, players.get(0), 1, 0, false, gameNameInfo);
         gameEngine.addListener(this);
         listeners.add(gameEngine);
-        fileSaver = new SaveAndReadToFile();
         updateImageOfDice(1);
         colorDice();
     }
@@ -276,7 +274,6 @@ public class GameFaceController implements InterfaceGameEngineListener {
         
         gameEngine.addListener(this);
         listeners.add(gameEngine);
-        fileSaver = new SaveAndReadToFile(); 
         gameEngine.getPieces().forEach(piece -> piece.addPieceToGrid(gameGrid));
 
         if (gameEngine.getCanMakeMove()) {updateImageOfDice(gameEngine.getDice()); updatePlayerText(" must move!"); blackDice();}
@@ -316,7 +313,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
         }
 
         cleanGameFace();
-        loadGameSetup(fileSaver.loadLudoGame());
+        loadGameSetup(SaveAndReadToFile.loadLudoGame());
     }
 
     /**
@@ -433,7 +430,7 @@ public class GameFaceController implements InterfaceGameEngineListener {
             return;
         }
 
-        fileSaver.saveLudoGame(gameEngine, gameNameInfo);
+        SaveAndReadToFile.saveLudoGame(gameEngine, gameNameInfo);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success!");
