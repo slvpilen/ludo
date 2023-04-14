@@ -26,24 +26,6 @@ public class GameEngine implements InterfacePopupListener {
 
 
     /**
-     * This method is used to give the GameEngine a list of players which it should keep track of.
-     * Additionally, the constructor takes in some settings. We planned on having some different setttings you could choose between,
-     * but this functionality has not yet been implemented.
-     * 
-     * @param settings The settings which are defined for the ludoGame
-     * @param players The players which are playing the ludoGame
-     */
-    public GameEngine(Settings settings, ArrayList<Player> players){
-        
-        this.settings = settings;  // this is not used atm, use it, or delete it. sound on/off, could be stored in settings etc
-        this.players = players;
-        this.players.sort((p1, p2) -> Integer.compare(p1.getHouseNumber(), p2.getHouseNumber()));
-        
-        this.currentPlayer = players.get(0);
-        players.forEach(player -> player.setGameEngine(this));
-    }
-    
-    /**
      * This method is used in the SaveAndReadToFile-class when a saved game is loaded.
      * The SaveAndReadToFile-class will return a gameEngine using this constructor.
      * By using this constructor, all the relevant information about the game will be stored in the gameEngine.
@@ -182,12 +164,23 @@ public class GameEngine implements InterfacePopupListener {
      */
     public void rollDice() {
         
+        Random rng = new Random();
+        int diceRoll = rng.nextInt(6) + 1;
+        rollDice(diceRoll);
+    }
+
+    /**
+     * This method is only used in the PieceTest-class, and it is used to roll the dice without any randomness.
+     * It allows you to roll the dice, with the argument diceRoll as the roll.
+     * @param diceRoll The diceroll you want.
+     */
+    public void rollDice(int diceRoll) {
+
         if (canMakeMove) 
             return;
         
         turnRollCount++;
-        Random terning = new Random();
-        latestDice = terning.nextInt(6) + 1;
+        latestDice = diceRoll;
         fireUpdateImageOfDice();
     
         if(currentPlayer.hasAnyValidMoves() && !(turnRollCount == 3 && latestDice == 6)) {
@@ -211,7 +204,7 @@ public class GameEngine implements InterfacePopupListener {
         
         Timer timer = new Timer();
         timer.schedule(new TimerNoValidMove(), 1000);
-    
+
     }
 
     /**

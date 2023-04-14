@@ -1,6 +1,7 @@
 package backend;
 
 import onc.backend.GameEngine;
+import onc.backend.GameNameInfo;
 import onc.backend.Piece;
 import onc.backend.Player;
 import onc.backend.Settings;
@@ -8,13 +9,17 @@ import onc.backend.Settings;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.util.Pair;
 
 
@@ -22,45 +27,70 @@ import javafx.util.Pair;
 
 public class PieceTest {
 
-    Player player1 = new Player("testPlayer1", 1);
-    Player player2 = new Player("testPlayer2", 2);
-    Player player3 = new Player("testPlayer3", 3);
-    Player player4 = new Player("testPlayer4", 4);
+    private static GridPane gameGrid;
+    private static Player player1;
+    private static Player player2;
+    private static Player player3;
+    private static Player player4;
+    GameEngine gameEngine;
+    GameNameInfo gameNameInfo;
 
-
-
-
-    @Test
-    void testPieceCreation() {
-        Piece piece = new Piece(player1, new Pair<>(2, 18), new GridPane());
-        assertNotNull(piece);
-        assertThrows(IllegalArgumentException.class, () -> new Piece(player1, new Pair<>(-1, -2), new GridPane()));
-    }
-
-    @Test
-    void testMovePiece() {
-        //Piece piece = new Piece(player1, new Pair<>(1, 2), new GridPane());
-
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
-
-        GameEngine gameEngine = new GameEngine(new Settings(), players);
-        player1.setGameEngine(gameEngine);
-        gameEngine.rollDice();
-        System.out.println(gameEngine.getDice());
-
-        //System.out.println(gameEngine.getCurrentPlayer());
-
-        //assertEquals(gameEngine.getCurrentPlayer().equals(player1), piece.hasLegalMove());
-        Collection<Pair<Integer, Integer>> homeSquares = player1.getHomeSquares();
-        assertEquals(true, player1.getPieces().stream().allMatch(piece -> homeSquares.contains(piece.getPosition())));
-        // wont work, because player1.getPieces return null. I think it's because the gamegrid has no fields in this test
-        boolean hasLegalMove = player1.getPieces().stream().findFirst().orElse(null).hasLegalMove();
-        assertEquals(gameEngine.getDice() == 6, hasLegalMove);
-
+    @BeforeAll
+    public static void setup() {
         
+        GridPane newGameGrid = new GridPane();
+
+        // Add 50 columns
+        for (int i = 0; i < 50; i++) {
+            ColumnConstraints col = new ColumnConstraints();
+            col.setPercentWidth(100 / 50.0);
+            newGameGrid.getColumnConstraints().add(col);
+        }
+
+        // Add 50 rows
+        for (int i = 0; i < 50; i++) {
+            RowConstraints row = new RowConstraints();
+            row.setPercentHeight(100 / 50.0);
+            newGameGrid.getRowConstraints().add(row);
+        }
+
+        gameGrid = newGameGrid;
+        player1 = new Player("Truls", 1, gameGrid);
+        player2 = new Player("Fred", 2, gameGrid);
+        player3 = new Player("Megan", 3, gameGrid);
+        player4 = new Player("Ivan", 4, gameGrid);
     }
+
+
+
+    @Test
+    public void testPieceCreation() {  
+        assertNotNull(new Piece(player1, new Pair<>(2, 18), gameGrid));
+        assertThrows(IllegalArgumentException.class, () -> new Piece(player1, new Pair<>(-1, -2), gameGrid));
+    }
+
+
+    @Test
+    public void testPiecesOnHomeSquaresTest() {
+        
+        ArrayList<Player> players = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
+        ArrayList<String> gameInfoAsList = new ArrayList<>(Arrays.asList("PaaskeCup", "Truls", "Fred", "Megan", "Ivan"));
+        gameNameInfo = new GameNameInfo(gameInfoAsList, 4, true);
+        gameEngine = new GameEngine(new Settings(), players, player1, 1, 0, false, gameNameInfo);
+
+        Collection<Pair<Integer, Integer>> homeSquares1 = player1.getHomeSquares();
+        assertEquals(true, player1.getPieces().stream().allMatch(piece -> homeSquares1.contains(piece.getPosition())));
+        
+        Collection<Pair<Integer, Integer>> homeSquares2 = player2.getHomeSquares();
+        assertEquals(true, player2.getPieces().stream().allMatch(piece -> homeSquares2.contains(piece.getPosition())));
+        
+        Collection<Pair<Integer, Integer>> homeSquares3 = player3.getHomeSquares();
+        assertEquals(true, player3.getPieces().stream().allMatch(piece -> homeSquares3.contains(piece.getPosition())));
+        
+        Collection<Pair<Integer, Integer>> homeSquares4 = player4.getHomeSquares();
+        assertEquals(true, player4.getPieces().stream().allMatch(piece -> homeSquares4.contains(piece.getPosition())));
+    }
+
+
+    
 }

@@ -1,7 +1,7 @@
 package onc.backend;
 
 /**
- * The settings class is currently not being used.
+ * The class "Settings" is presently not in use
  */
 public class Settings {
     

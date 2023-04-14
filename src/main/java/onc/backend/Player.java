@@ -14,7 +14,7 @@ public class Player {
     // 1 4
 
     protected String username;
-    protected Collection<Piece> pieces = new ArrayList<>();
+    protected List<Piece> pieces = new ArrayList<>();
     protected int houseNumber;
     protected GameEngine gameEngine;
 
@@ -96,10 +96,19 @@ public class Player {
     }
 
     /**
-     * @return A collection of the pieces-objects which the player owns.
+     * @return A list of the pieces-objects which the player owns.
      */
-    public Collection<Piece> getPieces() {
+    public List<Piece> getPieces() {
         return pieces;
+    }
+
+    /**
+     * Returns a string representation of the Player object.
+     * @return The username of the player as a string.
+    */
+    @Override
+    public String toString() {
+    return username;
     }
 
     /**
@@ -146,9 +155,9 @@ public class Player {
      * @param piecesLocation piecesLocation An ArrayList of Pair objects representing the x and y 
      * coordinates of each location where a new Piece should be created.
      * @param gameGrid The GridPane where the new Pieces should be placed.
-     * @return A Collection of newly created Pieces.
+     * @return A list of newly created Pieces.
      */
-    protected Collection<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
+    protected List<Piece> createPieces(ArrayList<Pair<Integer, Integer>> piecesLocation, GridPane gameGrid) {
         
         ArrayList<Piece> newPieces = new ArrayList<>();
         piecesLocation.stream().forEach(location -> newPieces.add(new Piece(this, location, gameGrid)));

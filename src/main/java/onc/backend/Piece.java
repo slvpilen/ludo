@@ -327,6 +327,8 @@ public class Piece {
      * This method is used when a piece is knocked out.
      * It changes the pathIndex of the piece to -1 (home square),
      * and moves the piece in the grid visually with the movePieceInGrid()-method.
+     * @throws IllegalStateException if trying to place the piece back in its home 
+     * position, when already at homeSquares.
      */
     public void setToHouse(){
         

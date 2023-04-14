@@ -6,25 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Collection;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import javafx.util.Pair;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 public class PlayerTest {
     Player player1 = new Player("Truls", 1);
     Player player2 = new Player("Fred", 2);
-    Player player3 = new Player("Magan", 3);
+    Player player3 = new Player("Megan", 3);
     Player player4 = new Player("Ivan", 4);
 
     @Test
-    @Order(1)
     void testPlayerCreation() {
         assertEquals("Truls", player1.getUsername());
         assertEquals("Fred", player2.getUsername());
-        assertEquals("Magan", player3.getUsername());
+        assertEquals("Megan", player3.getUsername());
         assertEquals("Ivan", player4.getUsername());
         assertEquals(1, player1.getHouseNumber());
         assertEquals(2, player2.getHouseNumber());
