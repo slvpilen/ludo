@@ -13,6 +13,9 @@ public class GameNameInfo {
     private int numPlayers;
     private String playerName1, playerName2, playerName3, playerName4;
     private List<String> gameInfoAsList = new ArrayList<String>();
+    private static final String ROBOT1_NAME = "Robby", ROBOT2_NAME = "DiceBot", ROBOT3_NAME = "LudoLegend";
+
+    
 
     /**
      * The constructor checks if the names entered in the createGame-Scene are valid, 
@@ -29,7 +32,7 @@ public class GameNameInfo {
      */
     public GameNameInfo(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame){
 
-        playerNameCheck(gameInfoAsList, numPlayers, creatingNewGame);
+        setPlayerName(gameInfoAsList, numPlayers, creatingNewGame);
 
         this.numPlayers = numPlayers;
         this.gameInfoAsList.add(gameName);
@@ -56,7 +59,7 @@ public class GameNameInfo {
      * @throws IllegalMonitorStateException If some of the players names have more than 9 characters.
      * @throws GameNameLengthException If the name of the game has more than 25 characters.
      */
-    private void playerNameCheck(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame) {
+    private void checkPlayerName(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame) {
         
         if (creatingNewGame) {
             
@@ -83,15 +86,17 @@ public class GameNameInfo {
             else if (gameInfoAsList.get(0).length() > 25) {
                 throw new GameNameLengthException("Maximum game name length is 25");
             }
-        }
-        
-        
+        }       
+    }
+
+    private void setPlayerName(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame) {
+        checkPlayerName(gameInfoAsList, numPlayers, creatingNewGame);
         this.gameName = gameInfoAsList.get(0);
         this.playerName1 = gameInfoAsList.get(1);
         if (numPlayers == 2) {
-            this.playerName2 = "Robby";
+            this.playerName2 = ROBOT1_NAME;
             this.playerName3 = gameInfoAsList.get(3);
-            this.playerName4 = "LudoLegend";
+            this.playerName4 = ROBOT3_NAME;
             return;
         }
 
@@ -101,8 +106,8 @@ public class GameNameInfo {
         } 
 
         else {
-            playerName2 = "Robby";
-            this.playerName3 = "DiceBot";
+            playerName2 = ROBOT1_NAME;
+            this.playerName3 = ROBOT2_NAME;
         }
 
         if (numPlayers > 3) {
@@ -110,10 +115,9 @@ public class GameNameInfo {
         } 
 
         else {
-            this.playerName4 = "LudoLegend";
+            this.playerName4 = ROBOT3_NAME;
         }
-        
-    }
+        }
 
     
     /**
