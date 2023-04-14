@@ -45,10 +45,8 @@ public class GameNameInfo {
 
 
     /**
-     * Utility-method which is run when a player clicks submit in the createGame-scene.
+     * Utility-method which is used in setPlayerName to validate input from user.
      * The method checks if the player has entered valid names for the players and the game.
-     * The method automatically assigns names to the robotPlayers.
-     * If numPlayers is 2, then 2 of the players will be robots, and will be given robotNames.
      *
      * @param gameInfoAsList The list containing names for the game and the players.
      * @param numPlayers The number of human players.
@@ -88,6 +86,16 @@ public class GameNameInfo {
             }
         }       
     }
+    /**
+     * Utility-method which is run when a player clicks submit in the createGame-scene.
+     * The method checks if the player has entered valid names for the players and the game.
+     * By using checkPlayerName methode
+     *
+     * @param gameInfoAsList The list containing names for the game and the players.
+     * @param numPlayers The number of human players.
+    * The method automatically assigns names to the robotPlayers.
+    * If numPlayers is 2, then 2 of the players will be robots, and will be given robotNames.
+     */
 
     private void setPlayerName(List<String> gameInfoAsList, int numPlayers, boolean creatingNewGame) {
         checkPlayerName(gameInfoAsList, numPlayers, creatingNewGame);
