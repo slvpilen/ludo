@@ -29,7 +29,6 @@ public class SaveAndReadToFileTest {
     Player player4;
     GameEngine gameEngine;
     GameNameInfo gameNameInfo;
-    SaveAndReadToFile saveAndReadToFile;
 
 
 
@@ -63,15 +62,14 @@ public class SaveAndReadToFileTest {
         
         gameEngine = new GameEngine(new Settings(), players, player1, 6, 0, true, gameNameInfo);
 
-        saveAndReadToFile = new SaveAndReadToFile();
     }
 
 
     @Test
     public void testSaveAndLoad() throws IOException {
         
-        saveAndReadToFile.saveLudoGame(gameEngine, gameNameInfo);
-        GameEngine loadedGameEngine = saveAndReadToFile.loadLudoGame();
+        SaveAndReadToFile.saveLudoGame(gameEngine, gameNameInfo);
+        GameEngine loadedGameEngine = SaveAndReadToFile.loadLudoGame();
         
         assertEquals("Truls", gameEngine.getPlayers().get(0).getUsername());
         assertEquals("Fred", gameEngine.getPlayers().get(1).getUsername());
@@ -102,8 +100,8 @@ public class SaveAndReadToFileTest {
         Pair<Integer, Integer> expectedPostion = piece.getPath().get(2);
         assertEquals(expectedPostion, piece.getPosition());
 
-        saveAndReadToFile.saveLudoGame(gameEngine, gameNameInfo);
-        GameEngine loadedGameEngine = saveAndReadToFile.loadLudoGame();
+        SaveAndReadToFile.saveLudoGame(gameEngine, gameNameInfo);
+        GameEngine loadedGameEngine = SaveAndReadToFile.loadLudoGame();
 
         assertEquals("Truls", gameEngine.getPlayers().get(0).getUsername());
         assertEquals("Fred", gameEngine.getPlayers().get(1).getUsername());
