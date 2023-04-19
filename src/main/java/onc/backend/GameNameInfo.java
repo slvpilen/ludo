@@ -103,7 +103,7 @@ public class GameNameInfo {
         this.playerName1 = gameInfoAsList.get(1);
         if (numPlayers == 2) {
             this.playerName2 = ROBOT1_NAME;
-            this.playerName3 = gameInfoAsList.get(3);
+            this.playerName3 = gameInfoAsList.get(2);
             this.playerName4 = ROBOT3_NAME;
             return;
         }
