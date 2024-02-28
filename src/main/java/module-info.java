@@ -5,6 +5,5 @@ module onc {
     requires javafx.media;
     requires javafx.graphics;
 
-    opens onc to javafx.fxml;
-    exports onc;
+    opens onc to javafx.fxml, javafx.graphics;
 }
