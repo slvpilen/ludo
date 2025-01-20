@@ -38,7 +38,9 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setHeight(830); //830
         stage.setWidth(1100);
-        playMusic(); 
+        if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
+            playMusic();
+        }
         stage.show();
     }
 
