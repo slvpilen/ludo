@@ -16,38 +16,38 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.7.0</version>
+			<version>5.11.4</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>19</version>
+            <version>24-ea+19</version>
         </dependency>
         
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>19</version>
+            <version>24-ea+19</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>19</version>
+            <version>24-ea+19</version>
         </dependency>
 
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.16-alpha</version>
+            <version>4.0.18</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
-            <version>4.0.16-alpha</version>
+            <version>4.0.18</version>
             <scope>test</scope>
         </dependency>
 
